@@ -1,0 +1,38 @@
+<dom-module id="home-card">
+  <template>
+    <iron-pages selected="{{page}}" attr-for-selected="data-category">
+            <section data-category="item-details">
+              <item-details dbhost="localhost"
+                            dbport="3306"
+                            dbname="test"
+                            dbuser="root"
+                            dbpass="admin"
+                            tablename="itemdetails_card"
+                            itemid="Item ID"
+                            itemname="Item Name"
+                            itemdescription="Item Description"
+                            itemcontainer="Item Container"
+                            itemunit="Item Unit"
+                            itemtype="Item Type"
+                            itemgroup="Item Group"
+                            typelabel="Purchase Type"
+                            r1value="Regular"
+                            r2value="Spot"
+                            requestmethod="post"
+                            responsemethod="post">
+              </item-details>
+            </section>
+     </iron-pages>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'home-card',
+      ready:function(){
+        this.page="item-details";
+      }
+    });
+  })();
+  </script>
+</dom-module>
