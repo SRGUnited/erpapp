@@ -2,12 +2,9 @@
   <style is="custom-style">
    paper-card.size{
      width: 50%;
-   /*height: 170px;*/
    }
    paper-card.reqsize{
      width: 100%;
-     
-   /*height: 170p10;*/
    }
 
   </style>
@@ -16,23 +13,16 @@
     <!-- <paper-card> -->
       <paper-card class="size">
         <paper-card heading="Customer Image" image="../../img/user2-160x160.jpg"></paper-card>
-        <div class="card-content"> <!--card-content-->
-
-          <paper-input  always-float-label label="Customer Name" value="{{cname}}"><iron-icon icon="search" suffix on-click="searchdetails"></iron-icon></paper-input>
-    <paper-input always-float-label label="Item Id" value="{{iid}}"></paper-input>
-    <paper-input always-float-label  label="Item Name" value="{{iname}}"></paper-input>
-    <paper-input always-float-label label="Item Description" value="{{idescription}}"></paper-input>
-    <paper-card always-float-label heading="Required Details" class="reqsize">
-    <paper-input always-float-label label="Container" value="{{rcoils}}"></paper-input>
-    <paper-input always-float-label  label="Quantity" value="{{rtons}}"></paper-input>
-</paper-card>
-<!-- <calendar-element></calendar-element> -->
-
-<datetime-picker date-string="{{min}}" min-date="[[max]]" use-not-native></datetime-picker>
-
-
-
-
+           <div class="card-content"> <!--card-content-->
+             <paper-input  always-float-label label="Customer Name" value="{{cname}}"><iron-icon icon="search" suffix on-click="searchdetails"></iron-icon></paper-input>
+             <paper-input always-float-label label="Item Id" value="{{iid}}"></paper-input>
+             <paper-input always-float-label  label="Item Name" value="{{iname}}"></paper-input>
+            <paper-input always-float-label label="Item Description" value="{{idescription}}"></paper-input>
+            <paper-card always-float-label heading="Required Details" class="reqsize">
+             <paper-input always-float-label label="Container" value="{{rcoils}}"></paper-input>
+             <paper-input always-float-label  label="Quantity" value="{{rtons}}"></paper-input>
+    </paper-card>
+    <datetime-picker date-string="{{min}}" min-date="[[max]]" use-not-native></datetime-picker>
       <div class="card-actions"> <!-- card action-->
         <paper-button on-click="saveitems1" raised>Save</paper-button>
       </div> <!--card action-->
@@ -55,10 +45,7 @@
     'use strict';
     Polymer({
       is: 'sales-person',
-// ready:function(){alert("OK")},
-      // connectionResponse:function() {
-      //   alert("OK");
-      // },
+
       saveitems1:function(){
         this.requesturl1="http://localhost:4000"+"/insertsales";
         var obj={};
@@ -69,13 +56,11 @@
         obj.rcoilsq=this.rcoils;
         obj.rtonq=this.rtons;
         obj.datetimeq=this.min;
-        // obj.datetimeq=this.max;
+
 
         this.writeparam=obj;
         this.$.writeajax.generateRequest();
         alert(this.min);
-        // alert(this.minDate);
-        // alert(this.datetime);
         },
       salesResponse:function(e){
         alert(e.detail.response.returnval);
