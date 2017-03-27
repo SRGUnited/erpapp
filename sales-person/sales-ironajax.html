@@ -1,0 +1,44 @@
+<script src="sales-person.json"></script>
+
+<dom-module id="sales-ironajax">
+
+  <template>
+
+      <iron-ajax
+      auto
+      method="get"
+      id="jsoninfoid"
+      url="sales-person.json"
+      handle-as="json"
+      content-type="application/json"
+      on-response="jsoninfoResponse"
+      last-response="{{jsondata}}"
+      debounce-duration="300">
+      </iron-ajax>
+  </template>
+
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'sales-ironajax',
+	  ready:function(){
+		   //alert("hi");
+
+		  },
+
+	  jsoninfoResponse:function(){
+  var labeljsondata=this.jsondata;
+  document.querySelector("sales-person").getJsondata(labeljsondata[0].customername,labeljsondata[0].itemname,labeljsondata[0].itemdescription,labeljsondata[0].itemspec,labeljsondata[0].requiredetails,labeljsondata[0].container,labeljsondata[0].quantity,labeljsondata[0].status);
+},
+
+
+
+
+
+
+    });
+  })();
+  </script>
+</dom-module>
