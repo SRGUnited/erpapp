@@ -62,16 +62,20 @@ margin-top:2000px;
     <div class="col-sm-6">
   <div style="margin-top:10px;">
     <p> Sales Order Date </p>
-<datetime-picker date-string="{{min}}" min-date="[[max]]" use-not-native></datetime-picker>
+
+<datetime-picker date-string="{{min}}"  disabled min-date="[[max]]" use-not-native></datetime-picker>
+
 </div>
 </div>
 
 
 
-<div class="col-sm-6">
+<div class="col-sm-6" style="margin-top:10px;">
       <p> Required Date </p>
-<paper-datetime-picker-item icon="icons:today" date="{{date}}" date-format="ll"></paper-datetime-picker-item>
+<datetime-picker date-string="{{min1}}"  min-date="[[max]]" ></datetime-picker>
+<!-- <paper-datetime-picker-item icon="icons:today" date="{{reqdate}}" date-format="ll"></paper-datetime-picker-item> -->
 <!-- <paper-date-picker-edit-dialog></paper-date-picker-edit-dialog> -->
+
 </div>
 
 
@@ -121,27 +125,28 @@ margin-top:2000px;
         obj.rtonq=this.rtons;
         obj.status=this.selectedcontainer;
         obj.datetimeq=this.min;
-        // obj.datetimeq=this.max;
+        obj.datetimeq1=this.min1;
+
 
         this.writeparam=obj;
-        alert(JSON.stringify(obj));
+        // alert(JSON.stringify(obj));
         this.$.writeajax.generateRequest();
-        // alert(this.min);
+        alert(min1);
         // alert(this.minDate);
         // alert(this.datetime);
         },
       salesResponse:function(e){
         alert(e.detail.response.returnval);
       },
-      getJsondata:function(customername,itemname,itemspec,itemdescription,requiredetails,container,quantity,status){
+      getJsondata:function(customername,itemname,itemspec,itemdescription,container,quantity,status){
 
       this.CustomerName=customername;
 
       this.ItemName=itemname;
 
       this.ItemDescription=itemdescription;
-            this.ItemSpec=itemspec;
-      this.RequiredDetails=requiredetails;
+      this.ItemSpec=itemspec;
+      // this.RequiredDetails=requiredetails;
       this.Container=container;
       this.Quantity=quantity;
       this.status=status;

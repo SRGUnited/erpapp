@@ -8,6 +8,9 @@ var file='/tmp1/data.json';
 var app = express();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+var connectdb=require("./app/script/connectdb.js");
+connectdb.getconnection();
+
 app.use(express.static('app'));
 
 app.get('/' ,function (req, res) {
@@ -19,18 +22,26 @@ app.post('/login', urlencodedParser, function (req, res) {
     emp_id:req.query.empid,
     password:req.query.password
   };
-  	connection.query("SELECT * FROM test.emp_login where emp_id='"+req.query.empid+"' and password='"+req.query.password+"'",function(err,rows){
-  	if(rows.length>0){
-      var roleid=rows[0].role_id;
-      connection.query("select * from emp_login_menu where menu_id in(SELECT menu_id FROM test.menu_map where role_id='"+roleid+"')",function(err,rows){
+
+  connectdb.login(req.query.empid,req.query.password,function(rows){
+    if(rows!="reject"){
       res.status(200).json({'returnval': rows});
-        });
-      }
-    else{
-      console.log(err);
-      res.status(200).json({'returnval': "Invalid!"});
     }
-    });
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+  	// connection.query("SELECT * FROM test.emp_login where emp_id='"+req.query.empid+"' and password='"+req.query.password+"'",function(err,rows){
+  	// if(rows.length>0){
+    //   var roleid=rows[0].role_id;
+    //   connection.query("select * from emp_login_menu where menu_id in(SELECT menu_id FROM test.menu_map where role_id='"+roleid+"')",function(err,rows){
+    //   res.status(200).json({'returnval': rows});
+    //     });
+    //   }
+    // else{
+    //   console.log(err);
+    //   res.status(200).json({'returnval': "Invalid!"});
+    // }
+    // });
 });
 
 app.post('/insertitems', urlencodedParser, function (req, res) {
@@ -80,7 +91,6 @@ app.post('/vehsavedata', urlencodedParser, function (req, res) {
 });
 
 
-
 app.post('/insertsales', urlencodedParser, function (req, res) {
   var response={
 
@@ -89,27 +99,35 @@ app.post('/insertsales', urlencodedParser, function (req, res) {
     // Item_Name:req.query.name,
     // Item_Spec:req.query.ispec,
     // Item_Description:req.query.description,
+    salesorderdate:req.query.datetimeq,
     containerquantity:req.query.rcoilsq,
     orderquantity:req.query.rtonq,
     status:req.query.status,
-    salesorderdate:req.query.datetimeq
+    requiredeliverydate:req.query.datetimeq1
+
+
 
 
   };
-    connection.query('INSERT INTO test.salesordercreate SET ?',[response],function(err,result){
+  connectdb.insertsales();
+
+  connectdb.insertsales(req.query.datetimeq,req.query.rcoilsq,req.query.rtonq,req.query.status,req.query.datetimeq1,function(callback){
+
+  })
+    // connection.query('INSERT INTO test.salesordercreate SET ?',[response],function(err,result){
 
 
-    if(result.affectedRows>0)
+    // if(result.affectedRows>0)
     // jsonfile.writeFile('../config/person.json', response, function (err) {
     //  console.error(err)
   //  })
-  res.status(200).json({'returnval': "Saved!"});
+  // res.status(200).json({'returnval': "Saved!"});
 
 
 
-    else
-      res.status(200).json({'returnval': "Unable to save!"});
-    });
+    // else
+      // res.status(200).json({'returnval': "Unable to save!"});
+    // });
 });
 
 
@@ -127,21 +145,21 @@ app.post('/searchitem', urlencodedParser, function (req, res) {
     });
 });
 
-var connection=null;
-app.post('/loadconnection' ,function (req, res) {
-  dbname=req.query.dbname;
-  dbpass=req.query.dbpass;
-  dbuser=req.query.dbuser;
-  dbport=req.query.dbport;
-  dbhost=req.query.dbhost;
-  connection = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'admin',
-    database:'test'
-    });
- res.status(200).json({'returnval': "Connected"});
-});
+// var connection=null;
+// app.post('/loadconnection' ,function (req, res) {
+//   dbname=req.query.dbname;
+//   dbpass=req.query.dbpass;
+//   dbuser=req.query.dbuser;
+//   dbport=req.query.dbport;
+//   dbhost=req.query.dbhost;
+//   connection = mysql.createConnection({
+//     host:'localhost',
+//     user:'root',
+//     password:'admin',
+//     database:'test'
+//     });
+//  res.status(200).json({'returnval': "Connected"});
+// });
 
 app.post('/savedata', urlencodedParser, function (req, res) {
   var response={

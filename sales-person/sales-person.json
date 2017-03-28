@@ -3,9 +3,9 @@
 
 "itemname":"ITEM NAME",
 
-"itemdescription":"ITEM DES",
+"itemdescription":"ITEM DESCRIPTION",
 "itemspec":"ITEM SPEC",
-"requiredetails":"ITEM DETAIL",
+
 "container":"CONTAINER",
 "quantity":"QTY",
 "status":"STATUS"
