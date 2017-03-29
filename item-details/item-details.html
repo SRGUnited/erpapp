@@ -1,0 +1,81 @@
+<link rel="import" href="../item-details-ironajax/item-details-ironajax.html">
+<dom-module id="item-details">
+  <template>
+    <div class="col-sm-6"><img src="../../dist/img/photo4.jpg" width="100%" height="100%" /></div>
+      <paper-card heading="Item Details" class="col-sm-6">
+        <div class="card-content">
+          <paper-input label="{{itemid}}" value="{{iid}}"><iron-icon icon="search" suffix on-click="searchdetails"></iron-icon></paper-input>
+          <paper-input label="{{itemname}}" value="{{iname}}"></paper-input>
+          <paper-input label="{{itemdescription}}" value="{{idescription}}"></paper-input>
+          <paper-input label="{{itemspecification1}}" value="{{ispecification1}}"></paper-input>
+          <paper-input label="{{itemspecification2}}" value="{{ispecification2}}"></paper-input>
+
+          <paper-dropdown-menu label="{{itemcontainer}}" value="{{icontainer}}">
+            <paper-listbox class="dropdown-content" attr-for-selected="cvalue" selected="{{selectedcontainer}}">
+              <paper-item cvalue="Container1">Container1</paper-item>
+              <paper-item cvalue="Container2">Container2</paper-item>
+              <paper-item cvalue="Container3">Container3</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
+
+          <div>
+            <paper-dropdown-menu label="{{itemunit}}" value="{{iunit}}">
+              <paper-listbox class="dropdown-content" attr-for-selected="uvalue" selected="{{selectedunit}}">
+                <paper-item uvalue="Unit1">Unit1</paper-item>
+                <paper-item uvalue="Unit2">Unit2</paper-item>
+                <paper-item uvalue="Unit3">Unit3</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          </div>
+
+          <div>
+            <paper-dropdown-menu label="{{itemgroup}}" value="{{igroup}}">
+              <paper-listbox class="dropdown-content" attr-for-selected="gvalue" selected="{{selectedgroup}}">
+                <paper-item gvalue="Item Group1">Item Group1</paper-item>
+                <paper-item gvalue="Item Group2">Item Group2</paper-item>
+                <paper-item gvalue="Item Group3">Item Group3</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          </div>
+
+          <div>
+            <paper-dropdown-menu label="{{itemtype}}" value="{{itype}}">
+              <paper-listbox class="dropdown-content" attr-for-selected="tvalue" selected="{{selectedtype}}">
+                <paper-item tvalue="Item Type1">Item Type1</paper-item>
+                <paper-item tvalue="Item Type2">Item Type2</paper-item>
+                <paper-item tvalue="Item Type3">Item Type3</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          </div>
+
+          <div>
+            <paper-dropdown-menu label="{{itemstatus}}" value="{{istatus}}">
+              <paper-listbox class="dropdown-content" attr-for-selected="svalue" selected="{{selectedstatus}}">
+                <paper-item svalue="Active">Active</paper-item>
+                <paper-item svalue="Inactive">Inactive</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          </div>
+
+          <div>
+            <paper-dropdown-menu label="{{itempurchasetype}}" value="{{iptype}}">
+              <paper-listbox class="dropdown-content" attr-for-selected="pvalue" selected="{{selectedptype}}">
+                <paper-item pvalue="Regular">Regular</paper-item>
+                <paper-item pvalue="Spot">Spot</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+          </div>
+
+          <div class="card-actions">
+            <center>
+              <a class="btn btn-app" on-click="saveitems">
+                <i class="fa fa-save"></i>Save
+              </a>
+            </center>
+          </div>
+        </div>
+      </paper-card>
+    <item-details-ironajax></item-details-ironajax>
+  </template>
+  <script src="../../script/item-details.js"></script>
+</dom-module>

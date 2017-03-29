@@ -1,0 +1,32 @@
+<dom-module id="item-details-ironajax">
+  <template>
+    <iron-ajax
+    auto
+      method="get"
+      id="readlabel"
+      url="../../config/item-details-label.json"
+      handle-as="json"
+      content-type="application/json"
+      on-response="itemdetailslabel"
+      last-response="{{itemjsonlabel}}">
+    <iron-ajax
+      method="post"
+      id="writeajax"
+      url="{{requesturl}}"
+      params="{{writeparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="itemResponse"
+      debounce-duration="300">
+    <iron-ajax
+      method="post"
+      id="readajax"
+      url="{{responseurl}}"
+      params="{{readparam}}"
+      handle-as="json"
+      content-type="application/json"
+      on-response="searchitemdetails"
+      debounce-duration="300">
+  </template>
+  <script src="../../script/item-details-ironajax.js"></script>
+</dom-module>
