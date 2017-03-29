@@ -35,8 +35,10 @@ margin-top:2000px;
 
            <div class="card-content"> <!--card-content-->
 
-
-          <paper-input  label="{{CustomerName}}" value="{{cname}}"><iron-icon icon="search" suffix on-click="searchdetails"></iron-icon></paper-input>
+             <paper-input id="myInput" label="{{CustomerName}}">
+                     <paper-autocomplete-suggestions for="myInput" source="[[accounts]]"></paper-autocomplete-suggestions>
+                   </paper-input>
+        <!-- <paper-autocomplete label="{{CustomerName}}" value="{{cname}}" id="name"></paper-autocomplete> -->
     <!-- <paper-input label="{{ItemId}}" value="{{iid}}"></paper-input> -->
     <paper-input  label="{{ItemName}}" value="{{iname}}"></paper-input>
     <paper-input label="{{ItemDescription}}" value="{{idescription}}"></paper-input>
@@ -55,7 +57,7 @@ margin-top:2000px;
         <paper-item cvalue="Delivered">Delivered</paper-item>
       </paper-listbox>
     </paper-dropdown-menu>
-<!-- <calendar-element></calendar-element> -->
+
   <sales-ironajax></sales-ironajax>
   <div class="row">
 
@@ -131,7 +133,7 @@ margin-top:2000px;
         this.writeparam=obj;
         // alert(JSON.stringify(obj));
         this.$.writeajax.generateRequest();
-        alert(min1);
+        // alert(min1);
         // alert(this.minDate);
         // alert(this.datetime);
         },
@@ -146,7 +148,7 @@ margin-top:2000px;
 
       this.ItemDescription=itemdescription;
       this.ItemSpec=itemspec;
-      // this.RequiredDetails=requiredetails;
+
       this.Container=container;
       this.Quantity=quantity;
       this.status=status;
