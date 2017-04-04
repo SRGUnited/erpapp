@@ -1,0 +1,12 @@
+[{
+"customername":"customername",
+"customerid":"customerid",
+"customerlocation":"customerlocation",
+"itemid":"itemid",
+"itemdescription":"itemdescription",
+"itemspecification":"itemspecification",
+"container":"container",
+"quantity":"quantity",
+"deliveredquantity":"deliveredquantity",
+"status":"status"
+}]
