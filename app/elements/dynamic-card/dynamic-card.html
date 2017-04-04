@@ -1,0 +1,41 @@
+<dom-module id="dynamic-card">
+  <template>
+    <p hidden>{{uiname}}</p>
+    <p hidden>{{menuid}}</p>
+    <p on-click="openmenu">{{menuname}}</p>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'dynamic-card',
+      openmenu:function(e){
+        if(this.menuid=='1'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='2'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='3'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='4'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='5'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='6'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='7'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+        if(this.menuid=='8'){
+          document.querySelector('home-page').FnSetPage(this.uiname);
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
