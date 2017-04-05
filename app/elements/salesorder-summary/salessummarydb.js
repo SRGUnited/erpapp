@@ -1,7 +1,8 @@
 var express    = require("express");
 var mysql      = require('mysql');
-var jsonfile=require('jsonfile');
 var file='app/config/data.json';
+var jsonfile=require('jsonfile');
+
 var dbjson=[];
 exports.getconnection=function(){
   require('fs').readFile('/template polymer/workshop template/app/config/getconnection.json','utf8',function(err,data){
@@ -9,6 +10,7 @@ exports.getconnection=function(){
     exports.connectionvalues();
   });
 }
+
 var connection;
 exports.connectionvalues=function(){
   connection=mysql.createConnection({
@@ -29,20 +31,23 @@ exports.connectionvalues=function(){
   });
 }
 
-var timelinefetchpath=[];
-var timelinefetchpath = "./app/elements/timeline-chart/timelinedesign.json";
-exports.timelinefetch=function(callback){
-  connection.query('Select * FROM goodsvehiclestatustracking',function(err,rows){
+
+var fetchpath=[];
+var fetchpath = "/template polymer/workshop template/app/elements/salesorder-summary/fetch.json";
+exports.fetch=function(callback){
+  connection.query('Select * FROM salesordercreate',function(err,rows){
   if(rows.length>0){
-    return callback(rows);
-//console.log("hi");
+  //  console.log(rows);
+  return callback(rows);
+  jsonfile.writeFile(fetchpath,rows,function(err){
+//  res.status(200).json({'returnval': rows});
+// consw4ole.log(rows);
 // writes automatically as json file
-  jsonfile.writeFile(timelinefetchpath,rows,function(err){
   })
 }
 else{
   //res.status(200).json({'returnval': "Data not found!"});
-    return callback("reject");
+  return callback("reject");
 }
 });
 //console.log("j");
