@@ -1,0 +1,32 @@
+<script src="sales-person.json"></script>
+
+<dom-module id="sales-ironajax">
+
+  <template>
+
+      <iron-ajax
+      auto
+      method="get"
+      id="jsoninfoid"
+      url="salesorder-label.json"
+      handle-as="json"
+      content-type="application/json"
+      on-response="jsoninfoResponse"
+      last-response="{{jsondata}}"
+      debounce-duration="300">
+      </iron-ajax>
+      <iron-ajax
+      auto
+      method="post"
+      url="http://localhost:4000/autocomplete"
+      handle-as="json"
+      content-type="application/json"
+      on-response="autocompleteFn"
+      last-response="{{autocompleteresponsedata}}">
+    </iron-ajax>
+  </template>
+
+  <script src="sales-order-ironajax.js">
+
+  </script>
+</dom-module>
