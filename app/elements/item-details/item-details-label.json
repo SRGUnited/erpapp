@@ -1,0 +1,12 @@
+[{"itemid":"itemid",
+  "itemname":"itemname",
+  "itemdescription":"itemdescription",
+  "itemspecification1":"itemspecification1",
+  "itemspecification2":"itemspecification2",
+  "itemcontainer":"itemcontainer",
+  "itemunit":"itemunit",
+  "itemgroup":"itemgroup",
+  "itemtype":"itemtype",
+  "itemstatus":"itemstatus",
+  "itempurchasetype":"itempurchasetype"
+  }]
