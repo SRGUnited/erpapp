@@ -1,0 +1,58 @@
+<link rel="import" href="salesorder-summary.html">
+
+<dom-module id="salesorder-summaryajax">
+<template>
+  <iron-ajax
+         auto
+         method="get"
+         id="jsoninfoid"
+         url="fetch.json"
+         handle-as="json"
+         content-type="application/json"
+         on-response="jsoninfoResponse"
+         last-response="{{jsondata}}"
+         debounce-duration="300">
+  </iron-ajax>
+  <iron-ajax
+        auto
+        method="get"
+        id="readajax"
+        url="{{requesturl}}"
+        handle-as="json"
+        content-type="application/json"
+        on-response="searchitemdetails"
+        debounce-duration="300">
+  </iron-ajax>
+
+
+</template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'salesorder-summaryajax',
+      ready:function(){
+      //    alert("json working");
+          this.requesturl="http://localhost:4000"+"/fetch";
+          this.$.readajax.generateRequest();
+          //document.querySelector('home-page').page='salesorder-summary';
+      },
+      jsoninfoResponse:function(){
+     alert("jsoninfo");
+
+      var jsonsummary=this.jsondata;
+      var id=jsonsummary[0].salesorderid;
+
+      document.querySelector('salesorder-summary').getfunction(jsonsummary,id);
+      },
+
+      searchitemdetails:function(e)
+    {
+        var arr=e.detail.response.returnval;
+      alert(JSON.stringify(arr));
+    //  alert("searchitem");
+    }
+      });
+  })();
+  </script>
+</dom-module>
