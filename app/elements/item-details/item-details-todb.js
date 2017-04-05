@@ -22,9 +22,14 @@ exports.insertitems=function(id,name,description,specification1,specification2,c
     if(!err){
       require('fs').readFile(item_details_directory,'utf8',function(err,jsondata){
         dbjsondata=JSON.parse(jsondata);
-        connection.query('INSERT INTO m_item_details SET ?',[dbjsondata],function(err){});
+        connection.query('INSERT INTO m_item_details SET ?',[dbjsondata],function(err){
+          if(!err)
+            return callback("saved!");
+          else
+            return callback("Not Saved");
         });
-      return callback("saved!");
+       });
+      
       }
     else
       return callback("notsaved");
