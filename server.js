@@ -54,15 +54,66 @@ app.post('/login', urlencodedParser, function (req, res) {
     });
 });
 
-app.post('/fetch', urlencodedParser, function (req, res) {
-  connectdb.fetch(function(rows){
+var salessummarydb=require("./app/elements/salesorder-summary/salessummarydb.js");
+salessummarydb.getconnection();
+app.get('/fetch', urlencodedParser, function (req, res) {
+salessummarydb.fetch(function(rows){
     if(rows!="reject"){
       res.status(200).json({'returnval': rows});
     }
     else
-    res.status(200).json({'returnval': "Invalid!"});
+      res.status(200).json({'returnval': "Invalid!"});
   });
 });
+
+var vehiclesummarydb=require("./app/elements/vehicleorder-summary/vehiclesummarydb.js");
+vehiclesummarydb.getconnection();
+app.post('/vehiclefetch', urlencodedParser, function (req, res) {
+  vehiclesummarydb.vehiclefetch(function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
+var itemdesigndb=require("./app/elements/all-design/itemdesigndb.js");
+itemdesigndb.getconnection();
+app.post('/itemfetch', urlencodedParser, function (req, res) {
+  itemdesigndb.itemfetch(function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
+var customerdesigndb=require("./app/elements/all-design/customerdesigndb.js");
+customerdesigndb.getconnection();
+app.post('/customerfetch', urlencodedParser, function (req, res) {
+  customerdesigndb.customerfetch(function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
+var timelinedb=require("./app/elements/timeline-chart/timelinedb.js");
+timelinedb.getconnection();
+app.post('/timelinefetch', urlencodedParser, function (req, res) {
+  timelinedb.timelinefetch(function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
 
 var itemdetailsdb=require("./app/elements/item-details/item-details-todb.js");
 app.post('/insertitems', urlencodedParser, function (req, res) { //add items save process
