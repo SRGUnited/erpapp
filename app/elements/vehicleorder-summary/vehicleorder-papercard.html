@@ -1,0 +1,45 @@
+<dom-module id="vehicleorder-papercard">
+  <template>
+    <style>
+    hr{
+      border-width: 0px;
+      margin-top: 3em;
+      margin-bottom: 3em;
+    }
+    </style>
+<paper-card image="../../images/vehicle.jpg" alt="download" on-click="paperbutton" elevation="5">
+  <div class="card-content">
+    <div class="cafe-header">
+      <div>{{goodsvehiclename}}</div>
+      <div>{{goodsvehiclenumber}}</div>
+    </div>
+    <div class="cafe-body">
+      <div>{{goodsvehicledrivername}}</div>
+      <div>{{goodsvehicledriverphonenumber1}}</div>
+    </div>
+    <div class="horizontal justified">
+      <div  style="float:left; color:#B00E9A;font-size:20px">{{goodsvehicleintime}}
+<!-- <paper-icon-button icon="icons:event"></paper-icon-button> -->
+  <!-- </div>
+    <div style="float:right; font-size:20px">{{goodsvehicleoutdate}}</div>
+  </div> -->
+</div>
+</div>
+</div>
+</paper-card>
+<hr>
+</template>
+<script>
+Polymer({
+  is:"vehicleorder-papercard",
+  ready:function(){
+    // alert("vehicleorder-papercard");
+  },
+  paperbutton:function(){
+    var vehno=this.goodsvehiclenumber;
+    document.querySelector("vehicleorder-summaryajax").searchsalesorderFn();
+    document.querySelector("vehicleorder-summaryajax").getdata=vehno;
+  }
+});
+</script>
+</dom-module>
