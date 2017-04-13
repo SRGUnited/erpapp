@@ -1,21 +1,21 @@
-// JavaScript Document
  (function() {
     'use strict';
-
-    Polymer({
+ Polymer({
       is: 'timeline-chart',
-	  ready:function(){
-		  },
-		  getJsondata:function(goodsvehiclenumber,goodsvehiclename,goodsvehicleintime,goodsvehicleouttime,goodsvehicleindate,goodsvehicleoutdate)
-		  {
-			  	this.vehiclenumber=goodsvehiclenumber;
-          this.vehiclename=goodsvehiclename;
-				  this.vehicleintime=goodsvehicleintime;
+	    getJsondata:function(goodsvehiclenumber,goodsvehicleintime,loadstart,loadend,goodsvehicleouttime,delivered){
+			  	this.vehicleno=goodsvehiclenumber;
+      	  this.vehicleintime=goodsvehicleintime;
+          this.vehicleloadstartdatetime=loadstart;
+          this.vehicleloadenddatetime=loadend;
           this.vehicleouttime=goodsvehicleouttime;
-			    this.vehicleindate=goodsvehicleindate;
-           this.vehicleoutdate=goodsvehicleoutdate;
-
-
-		  }
-  });
+          this.deliveredtime=delivered;
+      },
+      Jsondata:function(vehicleintime,vehicleloadstartdatetime,vehicleloadenddatetime,vehicleouttime,vehicledelivered){
+          this.vehicleintimelabel=vehicleintime;
+          this.vehicleloadstartdatetimelabel=vehicleloadstartdatetime;
+          this.vehicleloadenddatetimelabel=vehicleloadenddatetime;
+          this.vehicleouttimelabel=vehicleouttime;
+          this.deliveredtimelabel=vehicledelivered;
+      }
+    });
   })();
