@@ -1,0 +1,92 @@
+
+<dom-module id="demo-filecharts">
+  <style>
+  div.slidersize{
+    width: 100%;
+    /*height: auto;*/
+    /*height: 370px;*/
+    /*margin-top: 30px;*/
+
+  }
+  paper-card.linesize{
+    /*height:  335px;*/
+    height: auto;
+    width: 100%;
+    /*margin-bottom : 1500px;*/
+
+  }
+
+
+  paper-card.driver{
+    height: auto;
+    width: 100%;
+     margin-top: 30px;
+  /*height: 170px;*/
+  }
+  hr{
+    border-width: 0px;
+  }
+  </style>
+<template>
+<div class="row">
+  <!-- <paper-card> -->
+  <div class="col-sm-6">
+      <div style="margin-top:80px;margin-left:15px;width:100%">
+        <item-customerdetail></item-customerdetail>
+      </div>
+      <!-- //barchart -->
+      <div>
+        <paper-card  style="width:100%;">
+          <div class="card-content">
+              <barchart-card></barchart-card>
+            </div>
+            </paper-card>
+          </div>
+  </div>
+
+
+  <div class="col-sm-6">
+     <!-- //Time Line chart -->
+<div style="margin-top:80px;">
+    <!-- <paper-card class="linesize"> -->
+
+        <timeline-chart></timeline-chart>
+
+    <!-- </paper-card> -->
+</div>
+<hr>
+<div>
+  <paper-card  style="width:100%;" heading="Stock Tracking">
+    <div class="card-content" style="height:100px;">
+        <slider-barnew></slider-barnew>
+      </div>
+      </paper-card>
+    </div>
+
+<hr>
+    <!-- //Driver Details -->
+      <div>
+        <!-- <paper-card class="driver"> -->
+          <driver-details></driver-details>
+        <!-- </paper-card> -->
+      </div>
+    </div>
+  <!-- </paper-card> -->
+  </div>
+</template>
+  <script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'demo-filecharts',
+      ready:function(){
+
+      }
+
+
+      });
+  })();
+
+
+  </script>
+</dom-module>

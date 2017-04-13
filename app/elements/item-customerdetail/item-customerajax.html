@@ -1,6 +1,4 @@
-<link rel="import" href="all-design.html" />
-<script src="alldesign.json"></script>
-<script src="supplierjson.json"></script>
+
 <dom-module id="item-customerajax">
   <template>
            <iron-ajax
@@ -22,6 +20,7 @@
                 handle-as="json"
                 content-type="application/json"
                 on-response="itemdetails"
+                params="{{itemparams}}"
                 debounce-duration="300">
           </iron-ajax>
           <iron-ajax
@@ -32,6 +31,7 @@
                 handle-as="json"
                 content-type="application/json"
                 on-response="customerdetails"
+                params="{{customerparams}}"
                 debounce-duration="300">
           </iron-ajax>
           <iron-ajax
@@ -51,23 +51,37 @@
     Polymer({
       is: "item-customerajax",
 	   ready:function(){
-       // alert("all-ajax");
-       this.itemrequesturl="http://localhost:4000"+"/itemfetch";
+       var salesorderid = sessionStorage.getItem('salesorderid');
+       var itemid = sessionStorage.getItem('itemid');
+      var customerid = sessionStorage.getItem('customerid');
+      // var customerid = '1';
+   //alert(itemid);
+       var obj={};
+       obj.itemssid=itemid;
+       this.itemparams=obj;
+       this.itemrequesturl="http://localhost:4000/itemfetch";
        this.$.itemajax.generateRequest();
 
-       this.customerrequesturl="http://localhost:4000"+"/customerfetch";
+       var obj2={};
+       obj2.customerid=customerid;
+        this.customerparams=obj2;
+       this.customerrequesturl="http://localhost:4000/customerfetch";
        this.$.customerajax.generateRequest();
            },
 
      itemResponse:function(){
 
 var labeljsondata=this.itemjsondata;
-document.querySelector("all-design").itemgetJsondata(labeljsondata[0].itemname,labeljsondata[0].itemspecification1);
+document.querySelector("item-customerdetail").itemgetJsondata(labeljsondata[0].itemname,labeljsondata[0].itemspecification1);
      },
      supplierResponse:function(){
        var labeljsondata=this.supplierjsondata;
-       document.querySelector("all-design").suppliergetJsondata(labeljsondata[0].customername,labeljsondata[0].city);
+       document.querySelector("item-customerdetail").suppliergetJsondata(labeljsondata[0].customername,labeljsondata[0].city);
 
+     },
+     customerid:function(){
+       var arr=e.detail.response.returnval;
+       alert(arr);
      }
 
 	});
