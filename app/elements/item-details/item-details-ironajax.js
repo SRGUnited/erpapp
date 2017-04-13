@@ -13,7 +13,8 @@
                                                        array[0].itemgroup,
                                                        array[0].itemtype,
                                                        array[0].itemstatus,
-                                                       array[0].itempurchasetype)
+                                                       array[0].itempurchasetype,
+                                                       array[0].itempricing)
     },
 
     send:function(jsinputs){
@@ -33,7 +34,13 @@
     },
 
     searchitemdetails:function(e){
+      // this.$.readjson.generateRequest();
+      // alert(JSON.stringify(e.detail.response.returnval));
       var arr=e.detail.response.returnval;
       document.querySelector("item-details").searchbind(arr);
+    },
+
+    bindsearchdata:function(){
+      document.querySelector("item-details").searchbind(this.searchjsondata);
     }
   });

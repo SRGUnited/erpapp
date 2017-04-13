@@ -8,5 +8,6 @@
   "itemgroup":"itemgroup",
   "itemtype":"itemtype",
   "itemstatus":"itemstatus",
-  "itempurchasetype":"itempurchasetype"
+  "itempurchasetype":"itempurchasetype",
+  "itempricing":"itempricing"
   }]

@@ -1,30 +1,47 @@
 <link rel="import" href="item-details-ironajax.html">
-<link rel="stylesheet" href="item-details.css">
 <dom-module id="item-details">
+  <style>
+  paper-dropdown-menu {
+      --paper-dropdown-menu: {
+        width: 100%;
+      }
+    }
+</style>
   <template>
-    <div class="col-sm-6"><img src="../../dist/img/photo4.jpg" width="50%" height="50%" style="margin-left:130px;margin-top:160px;"/></div>
-      <paper-card heading="Item Details" class="col-sm-6">
+    <div class="col-sm-6">
+      <img src="../../dist/img/photo4.jpg" width="50%" height="50%" style="margin-left:130px;margin-top:160px;"/>
+      <div style="margin-top:10%;">
+        <center>
+          <a class="btn btn-app" on-click="openmapping" style="margin-top:10px;">
+            <i class="fa fa-users"></i>Add Supplier
+          </a>
+        </center>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <paper-card heading="Item Details" style="width:100%;">
         <div class="card-content">
-          <paper-input label="{{itemid}}" value="{{iid}}"><iron-icon icon="search" suffix on-click="searchdetails"></iron-icon></paper-input>
-          <paper-input label="{{itemname}}" value="{{iname}}"></paper-input>
+          <paper-input label="{{itemid}}" value="{{iid}}" hidden="1"></paper-input>
+          <paper-input label="{{itemname}}" value="{{iname}}" on-click="collapse"><iron-icon icon="search" suffix on-click="searchdetails"></iron-icon></paper-input>
           <paper-input label="{{itemdescription}}" value="{{idescription}}"></paper-input>
           <paper-input label="{{itemspecification1}}" value="{{ispecification1}}"></paper-input>
           <paper-input label="{{itemspecification2}}" value="{{ispecification2}}"></paper-input>
 
           <paper-dropdown-menu label="{{itemcontainer}}" value="{{icontainer}}">
             <paper-listbox class="dropdown-content" attr-for-selected="cvalue" selected="{{selectedcontainer}}">
-              <paper-item cvalue="Container1">Container1</paper-item>
-              <paper-item cvalue="Container2">Container2</paper-item>
-              <paper-item cvalue="Container3">Container3</paper-item>
+              <paper-item cvalue="box">BOX</paper-item>
+              <paper-item cvalue="coils">COILS</paper-item>
+              <paper-item cvalue="drum">DRUM</paper-item>
+              <paper-item cvalue="bag">BAG</paper-item>
             </paper-listbox>
           </paper-dropdown-menu>
 
           <div>
             <paper-dropdown-menu label="{{itemunit}}" value="{{iunit}}">
               <paper-listbox class="dropdown-content" attr-for-selected="uvalue" selected="{{selectedunit}}">
-                <paper-item uvalue="Unit1">Unit1</paper-item>
-                <paper-item uvalue="Unit2">Unit2</paper-item>
-                <paper-item uvalue="Unit3">Unit3</paper-item>
+                <paper-item uvalue="kg">Kilogram(s)</paper-item>
+                <paper-item uvalue="l">Liter(s)</paper-item>
+                <paper-item uvalue="t">Ton(s)</paper-item>
               </paper-listbox>
             </paper-dropdown-menu>
           </div>
@@ -32,19 +49,24 @@
           <div>
             <paper-dropdown-menu label="{{itemgroup}}" value="{{igroup}}">
               <paper-listbox class="dropdown-content" attr-for-selected="gvalue" selected="{{selectedgroup}}">
-                <paper-item gvalue="Item Group1">Item Group1</paper-item>
-                <paper-item gvalue="Item Group2">Item Group2</paper-item>
-                <paper-item gvalue="Item Group3">Item Group3</paper-item>
+                <paper-item gvalue="Mechanical">Mechanical</paper-item>
+                <paper-item gvalue="Electrical">Electrical</paper-item>
+                <paper-item gvalue="Electronics">Electronics</paper-item>
               </paper-listbox>
             </paper-dropdown-menu>
           </div>
 
           <div>
             <paper-dropdown-menu label="{{itemtype}}" value="{{itype}}">
-              <paper-listbox class="dropdown-content" attr-for-selected="tvalue" selected="{{selectedtype}}">
-                <paper-item tvalue="Item Type1">Item Type1</paper-item>
-                <paper-item tvalue="Item Type2">Item Type2</paper-item>
-                <paper-item tvalue="Item Type3">Item Type3</paper-item>
+              <paper-listbox class="dropdown-content" attr-for-selected="tvalue" selected="{{selectedtype}}" on-click="get">
+                <paper-item tvalue="CI">Consumable Items</paper-item>
+                <paper-item tvalue="FG">Finished Goods</paper-item>
+                <paper-item tvalue="MP">Machine Parts</paper-item>
+                <paper-item tvalue="OS">Office Supply</paper-item>
+                <paper-item tvalue="PM">Packing Material</paper-item>
+                <paper-item tvalue="RM">Raw Material</paper-item>
+                <paper-item tvalue="RMFL">Raw Material Flux</paper-item>
+                <paper-item tvalue="TP">Tool Part</paper-item>
               </paper-listbox>
             </paper-dropdown-menu>
           </div>
@@ -67,15 +89,22 @@
             </paper-dropdown-menu>
           </div>
 
-          <div class="card-actions">
+          <div>
+            <paper-input label="{{itempricing}}" value="{{iprice}}"></paper-input>
+          </div>
             <center>
-              <a class="btn btn-app" on-click="saveitems">
+              <a class="btn btn-app" on-click="saveitems" style="margin-top:10px;">
                 <i class="fa fa-save"></i>Save
               </a>
             </center>
-          </div>
         </div>
       </paper-card>
+      <iron-pages selected="{{page}}" attr-for-selected="data-category">
+        <section data-category="item-to-addsupplier" style="margin-top:10px;margin-left:12px;">
+          <item-to-addsupplier></item-to-addsupplier>
+        </section>
+      </iron-pages>
+    </div>
     <item-details-ironajax></item-details-ironajax>
   </template>
   <script src="item-details.js"></script>

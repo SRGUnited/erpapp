@@ -1,0 +1,76 @@
+<dom-module id="item-to-addsupplier">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <paper-card>
+      <div class="card-content">
+    <paper-dropdown-menu label="Choose Item">
+      <paper-menu class="dropdown-content" attr-for-selected="value" selected="{{selectitem}}">
+        <template is="dom-repeat" items="{{itemnames}}">
+          <paper-item value="{{item.itemname}}">{{item.itemname}}</paper-item>
+        </template>
+      </paper-menu>
+    </paper-dropdown-menu>
+    <paper-dropdown-menu label="Choose Supplier">
+      <paper-menu class="dropdown-content" attr-for-selected="value" selected="{{selectsupplier}}">
+        <template is="dom-repeat" items="{{suppliernames}}">
+          <paper-item value="{{item.suppliername}}">{{item.suppliername}}</paper-item>
+        </template>
+      </paper-menu>
+    </paper-dropdown-menu>
+    <div>
+        <center>
+          <paper-button label="Fix Supplier" on-click="map" raised>Fix Supplier</paper-button>
+        </center>
+    </div>
+  </div>
+  </paper-card>
+    <iron-ajax
+      auto
+      method="post"
+      url="http://localhost:4000/mapitem"
+      handle-as="json"
+      on-response="handleitem">
+    </iron-ajax>
+    <iron-ajax
+      auto
+      method="post"
+      url="http://localhost:4000/mapsupplier"
+      handle-as="json"
+      on-response="handlesupplier">
+    </iron-ajax>
+    <iron-ajax
+      id="fixsup"
+      method="post"
+      url="http://localhost:4000/fixsupplier"
+      params="{{fsvalues}}"
+      handle-as="json"
+      on-response="handleResponse"></iron-ajax>
+  </template>
+  <script>
+  Polymer({
+    is: "item-to-addsupplier",
+
+    handleitem:function(e){
+      this.itemnames=e.detail.response.returnval;
+    },
+
+    handlesupplier:function(e){
+      this.suppliernames=e.detail.response.returnval;
+    },
+
+    map:function(){
+      // alert(this.selectitem);
+      // alert(this.selectsupplier);
+      var jsonobj={};
+      jsonobj.item=this.selectitem;
+      jsonobj.supplier=this.selectsupplier;
+      this.fsvalues=jsonobj;
+      this.$.fixsup.generateRequest();
+    }
+  });
+  </script>
+</dom-module>
