@@ -1,21 +1,15 @@
+var express    = require("express");
+var mysql      = require('mysql');
+var jsonfile=require('jsonfile');
 
-var fetchpath=[];
-var fetchpath = "./app/elements/salesorder-summary/fetch.json";
 exports.fetch=function(callback){
-  connection.query('Select * FROM salesordercreate',function(err,rows){
+connection.query("SELECT salesordercreate.salesorderid,salesordercreate.salesorderdate,salesordercreate.customerid,salesordercreate.customerlocation,salesordercreate.itemid,salesordercreate.containerquantity,salesordercreate.orderquantity,salesordercreate.requireddeliverydate,salesordercreate.status,salesordercreate.deliveredquantity,m_customerdetail.customername FROM salesordercreate INNER JOIN m_customerdetail WHERE salesordercreate.customerid=m_customerdetail.customerid",function(err,rows){
   if(rows.length>0){
-  //  console.log(rows);
-  return callback(rows);
-  jsonfile.writeFile(fetchpath,rows,function(err){
-//  res.status(200).json({'returnval': rows});
-// consw4ole.log(rows);
-// writes automatically as json file
-  })
+ //console.log(rows);
+    return callback(rows);
 }
 else{
-  //res.status(200).json({'returnval': "Data not found!"});
   return callback("reject");
 }
 });
-//console.log("j");
 }
