@@ -130,8 +130,18 @@ app.post('/mapsupplier', urlencodedParser, function (req, res) { //add item sear
   });
 });
 
+var itemToAddSupplier=require("./app/elements/item-details/item-to-addsupplier.js");
 app.post('/fixsupplier', urlencodedParser, function (req, res) {
-    global.connection.query("",function(err,supid){});
+  itemToAddSupplier.fixSupplier(req.query.item,req.query.supplier,function(callback){
+    if(callback=="Supplier Added"){
+      console.log("Supplier Added");
+      res.status(200).json({'returnval': "Data found"});
+    }
+    else{
+      console.log("Failed to add!");
+      // res.status(200).json({'returnval': "Unable to save!"});
+    }
+  });
 });
 
 app.listen(4000);
