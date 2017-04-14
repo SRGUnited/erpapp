@@ -7,7 +7,6 @@
 }
 .totaldesign
 {
-  margin-top: 5px;
   margin-left: 20px;
   width: 100%;
 }
@@ -24,9 +23,8 @@
 }
 .htimeline .step1 {
   float: left;
-  border-bottom-width: 7px;
   position: relative;
-  margin-top: 1px;
+  margin-top: 3px;
   color: #333;
   height: 50px;
   width: 90px;
@@ -64,7 +62,7 @@
   width: 25px;
   height: 25px;
   bottom: -12px;
-}
+  }
 .htimeline .step1:hover::before {
   width: 25px;
   height: 25px;
@@ -91,7 +89,7 @@
   font-size: 12px;
 }
 #label2{
-  margin-top: 20px;
+  margin-top: 42px;
   margin-left: 1px;
   font-style: bold;
   color: black;
@@ -106,6 +104,7 @@
   font-style: italic;
   color: black;
   font-size: 13px;
+  margin-top: 4px;
 }
 #font1{
   font-style: bold;
@@ -121,7 +120,8 @@
 
 </style>
   <template>
-  <div class='totaldesign '>
+  <div class="container">
+  <div class='totaldesign'>
     <div id="font1">Vehicle Status Tracking</div><br>
     <div id="font2">  {{vehicleno}} </div><br>
     <ul class='htimeline'>
@@ -132,7 +132,9 @@
       <li class='step1 green '><div id="value2">{{deliveredtime}}</div><div id="label2">{{deliveredtimelabel}}</div></li>
     </ul>
     </div>
-<ajax-timeline></ajax-timeline>
+    <ajax-timeline></ajax-timeline>
+  </div>
+</div>
 </template>
 <script src="timeline-chart.js">
 </script>
