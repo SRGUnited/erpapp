@@ -8,10 +8,11 @@ Polymer({
     alert("call-security-card");
   },
   testFn:function(){
-    alert("testFn");
+    // alert("testFn");
     this.salesorderdata=arr;
-    // alert(JSON.stringify(arr));
-    arr=null;
+    alert(JSON.stringify(arr));
+    arr=[];
+    alert(JSON.stringify(arr));
   },
   savesecurityjsonFn:function(){
     var data={
@@ -25,7 +26,7 @@ Polymer({
   },
   vehNumSearchFn:function(){
     // alert("vehNumSearchFn");
-   alert("dropedown selection"+this.selection);
+  //  alert("dropedown selection"+this.selection);
     var data={searchvehiclenum:this.selection};
       document.querySelector("call-security-card-ironajax").searchidFn(data);
   },
@@ -33,10 +34,7 @@ securityresponseFn1:function(obj){
       arr.push(obj);
   },
   getvehnoFn:function(data){
-    // alert(JSON.stringify(data));
-    for(var i=0;i<data.length;i++){
-      alert(JSON.stringify(data[i].goodsvehiclenumber));
-    }
+    alert(JSON.stringify(data));
     this.vehicleNumdata=data;
   }
 });

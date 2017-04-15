@@ -17,6 +17,8 @@ Polymer({
     this.colvar="false";
     this.$.suppliercollapse.toggle();
     this.page="supplier-to-additem";
+    document.querySelector("supplier-to-additem").getsupplierid=this.suid;
+    alert(this.suid);
   },
   getironpageFn:function(data){
     this.page="item-display";
@@ -38,8 +40,8 @@ Polymer({
                     "emidval"  :this.EmIDval,
                     "statusval":"created"
                   };
+                  this.suid=this.SupIdval;
           document.querySelector("call-add-supplier-ironajax").to_ironajax(postvalue);
-          document.querySelector("supplier-to-additem").getsupId=this.SupIdval;
           },
   supplierFun:function(){
     this.$.cardact.toggle();
@@ -78,7 +80,8 @@ Polymer({
     this.MobNumberval2=data[0].mobile2;
     this.EmIDval=data[0].email;
     this.staval=data[0].status;
-    document.querySelector("supplier-to-additem").getsupId=this.SupIdval;
+    this.suid=this.SupIdval;
+
   },
   getcountryjsondata:function(retrvjsondata){
     this.countryitems=retrvjsondata;

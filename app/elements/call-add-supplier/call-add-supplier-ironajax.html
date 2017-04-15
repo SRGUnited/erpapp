@@ -86,13 +86,10 @@
   searchsidresponse:function(e){
     var getdata=e.detail.response.returnval;
     document.querySelector("call-add-supplier").datafetchFn(getdata);
+    if(getdata[0].itemname != null){
     document.querySelector("call-add-supplier").getironpageFn(getdata);
-
+  }
   },
-  // autocompleteFn:function(e){
-  //   var autocompltedata=JSON.stringify(e.detail.response.datavalue);
-  //   document.querySelector("call-add-supplier").getautocompleteFn(autocompltedata);
-  // },
   countryjsoninfo:function(a){
     var statedata=this.stateresponsejson;
      var data=a;

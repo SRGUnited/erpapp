@@ -7,7 +7,7 @@
     }
   }
   </style>
-    <p hidden>{{getsupId}}</p>
+    <p>{{getsupplierid}}</p>
     <p hidden>{{totaljsonval}}</p>
     <p hidden>{{itemid}}</p>
     <paper-dropdown-menu label=" choose itemname">
@@ -56,8 +56,9 @@
         this.itemnamedata=getdata;
       },
       saveitemssupplierFn:function(){
-        this.itemmapparams={supid:this.getsupId,
+        this.itemmapparams={supid:this.getsupplierid,
                             itemid:this.itemid};
+        alert(this.getsupplierid);
         this.$.sup_to_item_map_id.generateRequest();
       },
       getitemidFn:function(){
