@@ -7,7 +7,7 @@ var app = express();
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var connection;
 var connectdb=require("./app/script/connectdb.js");
-  require('fs').readFile('/polymer/erpapp/app/config/getconnection.json','utf8',function(err,data){
+  require('fs').readFile('./app/config/getconnection.json','utf8',function(err,data){
     dbjson=JSON.parse(data);
     global.connection=mysql.createConnection({
       host:dbjson[0].host,
@@ -72,7 +72,7 @@ app.post('/searchitem', urlencodedParser, function (req, res) { //add item searc
   });
 });
 
-var salespersondb=require("./app/elements/sales-person/sales-person-todb.js");
+/*var salespersondb=require("./app/elements/sales-person/sales-person-todb.js");
 app.post('/insertsales', urlencodedParser, function (req, res) {
   salespersondb.insertsales(req.query.salesid,req.query.datetimeq,req.query.ccname,req.query.customerid,req.query.customerlocation,req.query.id,req.query.description,req.query.ispecification,req.query.rcoilsq,req.query.rtonq,req.query.rdqty,req.query.datetimeq1,req.query.status,function(callback){
     if(callback==saved)
@@ -82,8 +82,8 @@ app.post('/insertsales', urlencodedParser, function (req, res) {
     }
   })
 });
-
-var itemapprovaldb=require("./app/elements/call-ceo-card/call-ceo-card-todb.js")
+*/
+/*var itemapprovaldb=require("./app/elements/call-ceo-card/call-ceo-card-todb.js")
 app.post('/ceoitemsearch', urlencodedParser, function (req, res) { //add item search process
   itemapprovaldb.searchitem(function(callback){
     if(callback=="Data found"){
@@ -145,7 +145,7 @@ app.post('/fixsupplier', urlencodedParser, function (req, res) {
   });
 });
 // slider server file
-
+*/
 var salessummarydb=require("./app/elements/salesorder-summary/salessummarydb.js");
 // salessummarydb.getconnection();
 app.get('/fetch', urlencodedParser, function (req, res) {
