@@ -1,9 +1,4 @@
 <dom-module id="item-to-addsupplier">
-  <style>
-    :host {
-      display: block;
-    }
-  </style>
   <template>
     <paper-card>
       <div class="card-content">
@@ -21,6 +16,12 @@
         </template>
       </paper-menu>
     </paper-dropdown-menu>
+    <div>
+      <paper-input label="Item Pricing" value="{{iprice}}"></paper-input>
+    </div>
+    <div>
+      <datetime-picker date-string="{{min}}"  disabled min-date="[[max]]" use-not-native></datetime-picker>
+    </div>
     <div>
         <center>
           <paper-button label="Fix Supplier" on-click="map" raised>Fix Supplier</paper-button>
@@ -48,7 +49,7 @@
       url="http://localhost:4000/fixsupplier"
       params="{{fsvalues}}"
       handle-as="json"
-      on-response="handleResponse"></iron-ajax>
+      on-response="fixsupResponse"></iron-ajax>
   </template>
   <script>
   Polymer({
@@ -68,8 +69,14 @@
       var jsonobj={};
       jsonobj.item=this.selectitem;
       jsonobj.supplier=this.selectsupplier;
+      jsonobj.pricing=this.iprice;
+      jsonobj.date=this.min;
       this.fsvalues=jsonobj;
       this.$.fixsup.generateRequest();
+    },
+
+    fixsupResponse:function(e){
+      alert(e.detail.response.returnval)
     }
   });
   </script>

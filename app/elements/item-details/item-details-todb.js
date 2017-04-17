@@ -1,7 +1,7 @@
 var express    = require('express');
 var mysql      = require('mysql');
 
-exports.insertitems=function(sid,id,name,description,specification1,specification2,container,unit,group,type,status,ptype,iprice,ceostatus,callback){
+exports.insertitems=function(sid,id,name,description,specification1,specification2,container,unit,group,type,status,ptype,ceostatus,callback){
   var response={"itemid":id,
                 "itemname":name,
                 "itemdescription":description,
@@ -13,7 +13,6 @@ exports.insertitems=function(sid,id,name,description,specification1,specificatio
                 "itemtypeid":type,
                 "itemstatus":status,
                 "itempurchasetype":ptype,
-                "itempricing":iprice,
                 "status":ceostatus
                 };
   // var supid={"supplierid":sid,
@@ -51,8 +50,12 @@ exports.searchitem=function(name,callback){
     connection.query("select * from m_item_details where itemname='"+name+"'",function(err,rows){
       if(rows.length>0)
         return callback(rows);
-      else
-        return callback("No data!");
+      else{
+        connection.query("select * from finishedgoods_itemtype where itemname='"+name+"'",function(err,rows1){
+          console.log(rows1);
+          return callback(rows1);
+        })
+      }
     });
     // connection.query("select suppliername from m_supplierdetails where supplierid in(SELECT supplierid FROM item_supplier_map where itemid='"+id+"')",function(err,rows){
   	// if(rows.length>0)

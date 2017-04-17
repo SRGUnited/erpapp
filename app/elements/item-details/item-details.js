@@ -3,7 +3,7 @@
   Polymer({
     is: 'item-details',
 
-    jsonlabel:function(itemid,itemname,itemdescription,itemspecification1,itemspecification2,itemcontainer,itemunit,itemgroup,itemtype,itemstatus,itempurchasetype,itempricing){
+    jsonlabel:function(itemid,itemname,itemdescription,itemspecification1,itemspecification2,itemcontainer,itemunit,itemgroup,itemtype,itemstatus,itempurchasetype){
       this.itemid=itemid;
       this.itemname=itemname;
       this.itemdescription=itemdescription;
@@ -15,12 +15,11 @@
       this.itemtype=itemtype;
       this.itemstatus=itemstatus;
       this.itempurchasetype=itempurchasetype;
-      this.itempricing=itempricing;
       },
 
     saveitems:function(){
       var obj={};
-      obj.id=this.iid;
+      // obj.id=this.iid;
       obj.name=this.iname;
       obj.description=this.idescription;
       obj.specification1=this.ispecification1;
@@ -31,7 +30,6 @@
       obj.type=this.selectedtype;
       obj.status=this.selectedstatus;
       obj.ptype=this.selectedptype;
-      obj.iprice=this.iprice;
       obj.ceostatus="Created";
       document.querySelector("item-details-ironajax").send(obj);
       },
@@ -54,7 +52,6 @@
        this.selectedtype=arr[0].itemtypeid;
        this.selectedstatus=arr[0].itemstatus;
        this.selectedptype=arr[0].itempurchasetype;
-       this.iprice=arr[0].itempricing;
       },
 
       addsupplier:function(){
@@ -67,7 +64,19 @@
       },
 
       openmapping:function(){
+        this.colvar="false";
+        this.$.collapse.toggle();
         this.page="item-to-addsupplier";
+      },
+
+      expand:function(){
+        this.page="";
+        if(this.colvar=="true"){
+          this.colvar="true";
+        }
+        else{
+          this.colvar="true";
+        }
       }
   });
 })();

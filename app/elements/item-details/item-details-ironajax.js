@@ -13,8 +13,7 @@
                                                        array[0].itemgroup,
                                                        array[0].itemtype,
                                                        array[0].itemstatus,
-                                                       array[0].itempurchasetype,
-                                                       array[0].itempricing)
+                                                       array[0].itempurchasetype)
     },
 
     send:function(jsinputs){
