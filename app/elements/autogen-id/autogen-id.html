@@ -5,6 +5,7 @@
     }
   </style>
   <template>
+    <p hidden>{{getstring}}</p>
     <!-- <paper-button raised on-click="generateid">Generate ID</paper-button> -->
     <iron-ajax
       id="autogen"
@@ -18,12 +19,24 @@
 <script type="text/javascript">
   Polymer({
     is: "autogen-id",
-    handleautogenerateid:function(e){
-      alert("autogen"+e.detail.response.returnid);
-      document.querySelector("item-details").save(e.detail.response.returnid);
+    ready:function(){
+      alert("autogen-id");
     },
-    send:function(){
-      alert("send fn");
+    handleautogenerateid:function(e){
+      alert("response"+e.detail.response.returnid)
+      var getid=e.detail.response.returnid;
+      if(this.getstring=="sup"){
+        var supstringid="sup"+getid;
+      document.querySelector("call-add-supplier").submitFn(supstringid);
+    }
+    else{
+      var cusstringid="cus"+getid;
+      document.querySelector("call-add-customer").submitFn(cusstringid);
+    }
+    },
+    send:function(data){
+      alert(data);
+      this.getstring=data;
       this.$.autogen.generateRequest();
     }
   });
