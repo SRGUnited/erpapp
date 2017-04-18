@@ -314,7 +314,7 @@ connection.query(" INSERT INTO m_supplierdetails SET ?",[data],function(result,e
 }
 
 exports.searchsupplieridFn=function(data,callback){
-  var query="SELECT m_item_details.itemid,m_item_details.itemname,m_item_details.itemdescription,m_item_details.itemspecification1,m_item_details.itemspecification2,m_item_details.containerid,m_item_details.unitofmeasures,m_item_details.itemgroup,m_item_details.itemtypeid,m_item_details.itemstatus,m_item_details.itempurchasetype,m_item_details.itempricing,m_item_details.status,m_supplierdetails.supplierid,m_supplierdetails.suppliername,m_supplierdetails.address1,m_supplierdetails.address2,m_supplierdetails.address3,m_supplierdetails.city,m_supplierdetails.state,m_supplierdetails.country,m_supplierdetails.pincode,m_supplierdetails.mobile1,m_supplierdetails.mobile2,m_supplierdetails.email,m_supplierdetails.status FROM   m_item_details left JOIN item_supplier_map ON item_supplier_map.itemid = m_item_details.itemid left JOIN m_supplierdetails ON m_supplierdetails.supplierid = item_supplier_map.supplierid where m_supplierdetails.suppliername='"+data.supname+"'";
+  var query="SELECT m_item_details.itemid,m_item_details.itemname,m_item_details.itemdescription,m_item_details.itemspecification1,m_item_details.itemspecification2,m_item_details.containerid,m_item_details.unitofmeasures,m_item_details.itemgroup,m_item_details.itemtypeid,m_item_details.itemstatus,m_item_details.itempurchasetype,m_item_details.status,m_supplierdetails.supplierid,m_supplierdetails.suppliername,m_supplierdetails.address1,m_supplierdetails.address2,m_supplierdetails.address3,m_supplierdetails.city,m_supplierdetails.state,m_supplierdetails.country,m_supplierdetails.pincode,m_supplierdetails.mobile1,m_supplierdetails.mobile2,m_supplierdetails.email,m_supplierdetails.status FROM   m_item_details left JOIN item_supplier_map ON item_supplier_map.itemid = m_item_details.itemid left JOIN m_supplierdetails ON m_supplierdetails.supplierid = item_supplier_map.supplierid where m_supplierdetails.suppliername='"+data.supname+"'";
 connection.query(query,function(err,rows){
   if(rows.length>0){
       return callback(rows);
@@ -324,13 +324,28 @@ connection.query(query,function(err,rows){
     return callback(rows);
   });
   }
+  return callback("not get");
 });
 }
-
+exports.generateIdFn=function(callback){
+    connection.query("select id from autogenerateid",function(err,retrievedData){
+      if(retrievedData.length>0){
+        for(var i=0;retrievedData.length>i;i++){
+          retrievedData[0].id++;
+        }
+        connection.query("insert into autogenerateid (id) values ('"+retrievedData[0].id+"')",function(err){});
+        return callback(retrievedData[0].id);
+      }
+      else{
+      console.log("Error:"+err);
+      return callback("No ID Found to Generate");
+      }
+    });
+}
 exports.searchcustomeridFn=function(data,callback){
-  var query="SELECT m_item_details.itemid,m_item_details.itemname,m_item_details.itemdescription,m_item_details.itemspecification1,m_item_details.itemspecification2,m_item_details.containerid,m_item_details.unitofmeasures,m_item_details.itemgroup,m_item_details.itemtypeid,m_item_details.itemstatus,m_item_details.itempurchasetype,m_item_details.itempricing,m_item_details.status,m_customerdetail.supplierid,m_customerdetail.customername,m_customerdetail.address1,m_customerdetail.address2,m_customerdetail.address3,m_customerdetail.city,m_customerdetail.state,m_customerdetail.country,m_customerdetail.pincode,m_customerdetail.mobile1,m_customerdetail.mobile2,m_customerdetail.email,m_customerdetail.status FROM   m_item_details left JOIN item_customer_map ON item_customer_map.itemid = m_item_details.itemid left JOIN m_customerdetail ON m_customerdetail.supplierid = item_customer_map.supplierid where m_customerdetail.customername='"+data.supname+"'";
+  var query="SELECT m_customerdetail.customerid,m_customerdetail.customername,m_customerdetail.address1,m_customerdetail.address2,m_customerdetail.address3,m_customerdetail.city,m_customerdetail.state,m_customerdetail.country,m_customerdetail.pincode,m_customerdetail.mobile1,m_customerdetail.mobile2,m_customerdetail.email,m_customerdetail.status,finishedgoods_itemtype.itemid,finishedgoods_itemtype.itemname,finishedgoods_itemtype.itemdescription,finishedgoods_itemtype.itemspecification1,finishedgoods_itemtype.itemspecification2,finishedgoods_itemtype.containerid,finishedgoods_itemtype.unitofmeasures,finishedgoods_itemtype.itemgroup,finishedgoods_itemtype.itemtypeid,finishedgoods_itemtype.itemstatus,finishedgoods_itemtype.itempurchasetype,finishedgoods_itemtype.status FROM m_customerdetail LEFT JOIN finishedgoods_itemtype ON  finishedgoods_itemtype.itemid  LEFT JOIN  item_customer_map ON item_customer_map.customerid=m_customerdetail.customerid  WHERE m_customerdetail.customername ='"+data.supname+"'";
 connection.query(query,function(err,rows){
-  if(!err){
+  if(rows.length>0){
       return callback(rows);
     }
   else{
@@ -338,6 +353,7 @@ connection.query(query,function(err,rows){
     return callback(rows);
   });
   }
+return callback("not get");
 });
 }
 // exports.getsupplierdataFn=function(callback){
@@ -361,7 +377,7 @@ connection.query(" INSERT INTO m_customerdetail SET ?",[data],function(result,er
   }
   else{
     console.log(err);
-    return callback("not saved");
+    return callback("saved");
   }
   });
 }
