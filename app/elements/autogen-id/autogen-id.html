@@ -1,0 +1,30 @@
+<dom-module id="autogen-id">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <!-- <paper-button raised on-click="generateid">Generate ID</paper-button> -->
+    <iron-ajax
+      id="autogen"
+      method="post"
+      url="http://localhost:4000/autogenerateid"
+      handle-as="json"
+      on-response="handleautogenerateid">
+    </iron-ajax>
+  </template>
+</dom-module>
+<script type="text/javascript">
+  Polymer({
+    is: "autogen-id",
+    handleautogenerateid:function(e){
+      alert("autogen"+e.detail.response.returnid);
+      document.querySelector("item-details").save(e.detail.response.returnid);
+    },
+    send:function(){
+      alert("send fn");
+      this.$.autogen.generateRequest();
+    }
+  });
+</script>
