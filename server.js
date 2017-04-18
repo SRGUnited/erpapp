@@ -622,5 +622,14 @@ var response={goodsvehiclenumber:req.query.vehno,
 });
 });
 
+var autoGenerateID=require("./app/elements/autogen-id/autogen-id-todb.js");
+app.post ('/autogenerateid', urlencodedParser, function (req, res) {
+  autoGenerateID.generateId(function(retrievedData){
+    if(retrievedData>=0)
+      res.status(200).json({'returnid': retrievedData});
+    else
+      res.status(200).json({'returnid': "No ID to Generate!"});
+  });
+});
 
 app.listen(4000);
