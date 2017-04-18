@@ -22,7 +22,6 @@
       },
 
       save:function(e){
-        alert("add items"+e)
         var obj={};
         obj.id="ite"+e;
         obj.name=this.iname;
