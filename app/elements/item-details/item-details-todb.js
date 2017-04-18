@@ -13,11 +13,8 @@ exports.insertitems=function(sid,id,name,description,specification1,specificatio
                 "itemtypeid":type,
                 "itemstatus":status,
                 "itempurchasetype":ptype,
-                "status":ceostatus
-                };
-  // var supid={"supplierid":sid,
-  //            "itemid":id};
-  //  connection.query('INSERT INTO item_supplier_map SET ?',[supid],function(err){});
+                "status":ceostatus}
+
   if(type=="FG"){
    connection.query('INSERT INTO finishedgoods_itemtype SET ?',[response],function(err){
      if(!err)
@@ -30,6 +27,8 @@ exports.insertitems=function(sid,id,name,description,specification1,specificatio
  }
  else{
    connection.query('INSERT INTO m_item_details SET ?',[response],function(err){
+     callback=callback||function(){};
+
      if(!err)
        return callback("saved!");
      else{
@@ -41,13 +40,7 @@ exports.insertitems=function(sid,id,name,description,specification1,specificatio
 }
 
 exports.searchitem=function(name,callback){
-  // var response={
-  // 	"itemname":name
-  // };
-  // var array=[];
-    // connection.query("select * from m_item_details where itemid='"+id+"'",function(err,rows){});
-    // console.log(rows);
-    connection.query("select * from m_item_details where itemname='"+name+"'",function(err,rows){
+      connection.query("select * from m_item_details where itemname='"+name+"'",function(err,rows){
       if(rows.length>0)
         return callback(rows);
       else{
@@ -57,10 +50,4 @@ exports.searchitem=function(name,callback){
         })
       }
     });
-    // connection.query("select suppliername from m_supplierdetails where supplierid in(SELECT supplierid FROM item_supplier_map where itemid='"+id+"')",function(err,rows){
-  	// if(rows.length>0)
-    //   return callback(rows);
-    // else
-    //   return callback("no data");
-    // });
-}
+  }

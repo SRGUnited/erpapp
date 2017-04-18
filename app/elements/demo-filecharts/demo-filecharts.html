@@ -1,92 +1,79 @@
 
 <dom-module id="demo-filecharts">
   <style>
-  div.slidersize{
-    width: 100%;
-    /*height: auto;*/
-    /*height: 370px;*/
-    /*margin-top: 30px;*/
+      div.slidersize{
+        width: 100%;
 
-  }
-  paper-card.linesize{
-    /*height:  335px;*/
-    height: auto;
-    width: 100%;
-    /*margin-bottom : 1500px;*/
-
-  }
-
-
-  paper-card.driver{
-    height: auto;
-    width: 100%;
-     margin-top: 30px;
-  /*height: 170px;*/
-  }
-  hr{
-    border-width: 0px;
-  }
+      }
+      paper-card.linesize{
+        height: auto;
+        width: 100%;
+      }
+      paper-card.driver{
+        height: auto;
+        width: 100%;
+        margin-top: 30px;
+      }
+      hr{
+        border-width: 0px;
+      }
+      .rate-header { @apply(--paper-font-headline);
+        font-size: 20px;
+       }
   </style>
 <template>
-<div class="row">
+  <div class="row">
   <!-- <paper-card> -->
   <div class="col-sm-6">
-      <div style="margin-top:80px;margin-left:15px;width:100%">
+      <!-- item customer details -->
+      <div  style="margin-left:50px;">
         <item-customerdetail></item-customerdetail>
       </div>
+        <br><br><br><br>
       <!-- //barchart -->
-      <div>
-        <paper-card  style="width:100%;">
-          <div class="card-content">
-              <barchart-card></barchart-card>
-            </div>
-            </paper-card>
-          </div>
-  </div>
-
+      <div class="rate-header">Item Stock Details</div>
+      <div class="card-content" style="margin-top:12px;">
+        <barchart-card></barchart-card>
+      </div>
+      </div>
 
   <div class="col-sm-6">
+    <div class="rate-header">Vehicle Status Tracking</div>
      <!-- //Time Line chart -->
-<div style="margin-top:80px;">
-    <!-- <paper-card class="linesize"> -->
+     <paper-card  elevation="0" style="width:100%;">
+  <div>
+      <timeline-chart></timeline-chart>
+  </div>
+</paper-card>
 
-        <timeline-chart></timeline-chart>
-
-    <!-- </paper-card> -->
-</div>
-<hr>
-<div>
-  <paper-card  style="width:100%;" heading="Stock Tracking">
-    <div class="card-content" style="height:100px;">
+  <div>
+    <div style="margin-top:100px;" class="rate-header">Stock Tracking</div>
+    <paper-card  elevation="0"  style="width:100%;">
+  <div class="card-content" style="height:100px;">
         <slider-barnew></slider-barnew>
-      </div>
-      </paper-card>
-    </div>
+  </div>
+    </paper-card>
+  </div>
 
-<hr>
+    <hr>
     <!-- //Driver Details -->
-      <div>
-        <!-- <paper-card class="driver"> -->
-          <driver-details></driver-details>
-        <!-- </paper-card> -->
-      </div>
-    </div>
-  <!-- </paper-card> -->
+  <div style="margin-left:50px;">
+    <driver-details></driver-details>
+
+  </div>
+  </div>
+
   </div>
 </template>
-  <script>
+<script>
   (function() {
     'use strict';
     Polymer({
       is: 'demo-filecharts',
-      ready:function(){
+        ready:function(){
 
-      }
-
-
-      });
+        }
+    });
   })();
-
-
-  </script>
+</script>
 </dom-module>

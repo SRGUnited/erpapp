@@ -2,8 +2,8 @@
   <template>
     <p id="p1">{{arr}}</p>
     <p hidden>{{getvehdata}}</p>
-        <paper-card image="../../images/salesimage.jpg" elevation="5">
-          <div class="card-content" width="500">
+      <paper-card image="../../images/salesimage.jpg" elevation="5">
+        <div class="card-content" width="500">
             <div><span value="{{salesorderid}}">{{salesorderid}}</span></div>
             <div><span>{{customername}}</span></div>
             <div><span>{{customerlocation}}</span></div>
@@ -12,24 +12,18 @@
             <div><span>{{orderquantity}}</span></div>
             <div><span>{{deliveredquantity}}</span></div>
             <center><paper-checkbox on-change="checkboxChanged">select salesorderid</paper-checkbox></center>
-            <!-- <paper-button raised on-click="checkfunc">save</paper-button> -->
-
-          </div>
-        </paper-card>
+        </div>
+      </paper-card>
   </template>
 <script>
   Polymer({
-    is:"salesorder-papercard",
-    // properties:{
-    // arr:{ type:Array}
-    // },
+   is:"salesorder-papercard",
     ready:function(){
-      // alert("salesorder-papercard");
+
     },
     getsalesdatafn:function(data){
-      // alert(JSON.stringify(data));
       this.saleorderdata=data;
     }
-  });
+});
 </script>
 </dom-module>

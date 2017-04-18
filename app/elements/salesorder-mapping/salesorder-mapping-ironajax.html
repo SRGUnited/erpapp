@@ -14,17 +14,17 @@
   <script>
   Polymer({
     is:"salesorder-mapping-ironajax",
-    getsavebtnFn:function(getdata){
-      for(i=0;i<getdata.length;i++){
-      this.salesparams=getdata[i];
-      // alert(JSON.stringify(this.salesparams));
-      this.$.postsalesvehicleorderajax_id.generateRequest();
-    }
-      // this.$.postsalesvehicleorderajax_id.generateRequest();
-    },
-    savesalevehiclesorderresponse:function(e){
-      alert(e.detail.response.returnval);
-    }
+        getsavebtnFn:function(getdata){
+          for(i=0;i<getdata.length;i++){
+          this.salesparams=getdata[i];
+
+          this.$.postsalesvehicleorderajax_id.generateRequest();
+        }
+        
+        },
+        savesalevehiclesorderresponse:function(e){
+          alert(e.detail.response.returnval);
+        }
   });
   </script>
 </dom-module>

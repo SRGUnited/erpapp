@@ -18,24 +18,20 @@
       },
 
     saveitems:function(){
-      document.querySelector("autogen-id").send();
-      },
-
-      save:function(e){
-        var obj={};
-        obj.id="ite"+e;
-        obj.name=this.iname;
-        obj.description=this.idescription;
-        obj.specification1=this.ispecification1;
-        obj.specification2=this.ispecification2;
-        obj.container=this.selectedcontainer;
-        obj.unit=this.selectedunit;
-        obj.group=this.selectedgroup;
-        obj.type=this.selectedtype;
-        obj.status=this.selectedstatus;
-        obj.ptype=this.selectedptype;
-        obj.ceostatus="Created";
-        document.querySelector("item-details-ironajax").send(obj);
+      var obj={};
+      obj.id="101";
+      obj.name=this.iname;
+      obj.description=this.idescription;
+      obj.specification1=this.ispecification1;
+      obj.specification2=this.ispecification2;
+      obj.container=this.selectedcontainer;
+      obj.unit=this.selectedunit;
+      obj.group=this.selectedgroup;
+      obj.type=this.selectedtype;
+      obj.status=this.selectedstatus;
+      obj.ptype=this.selectedptype;
+      obj.ceostatus="Created";
+      document.querySelector("item-details-ironajax").send(obj);
       },
 
     searchdetails:function(){

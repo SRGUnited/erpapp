@@ -1,14 +1,9 @@
 (function() {
     'use strict';
+  Polymer({
+    is: 'sales-ironajax',
+  	  ready:function(){
 
-    Polymer({
-      is: 'sales-ironajax',
-	  ready:function(){
-      alert("knka");
-		  },
-
-  
-
-
+  		},
     });
   })();

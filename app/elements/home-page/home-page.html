@@ -10,9 +10,9 @@
 <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 <dom-module id="home-page">
   <style>
-  #container {
-	background-color: white;
-}
+      #container {
+    	background-color: white;
+      }
   </style>
   <template>
     <div class="hold-transition skin-blue sidebar-mini">
@@ -57,7 +57,6 @@
           notify: true
         }
       },
-
       FnSetPage:function(uicomponent){
         var element = this.$.showpage.querySelector("*");
         if (element) {
@@ -66,9 +65,7 @@
         var newelement=document.createElement(uicomponent);
         var ironpage=document.querySelector("#showpage");
         Polymer.dom(ironpage).appendChild(newelement);
-        // document.body.appendChild(newelement);
-
-        },
+      },
 
       tabfun:function(){
         this.page="tabcontent";

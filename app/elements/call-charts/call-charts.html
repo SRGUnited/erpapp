@@ -22,69 +22,47 @@
  }
  paper-card.itemsize{
    width: 100%;
- /*height: 170px;*/
+
  }
  paper-card.vehiclesize{
    width: 100%;
     margin-top: 30px;
- /*height: 170px;*/
+
  }
-
  </style>
-  <template>
-  <div class="row">
-
-    <!-- Left side -->
-    <div class="col-sm-6">
-      <!-- <paper-card class="itemsize"> -->
-      <!-- Item, customer , Location -->
-      <div style="margin-top:80px;">
+<template>
+ <div class="row">
+     <!-- left Side -->
+  <div class="col-sm-6">
+  <div style="margin-top:80px;">
     <all-design></all-design>
   </div>
-<!-- </paper-card> -->
-
-    <!-- <div style="margin-top:80px;">
-      <paper-card  heading="Item Quantity" class="barsize"> -->
-      <!-- <h1><b><i> Item Quantity Details </i></b></h1> -->
-      <!-- <bar-chart-dynamic></bar-chart-dynamic>
-    </div> -->
   </paper-card>
-    </div>
+  </div>
 
     <!-- Right Side -->
   <div class="col-sm-6">
-     <!-- <h1><b><i> Vehicle Tracking Timeline </i></b></h1> -->
-    <paper-card class="linesize">
-    <div style="margin-top:80px;">
-
-  <timeline-chart></timeline-chart>
-</div>
-</paper-card>
-
-  <!-- <h1><b><i> Stock </i></b></h1> -->
-
-<paper-card class="slidersize">
-<div>
-
+  <paper-card class="linesize">
+  <div style="margin-top:80px;">
+ <timeline-chart></timeline-chart>
+  </div>
+  </paper-card>
+ <paper-card class="slidersize">
+  <div>
   <slider-bar></slider-bar>
-</div>
-</paper-card>
-
-<paper-card class="vehiclesize" >
-<div>
-
+  </div>
+ </paper-card>
+ <paper-card class="vehiclesize" >
+  <div>
   <load-vehicle></load-vehicle>
-</div>
-</paper-card>
-
-
-
-</div>
-</div>
-  </template>
-  <script>
-  Polymer({
+  </div>
+ </paper-card>
+  </div>
+  </div>
+</template>
+<script>
+ Polymer({
     is:"call-charts"
   });
-  </script>
+</script>
 </dom-module>

@@ -9,7 +9,7 @@
 </style>
   <template>
     <div class="col-sm-6">
-      <img src="../../dist/img/items.jpg" width="60%" height="60%" style="margin-left:110px;margin-top:160px;"/>
+      <img src="../../images/default.jpg" width="60%" height="60%" style="margin-left:110px;margin-top:160px;"/>
       <div style="margin-top:10%;">
         <center>
           <a class="btn btn-app" on-click="openmapping" style="margin-top:10px;">
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="col-sm-6">
-      <paper-card heading="Item Details" style="width:100%;" elevation="0">
+      <paper-card elevation="0" heading="Item Details" style="width:100%;">
         <div class="card-content">
           <paper-input label="{{itemid}}" value="{{iid}}" hidden="1"></paper-input>
           <paper-input label="{{itemname}}" value="{{iname}}" on-click="expand"><iron-icon icon="search" suffix on-click="searchdetails" style="cursor:pointer;"></iron-icon></paper-input>
@@ -106,7 +106,6 @@
       </iron-pages>
     </div>
     <item-details-ironajax></item-details-ironajax>
-    <autogen-id></autogen-id>
   </template>
   <script src="item-details.js"></script>
 </dom-module>

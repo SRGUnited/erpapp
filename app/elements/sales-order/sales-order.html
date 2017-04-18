@@ -1,50 +1,44 @@
 <link rel="import" href="sales-ironajax.html">
 <dom-module id="sales-order">
 <style is="custom-style">
- paper-card.size{
-   width: 100%;
- }
- paper-card.reqsize{
-   width: 100%;
- }
- paper-card.imgsize{
-   height: 300px;
-   width: 300px;
-  margin-left: 150px;
-  margin-top: 150px;
- }
- paper-listbox.dropdown-content{
-   width:100%;
- }
- paper-card.btnsize{
-margin-top:2000px;
- }
- paper-dropdown-menu {
-     --paper-dropdown-menu: {
+     paper-card.size{
        width: 100%;
      }
-   }
-   :host([hidden]), .paper-item[hidden] {
-      display: none !important;
-    }
+     paper-card.reqsize{
+       width: 100%;
+     }
+     paper-card.imgsize{
+       height: 300px;
+       width: 300px;
+      margin-left: 150px;
+      margin-top: 150px;
+     }
+     paper-listbox.dropdown-content{
+       width:100%;
+     }
+     paper-card.btnsize{
+    margin-top:2000px;
+     }
+     paper-dropdown-menu {
+         --paper-dropdown-menu: {
+           width: 100%;
+         }
+       }
+       :host([hidden]), .paper-item[hidden] {
+          display: none !important;
+        }
 </style>
-
   <template>
-    <!-- <paper-card> -->
     <div class="row">
       <div class="col-sm-6">
-         <paper-card heading="Customer Image" image="../../img/user2-160x160.jpg" class="imgsize"></paper-card>
+         <paper-card elevation="0" heading="Customer Image" image="../../images/user2-160x160.jpg" class="imgsize"></paper-card>
        </div>
-       <!-- <paper-card> -->
-       <div class="col-sm-6">
-
-          <h1> Sales Order </h1>
-
-           <div class="card-content"> <!--card-content-->
+     <div class="col-sm-6">
+       <paper-card elevation="0" heading="Sales Order">
+         <div class="card-content"> <!--card-content-->
 
       <paper-input label="{{salesorderid}}" value="{{salesid}}"></paper-input>
       <paper-input  label="{{customername}}" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input>
-      <!-- <paper-input  label="{{customerid}}" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input> -->
       <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry1">
         <template is="dom-repeat" items="{{itemArray}}" as="item">
           <paper-item value="{{item.customerid}}">{{item.itemdes}}</paper-item>
@@ -69,42 +63,31 @@ margin-top:2000px;
         <paper-item cvalue="Delivered">Delivered</paper-item>
       </paper-listbox>
     </paper-dropdown-menu>
-
-  <sales-ironajax></sales-ironajax>
-  <div class="row">
-
-    <div class="col-sm-6">
-  <div style="margin-top:10px;">
-    <p> Sales Order Date </p>
-
-<datetime-picker date-string="{{min}}"  disabled min-date="[[max]]" use-not-native></datetime-picker>
-
-</div>
-</div>
-
-
-
-<div class="col-sm-6" style="margin-top:10px;">
-      <p> Required Date </p>
-<datetime-picker date-string="{{min1}}"  min-date="[[max]]" ></datetime-picker>
-
-
-</div>
-
-
-</div>
-<div class="card-actions">
-  <center>
-    <a class="btn btn-app" on-click="saveitems1">
-      <i class="fa fa-save"></i>Save
-    </a>
-  </center>
-</div>
-    </div> <!--div 3-->
-
-    </div>
-
+     <sales-ironajax></sales-ironajax>
+    <div class="row">
+      <div class="col-sm-6">
+    <div style="margin-top:10px;">
+      <p> Sales Order Date </p>
+        <datetime-picker date-string="{{min}}"  disabled min-date="[[max]]" use-not-native></datetime-picker>
   </div>
+  </div>
+  <div class="col-sm-6" style="margin-top:10px;">
+        <p> Required Date </p>
+          <datetime-picker date-string="{{min1}}"  min-date="[[max]]" ></datetime-picker>
+  </div>
+  </div>
+  <br>
+  <div class="card-actions">
+    <center>
+      <a class="btn btn-app" on-click="saveitems1">
+        <i class="fa fa-save"></i>Save
+      </a>
+    </center>
+  </div>
+      </div> <!--div 3-->
+    </paper-card>
+      </div>
+    </div>
 
     <iron-ajax
           method="post"
@@ -114,16 +97,18 @@ margin-top:2000px;
           handle-as="json"
           content-type="application/json"
           on-response="salesResponse"
-          debounce-duration="300"></iron-ajax>
+          debounce-duration="300">
+    </iron-ajax>
 
-          <iron-ajax
+    <iron-ajax
             auto
             method="post"
             url="http://localhost:4000/autocomplete"
             handle-as="json"
-            on-response="autocompletearr"></iron-ajax>
+            on-response="autocompletearr">
+    </iron-ajax>
 
-            <iron-ajax
+    <iron-ajax
             auto
             method="get"
             id="jsoninfoid"
@@ -133,11 +118,10 @@ margin-top:2000px;
             on-response="jsoninfoResponse"
             last-response="{{jsondata}}"
             debounce-duration="300">
-            </iron-ajax>
+    </iron-ajax>
   </template>
-  <script src="sales-order.js">
+    <script src="sales-order.js">
 
   </script>
-
 
 </dom-module>

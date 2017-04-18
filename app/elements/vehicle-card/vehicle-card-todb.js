@@ -14,7 +14,6 @@ exports.vehiclesavedata=function(VehicleNoval,VehicleNameval,DriverNameval,DrivM
     "goodsvehicleindate":Vehindateval,
     "state":selectedstate
   };
-  // console.log("con"+response);
   jsonfile.writeFile(file,response,function(err){
     if(!err)
       require('fs').readFile('./app/elements/vehicle-card/datavehicle.json','utf8',function(err,jsondata){

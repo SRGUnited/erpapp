@@ -7,5 +7,5 @@
     fetchfunction:function(array1){
       this.jsondata=array1;
     }
-    });
+ });
 })();

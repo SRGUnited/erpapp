@@ -18,54 +18,47 @@
       position:
       relative;
     }
-	#item1{
-		font-size:25px;
-		font-style:bold;
-		margin-left:60px;
+  	#item1{
+  		font-size:25px;
+  		font-style:bold;
+  		margin-left:60px;
 
-		}
-   #item2{
-	   font-size:25px;
-	   font-style:bold;
-	   margin-left:60px;
-	   }
+  		}
+     #item2{
+  	   font-size:25px;
+  	   font-style:bold;
+  	   margin-left:60px;
+  	   }
   </style>
-<div id="container">
-   <!-- <h1><b><i> Item Details </i></b></h1> -->
-   <paper-card>
-  <div class="row">
-
-   <div class="col-sm-2">
-	<div><img src="../../images/imgg.png"></img></div>
-</div>
- <div class="col-sm-10" style="margin-top:60px;">
-	 <div id="item1">{{Itemname}}<br>{{Itemspecification1}}</br></div>
-</div>
-</div>
-</paper-card>
-    <!-- <h1><b><i> Customer Details </i></b></h1> -->
- <paper-card>
+  <div id="container">
+     <paper-card>
     <div class="row">
       <div class="col-sm-2">
-  	<div><img src="../../images/imgg.png"></img></div>
+  	    <div><img src="../../images/user2-160x160.jpg"></img></div>
   </div>
-  <div class="col-sm-10" style="margin-top:60px;">
-  	<div id="item2"> {{customername1}}<br>{{city1}}</br></div>
-
+   <div class="col-sm-10" style="margin-top:60px;">
+  	 <div id="item1">{{Itemname}}<br>{{Itemspecification1}}</br></div>
   </div>
   </div>
-</paper-card>
-</div>
-<item-customerajax></item-customerajax>
+  </paper-card>
+  <paper-card>
+      <div class="row">
+        <div class="col-sm-2">
+    	<div><img src="../../images/user8-128x128.jpg"></img></div>
+    </div>
+    <div class="col-sm-10" style="margin-top:60px;">
+    	<div id="item2"> {{customername1}}<br>{{city1}}</br></div>
 
-
-
- </div>
-
- </template>
+    </div>
+    </div>
+  </paper-card>
+  </div>
+    <item-customerajax></item-customerajax>
+  </div>
+</template>
 <script>
-    Polymer({
-      is: "item-customerdetail",
+Polymer({
+  is: "item-customerdetail",
 	   ready:function(){
 
      },
@@ -79,10 +72,6 @@
       this.city1=city;
      }
 
-
 	});
-
 </script>
-
-
 </dom-module>

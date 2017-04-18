@@ -2,7 +2,7 @@
   <template>
     <p id="p1" hidden>{{arr}}</p>
     <p hidden>{{getvehdata}}</p>
-        <paper-card image="../../images/salesimage.jpg" elevation="5">
+        <paper-card image="/../images/default.jpg" elevation="5">
           <div class="card-content" width="500">
             <div><span value="{{salesorderid}}">{{salesorderid}}</span></div>
             <div><span>{{customername}}</span></div>
@@ -12,7 +12,6 @@
             <div><span>{{orderquantity}}</span></div>
             <div><span>{{deliveredquantity}}</span></div>
             <center><paper-checkbox on-change="checkboxChanged">select salesorderid</paper-checkbox></center>
-            <!-- <paper-button raised on-click="checkfunc">save</paper-button> -->
 
           </div>
         </paper-card>
@@ -23,34 +22,27 @@
    var arr=[];
   Polymer({
     is:"salesorder-papercard",
-    // properties:{
-    // arr:{ type:Array}
-    // },
-    ready:function(){
-      // alert("salesorder-papercard");
-    },
-    getsalesdatafn:function(data){
-      // alert(JSON.stringify(data));
-      this.saleorderdata=data;
-    },
-    checkboxChanged : function(event){
-        // var arr = [this.dataval];
-        // if(event==0){
-        //   document.querySelector("salesorder-mapping").salesappendFn(arr);
-        // }
-      if(event.target.checked) {
-          if(event.target.value=="on"){
-            if(event!=0){
-                arr.push(this.salesorderid);
-                document.querySelector("salesorder-mapping").salesappendFn(arr);
+          ready:function(){
+
+          },
+          getsalesdatafn:function(data){
+
+            this.saleorderdata=data;
+          },
+          checkboxChanged : function(event){
+
+            if(event.target.checked) {
+                if(event.target.value=="on"){
+                  if(event!=0){
+                      arr.push(this.salesorderid);
+                      document.querySelector("salesorder-mapping").salesappendFn(arr);
+                  }
+                  else{
+
+                }
+              }
             }
-            else{
-              // alert(arr);
-              // document.querySelector("salesorder-mapping").salesappendFn(this.salesorderid);
-          }
         }
-      }
-  }
   });
 })();
 </script>

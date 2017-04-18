@@ -12,7 +12,6 @@
       .cafe-header
       {
        @apply(--paper-font-headline);
-       /*background-color: #A45FCF;*/
       }
       .card-content
       {
@@ -24,25 +23,15 @@
           box-shadow: 0 12px 16px 0 rgba(0,0,0,0.2);
       }
 </style>
-<!-- goodsvehiclenumber
-goodsvehiclename
-goodsvehicledrivername
-goodsvehicledriverphonenumber
-goodsvehicledriverphonenumber2
-goodsvehicleownername
-goodsvehicleownerphonenumber
-goodsvehicleintime
-goodsvehicleouttime
-goodsvehicleindate
-goodsvehicleoutdate -->
-  <vehicleorder-summaryajax></vehicleorder-summaryajax>
+    <vehicleorder-summaryajax></vehicleorder-summaryajax>
   <template id="templateUsers"  is="dom-repeat" items={{jsondata}} as="item">
     <div class="col-sm-3">
-      <vehicleorder-papercard
+        <vehicleorder-papercard
                               goodsvehiclename="{{item.goodsvehiclename}}"
                               goodsvehiclenumber="{{item.goodsvehiclenumber}}"
                               goodsvehicledrivername="{{item.goodsvehicledrivername}}"
-                              goodsvehicledriverphonenumber1="{{item.goodsvehicledriverphonenumber1}}"></vehicleorder-papercard>
+                              goodsvehicledriverphonenumber1="{{item.goodsvehicledriverphonenumber1}}">
+        </vehicleorder-papercard>
     </div>
 </template>
 </template>

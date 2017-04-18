@@ -7,9 +7,7 @@ exports.insertsales=function(salesid,datetimeq,customerid,id,itemname,descriptio
   var response={
     "salesorderid":salesid,
     "salesorderdate":datetimeq,
-    // "customername":ccname,
     "customerid":customerid,
-    // "customerlocation":customerlocation,
     "itemid":id,
     "itemname":itemname,
     "itemdescription":description,

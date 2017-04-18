@@ -4,7 +4,6 @@
   <template>
     <center><paper-button raised on-click="saveselectesalesidFn">submit</paper-button></center>
     <p hidden>{{getvehicleno}}</p>
-    <!-- <p hidden>{{getsaleno}}</p> -->
     <div hidden id="div1" value="{{data}}"></div>
     <div class="container">
       <div class="row">
@@ -15,7 +14,7 @@
       </div>
       <div class="row">
         <template is="dom-repeat" items="{{saleorderdata}}">
-          <div class="col-sm-4">
+      <div class="col-sm-4">
         <salesorder-papercard
                               salesorderid="{{item.salesorderid}}"
                               customername="{{item.customername}}"
@@ -23,13 +22,13 @@
                               itemid="{{item.itemid}}"
                               containerquantity="{{item.containerquantity}}"
                               orderquantity="{{item.orderquantity}}"
-                              deliveredquantity="{{item.deliveredquantity}}"></salesorder-papercard>
+                              deliveredquantity="{{item.deliveredquantity}}">
+        </salesorder-papercard>
       </div>
     </template>
       </div>
       <salesorder-mapping-ironajax></salesorder-mapping-ironajax>
     <div>
-      <!-- <center><paper-button raised on-click="saveselectesalesidFn">submit</paper-button></center> -->
     </div>
   </div>
 </template>

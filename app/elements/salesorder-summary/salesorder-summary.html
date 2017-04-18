@@ -3,25 +3,21 @@
 
 <dom-module id="salesorder-summary">
 <template>
-
-<salesorder-summaryajax></salesorder-summaryajax>
+    <salesorder-summaryajax></salesorder-summaryajax>
   <template id="templateUsers"  is="dom-repeat" items={{jsondata}} as="item">
      <div class="col-sm-3">
        <slider-papercard
-       itemid="{{item.itemid}}"
-       salesorderid="{{item.salesorderid}}"
+        itemid="{{item.itemid}}"
+        salesorderid="{{item.salesorderid}}"
         customername="{{item.customername}}"
         itemspecification="{{item.itemspecification}}"
         containerquantity="{{item.containerquantity}}"
         deliveredquantity="{{item.deliveredquantity}}"
-
         requireddeliverydate="{{item.requireddeliverydate}}"
         customerlocation="{{item.customerlocation}}"
-        status="{{item.status}}"
-       ></slider-papercard>
-
+        status="{{item.status}}">
+       </slider-papercard>
     </div>
-
 </template>
 </template>
   <script src="salesorder-summary.js">
