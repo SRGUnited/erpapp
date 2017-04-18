@@ -1,16 +1,17 @@
 var express    = require('express');
 var mysql      = require('mysql');
 var jsonfile   = require('jsonfile');
-var sales_person_directory='./app/elements/sales-person/sales-person.json';
+var sales_person_directory='./app/elements/sales-order/sales-order.json';
 
-exports.insertsales=function(salesid,datetimeq,ccname,customerid,customerlocation,id,description,ispecification,rcoilsq,rtonq,rdqty,datetimeq1,status,callback){
+exports.insertsales=function(salesid,datetimeq,customerid,id,itemname,description,ispecification,rcoilsq,rtonq,rdqty,datetimeq1,status,callback){
   var response={
     "salesorderid":salesid,
     "salesorderdate":datetimeq,
-    "customername":ccname,
+    // "customername":ccname,
     "customerid":customerid,
-    "customerlocation":customerlocation,
+    // "customerlocation":customerlocation,
     "itemid":id,
+    "itemname":itemname,
     "itemdescription":description,
     "itemspecification":ispecification,
     "containerquantity":rcoilsq,
@@ -19,8 +20,9 @@ exports.insertsales=function(salesid,datetimeq,ccname,customerid,customerlocatio
     "requireddeliverydate":datetimeq1,
     "status":status
   };
-  // console.log(response);
   jsonfile.writeFile(sales_person_directory,response,function(err){
+    console.log("wrres"+JSON.stringify(response));
+
     if(!err){
       require('fs').readFile(sales_person_directory,'utf8',function(err,jsondata){
         dbjsondata=JSON.parse(jsondata);

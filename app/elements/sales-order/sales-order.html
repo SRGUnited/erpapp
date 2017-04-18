@@ -13,10 +13,20 @@
   margin-left: 150px;
   margin-top: 150px;
  }
+ paper-listbox.dropdown-content{
+   width:100%;
+ }
  paper-card.btnsize{
 margin-top:2000px;
  }
-
+ paper-dropdown-menu {
+     --paper-dropdown-menu: {
+       width: 100%;
+     }
+   }
+   :host([hidden]), .paper-item[hidden] {
+      display: none !important;
+    }
 </style>
 
   <template>
@@ -31,24 +41,24 @@ margin-top:2000px;
           <h1> Sales Order </h1>
 
            <div class="card-content"> <!--card-content-->
-             <div class="autocomplete-wrapper">
-               <paper-input label="{{salesorderid}}" value="{{salesid}}"></paper-input>
-                      <paper-input id="myInput" label="{{customername}}" value="{{cname}}"></paper-input>
-                     <paper-autocomplete-suggestions for="myInput" source="[[accounts]]"></paper-autocomplete-suggestions>
-                   </div>
-             <!-- <paper-autocomplete id="myInput" label="{{customername}}">
-                     <paper-autocomplete-suggestions for="myInput" source="[[accounts]]"></paper-autocomplete-suggestions>
-                   </paper-autocomplete> -->
-        <!-- <paper-autocomplete label="{{CustomerName}}" value="{{cname}}" id="name"></paper-autocomplete> -->
-    <paper-input label="{{customerid}}" value="{{cid}}"></paper-input>
-    <paper-input label="{{customerlocation}}" value="{{clocation}}"></paper-input>
-    <paper-input label="{{ItemId}}" value="{{iid}}"></paper-input>
-    <paper-input label="{{itemdescription}}" value="{{idescription}}"></paper-input>
-    <paper-input label="{{itemspecification}}" value="{{ispecification}}"></paper-input>
-    <paper-input label="{{container}}" value="{{rcoils}}"></paper-input>
-    <paper-input label="{{quantity}}" value="{{rtons}}"></paper-input>
-    <paper-input label="{{dquantity}}" value="{{dqty}}"></paper-input>
-    <paper-dropdown-menu label="{{status}}" value="{{status}}" class="size">
+
+      <paper-input label="{{salesorderid}}" value="{{salesid}}"></paper-input>
+      <paper-input  label="{{customername}}" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input>
+      <!-- <paper-input  label="{{customerid}}" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input> -->
+      <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry1">
+        <template is="dom-repeat" items="{{itemArray}}" as="item">
+          <paper-item value="{{item.customerid}}">{{item.itemdes}}</paper-item>
+        </template>
+      </paper-listbox>
+      <paper-input hidden label="{{customerlocation}}" value="{{clocation}}"></paper-input>
+      <paper-input hidden label="{{ItemId}}" value="{{iid}}"></paper-input>
+      <paper-input label="{{Itemname}}" value="{{iname}}"></paper-input>
+      <paper-input label="{{itemdescription}}" value="{{idescription}}"></paper-input>
+      <paper-input label="{{itemspecification}}" value="{{ispecification}}"></paper-input>
+      <paper-input label="{{container}}" value="{{rcoils}}"></paper-input>
+      <paper-input label="{{quantity}}" value="{{rtons}}"></paper-input>
+      <paper-input label="{{dquantity}}" value="{{dqty}}"></paper-input>
+      <paper-dropdown-menu label="{{status}}" value="{{status}}" class="size">
       <paper-listbox class="dropdown-content" attr-for-selected="cvalue" selected="{{selectedcontainer}}">
         <paper-item>Select</paper-item>
         <paper-item cvalue="Order Placed">Order Placed</paper-item>
@@ -83,11 +93,13 @@ margin-top:2000px;
 
 
 </div>
-      <div class="card-actions" style="margin-top:10px;"> <!-- card action-->
-          <center>
-        <paper-button on-click="saveitems1" raised>Save</paper-button>
-      </center>
-      </div> <!--card action-->
+<div class="card-actions">
+  <center>
+    <a class="btn btn-app" on-click="saveitems1">
+      <i class="fa fa-save"></i>Save
+    </a>
+  </center>
+</div>
     </div> <!--div 3-->
 
     </div>
@@ -102,9 +114,26 @@ margin-top:2000px;
           handle-as="json"
           content-type="application/json"
           on-response="salesResponse"
-          debounce-duration="300">
+          debounce-duration="300"></iron-ajax>
 
+          <iron-ajax
+            auto
+            method="post"
+            url="http://localhost:4000/autocomplete"
+            handle-as="json"
+            on-response="autocompletearr"></iron-ajax>
 
+            <iron-ajax
+            auto
+            method="get"
+            id="jsoninfoid"
+            url="salesorder-label.json"
+            handle-as="json"
+            content-type="application/json"
+            on-response="jsoninfoResponse"
+            last-response="{{jsondata}}"
+            debounce-duration="300">
+            </iron-ajax>
   </template>
   <script src="sales-order.js">
 
