@@ -39,7 +39,7 @@
       content-type="application/json"
       last-response="{{stateresponsejson}}">
     </iron-ajax>
-    <iron-ajax
+    <!-- <iron-ajax
       auto
       method="post"
       url="http://localhost:4000/autocomplete"
@@ -47,7 +47,7 @@
       content-type="application/json"
       on-response="autocompleteFn"
       last-response="{{autocompleteresponsedata}}">
-    </iron-ajax>
+    </iron-ajax> -->
     <iron-ajax
       method="post"
       id="searchcidAjax"
@@ -77,6 +77,7 @@
           this.$.searchcidAjax.generateRequest();
         },
         searchcidresponse:function(e){
+          alert(e.detail.response.returnval);
           var getdata=e.detail.response.returnval;
           document.querySelector("call-add-customer").datafetchFn(getdata);
           if(getdata[0].itemname != null){

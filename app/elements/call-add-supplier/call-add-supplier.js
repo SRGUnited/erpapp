@@ -2,31 +2,37 @@ Polymer({
   is:"call-add-supplier",
 
   ready:function(){
-    alert("call-add-supplier");
+    this.colvar="true";
   },
   clickFN:function(){
-    // this.colvar="false";
     if(this.colvar=="false"){
     this.$.suppliercollapse.toggle();
-  }
+      }
   else{
-  this.colvar="true";
-  }
+    this.colvar="true";
+      }
   },
   additemFn:function(){
     this.colvar="false";
     this.$.suppliercollapse.toggle();
     this.page="supplier-to-additem";
-    document.querySelector("supplier-to-additem").getsupplierid=this.suid;
-    alert(this.suid);
+    document.querySelector("supplier-to-additem").check();
+    document.querySelector("call-add-supplier").passsupplieridFn(this.suid);
+  },
+  passsupplieridFn:function(data){
+    document.querySelector("supplier-to-additem").getsupplieridFn(this.suid);
   },
   getironpageFn:function(data){
     this.page="item-display";
     document.querySelector("item-display").getdataFn(data);
   },
-  submitFn:function(Countryval){
+  savebuttonFn:function(){
+    document.querySelector("autogen-id").send("sup");
+  },
+  submitFn:function(data){
+    document.querySelector('#additemid').disabled=false;
     var postvalue ={
-                    "sidval":this.SupIdval,
+                    "sidval":data,
                     "snameval":this.SupNameval,
                     "adval1"  :this.Add1val,
                     "adval2"  :this.Add2val,
@@ -91,10 +97,16 @@ Polymer({
   },
   getstatejsondata:function(getData){
     this.stateitems=getData;
-    alert(this.stateitems);
   },
   searchitemdet:function(){
+    if(this.SupNameval!=""){
+    document.querySelector("#anchorID").style.display="none";
+     document.querySelector('#additemid').disabled=false;
     var obj={supname:this.SupNameval};
     document.querySelector("call-add-supplier-ironajax").searchsidFN(obj);
+  }
+  else {
+    alert("please enter supplier name");
+  }
   }
 });

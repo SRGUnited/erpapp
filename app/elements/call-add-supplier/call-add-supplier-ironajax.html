@@ -65,9 +65,6 @@
         arr[0].Ad_3,arr[0].country,arr[0].ste,arr[0].cty,arr[0].p_code,arr[0].m_number1,arr[0].m_number2,arr[0].e_ID,
         arr[0].stauslabl);
         },
-        // supplierdetResponse:function(e){
-        //   alert(e.detail.response.returnval);
-        // },
     dbinforesponse:function(a){
       alert(a.detail.response.datavalue);
         },
@@ -84,6 +81,7 @@
     document.querySelector("call-add-supplier").getcountryjsondata(this.countryresponsejson);
   },
   searchsidresponse:function(e){
+    alert(e.detail.response.returnval);
     var getdata=e.detail.response.returnval;
     document.querySelector("call-add-supplier").datafetchFn(getdata);
     if(getdata[0].itemname != null){

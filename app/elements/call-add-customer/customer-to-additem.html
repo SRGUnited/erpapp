@@ -6,10 +6,20 @@
       width: 100%;
     }
   }
+  paper-card{
+      width: 100%;
+  }
+  #datepickerid{
+    width: 100%;
+    margin-top: 25px;
+  }
   </style>
     <p hidden>{{getsupId}}</p>
     <p hidden>{{totaljsonval}}</p>
     <p hidden>{{itemid}}</p>
+    <iron-collapse id="customercollapse" duration="5000" horizontal>
+    <paper-card>
+      <div class="card-content">
     <paper-dropdown-menu label=" choose itemname">
       <paper-menu class="dropdown-content" attr-for-selected="value" selected="{{selectionname}}" on-click="getitemidFn">
         <template is="dom-repeat" items="{{itemnamedata}}">
@@ -17,16 +27,16 @@
         </template>
       </paper-menu>
     </paper-dropdown-menu>
-    <div>
+    <div id="datepickerid">
       <datetime-picker date-string="{{min}}"  min-date="[[max]]" use-not-native></datetime-picker>
-    <!-- <paper-date-picker></paper-date-picker> -->
   </div>
     <paper-input label="Item Price" value="{{itempriceval}}"></paper-input>
-    <center>
-      <a class="btn btn-app" on-click="saveitemssupplierFn" style="margin-top:10px;">
-                <i class="fa fa-save"></i>Save
-      </a>
-    </center>
+      <div style="margin-top:8%;">
+          <center><paper-button class="btn btn-app" on-click="saveitemscustomerFn"><i class="fa fa-save"></i>save</paper-button></center>
+      </div>
+  </div>
+</paper-card>
+</iron-collapse>
     <iron-ajax
       auto
       method="post"
@@ -49,6 +59,9 @@
       is:"customer-to-additem",
       ready:function(){
       },
+      check:function(){
+        this.$.customercollapse.toggle();
+      },
       backtosupplierFn:function(){
         document.querySelector("home-page").FnSetPage("call-add-supplier");
       },
@@ -57,10 +70,11 @@
         this.totaljsonval=getdata;
         this.itemnamedata=getdata;
       },
-      saveitemssupplierFn:function(){
-        this.itemmapparams={supid:this.getsupId,
-                            itemid:this.itemid};
-              alert(this.getsupId);
+      saveitemscustomerFn:function(){
+        this.itemmapparams={cupid:this.getsupId,
+                            itemid:this.itemid,
+                            effectivedate:this.min,
+                            pricing:this.itempriceval};
         this.$.cus_to_item_map_id.generateRequest();
       },
       getitemidFn:function(){
