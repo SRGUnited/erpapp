@@ -33,10 +33,9 @@
     },
 
     searchitemdetails:function(e){
-      // this.$.readjson.generateRequest();
-      // alert(JSON.stringify(e.detail.response.returnval));
-      var arr=e.detail.response.returnval;
-      document.querySelector("item-details").searchbind(arr);
+      var items=e.detail.response.returnval;
+      var suppliers=e.detail.response.returnval1;
+      document.querySelector("item-details").searchbind(items,suppliers);
     },
 
     bindsearchdata:function(){

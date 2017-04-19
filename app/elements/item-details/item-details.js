@@ -18,20 +18,24 @@
       },
 
     saveitems:function(){
-      var obj={};
-      obj.id="101";
-      obj.name=this.iname;
-      obj.description=this.idescription;
-      obj.specification1=this.ispecification1;
-      obj.specification2=this.ispecification2;
-      obj.container=this.selectedcontainer;
-      obj.unit=this.selectedunit;
-      obj.group=this.selectedgroup;
-      obj.type=this.selectedtype;
-      obj.status=this.selectedstatus;
-      obj.ptype=this.selectedptype;
-      obj.ceostatus="Created";
-      document.querySelector("item-details-ironajax").send(obj);
+        document.querySelector("autogen-id").send("ite");
+      },
+
+      save:function(e){
+        var obj={};
+        obj.id=e;
+        obj.name=this.iname;
+        obj.description=this.idescription;
+        obj.specification1=this.ispecification1;
+        obj.specification2=this.ispecification2;
+        obj.container=this.selectedcontainer;
+        obj.unit=this.selectedunit;
+        obj.group=this.selectedgroup;
+        obj.type=this.selectedtype;
+        obj.status=this.selectedstatus;
+        obj.ptype=this.selectedptype;
+        obj.ceostatus="Created";
+        document.querySelector("item-details-ironajax").send(obj);
       },
 
     searchdetails:function(){
@@ -40,18 +44,18 @@
       document.querySelector("item-details-ironajax").sendresponse(obj);
       },
 
-     searchbind:function(arr){
-      //  this.iid=arr[0].itemid;
-       this.iname=arr[0].itemname;
-       this.idescription=arr[0].itemdescription;
-       this.ispecification1=arr[0].itemspecification1;
-       this.ispecification2=arr[0].itemspecification2;
-       this.selectedcontainer=arr[0].containerid;
-       this.selectedunit=arr[0].unitofmeasures;
-       this.selectedgroup=arr[0].itemgroup;
-       this.selectedtype=arr[0].itemtypeid;
-       this.selectedstatus=arr[0].itemstatus;
-       this.selectedptype=arr[0].itempurchasetype;
+     searchbind:function(items,suppliers){
+       this.iname=items[0].itemname;
+       this.idescription=items[0].itemdescription;
+       this.ispecification1=items[0].itemspecification1;
+       this.ispecification2=items[0].itemspecification2;
+       this.selectedcontainer=items[0].containerid;
+       this.selectedunit=items[0].unitofmeasures;
+       this.selectedgroup=items[0].itemgroup;
+       this.selectedtype=items[0].itemtypeid;
+       this.selectedstatus=items[0].itemstatus;
+       this.selectedptype=items[0].itempurchasetype;
+       this.suppliers=suppliers;
       },
 
       addsupplier:function(){

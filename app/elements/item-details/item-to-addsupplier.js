@@ -1,5 +1,4 @@
-var express    = require('express');
-var mysql      = require('mysql');
+var mysql=require('mysql');
 
 exports.fixSupplier=function(itemname,suppliername,pricing,date,callback){
 var x;

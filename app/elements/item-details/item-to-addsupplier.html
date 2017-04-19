@@ -1,13 +1,13 @@
 <dom-module id="item-to-addsupplier">
   <template>
-    <paper-card>
+    <paper-card elevation="0">
       <div class="card-content">
-    <paper-dropdown-menu label="Choose Item">
-      <paper-menu class="dropdown-content" attr-for-selected="value" selected="{{selectitem}}">
+    <paper-dropdown-menu label="Choose Item" scrollable>
+      <paper-listbox class="dropdown-content" attr-for-selected="value" selected="{{selectitem}}">
         <template is="dom-repeat" items="{{itemnames}}">
-          <paper-item value="{{item.itemname}}">{{item.itemname}}</paper-item>
+            <paper-item value="{{item.itemname}}">{{item.itemname}}</paper-item>
         </template>
-      </paper-menu>
+      </paper-listbox>
     </paper-dropdown-menu>
     <paper-dropdown-menu label="Choose Supplier">
       <paper-menu class="dropdown-content" attr-for-selected="value" selected="{{selectsupplier}}">
@@ -24,7 +24,9 @@
     </div>
     <div>
         <center>
-          <paper-button label="Fix Supplier" on-click="map" raised>Fix Supplier</paper-button>
+          <a class="btn btn-app" on-click="map" style="margin-top:10px;">
+            <i class="fa fa-users"></i>Add Supplier
+          </a>
         </center>
     </div>
   </div>
@@ -64,8 +66,6 @@
     },
 
     map:function(){
-      // alert(this.selectitem);
-      // alert(this.selectsupplier);
       var jsonobj={};
       jsonobj.item=this.selectitem;
       jsonobj.supplier=this.selectsupplier;
