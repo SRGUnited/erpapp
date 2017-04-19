@@ -51,9 +51,10 @@ app.post('/login', urlencodedParser, function (req, res) {
     });
 });
 
+//**********************************ITEM DETAILS PROCESSES
 //add items save process
 var itemdetailsdb=require("./app/elements/item-details/item-details-todb.js");
-app.post('/insertitems', urlencodedParser, function (req, res) {
+app.post('/insertitems', urlencodedParser, function (req, res) { //add items save process
   itemdetailsdb.insertitems(req.query.sid,req.query.id,req.query.name,req.query.description,req.query.specification1,req.query.specification2,req.query.container,req.query.unit,req.query.group,req.query.type,req.query.status,req.query.ptype,req.query.ceostatus,function(callback){
     if(callback=="saved!"){
       res.status(200).json({'returnval': "Saved!"});
@@ -63,18 +64,78 @@ app.post('/insertitems', urlencodedParser, function (req, res) {
     }
   });
 });
-
 //add item search process
-app.post('/searchitem', urlencodedParser, function (req, res) {
-  itemdetailsdb.searchitem(req.query.name,function(callback){
-    // console.log("callback"+JSON.stringify(callback));
-    if(callback!=null)
-      res.status(200).json({'returnval':callback});
+app.post('/searchitem', urlencodedParser, function (req, res) { //add item search process
+  itemdetailsdb.searchitem(req.query.name,function(itemdetails,suppliers){
+    if(itemdetails||suppliers!=null)
+      res.status(200).json({'returnval':itemdetails,'returnval1':suppliers});
     else
       res.status(200).json({'returnval':"No Data"});
   });
 });
+//*********************************END
 
+//*********************************CEO APPROVAL PROCESSES
+var itemapprovaldb=require("./app/elements/call-ceo-card/call-ceo-card-todb.js")
+app.post('/ceoitemsearch', urlencodedParser, function (req, res) {
+  itemapprovaldb.searchitem(function(callback,fgrows){ // Othre than Finished Goods
+    if(callback||fgrows!=null){
+      res.status(200).json({'returnval': callback,'returnfg': fgrows});
+    }
+    else{
+      res.status(200).json({'returnval': "No Data"});
+    }
+  });
+});
+
+app.post('/ceoresponse', urlencodedParser, function (req, res) {
+  itemapprovaldb.ceoresponse(req.query.respond,req.query.itemid,req.query.itemtype,function(callback){
+    if(callback=="Updated"){
+      res.status(200).json({'returnval': "Updated"});
+    }
+    else{
+      res.status(200).json({'returnval': "Not Updated!"});
+    }
+  });
+});
+//********************************END
+
+//********************************ITEM TO SUPPLIER MAPPING
+app.post('/mapitem', urlencodedParser, function (req, res) {
+  global.connection.query("SELECT itemname FROM m_item_details",function(err,rows){
+  if(rows.length>0){
+    global.connection.query("SELECT itemname FROM finishedgoods_itemtype",function(err,rows1){
+      rows.push(rows1[0]);
+      res.status(200).json({'returnval': rows});
+    });
+  }
+
+  else
+    res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
+app.post('/mapsupplier', urlencodedParser, function (req, res) {
+  global.connection.query("SELECT suppliername FROM m_supplierdetails",function(err,rows){
+  if(rows.length>0)
+  res.status(200).json({'returnval': rows});
+  else
+    res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
+var itemToAddSupplier=require("./app/elements/item-details/item-to-addsupplier.js");
+app.post ('/fixsupplier', urlencodedParser, function (req, res) {
+  itemToAddSupplier.fixSupplier(req.query.item,req.query.supplier,req.query.pricing,req.query.date,function(callback){
+    if(callback=="Supplier Added"){
+      res.status(200).json({'returnval': "Supplier Added"});
+    }
+    else{
+      res.status(200).json({'returnval': "Failed to add!"});
+    }
+  });
+});
+//*******************************END
 
 //salessummary
 var salessummarydb=require("./app/elements/salesorder-summary/salessummarydb.js");
@@ -244,26 +305,6 @@ app.post('/autosecuritysearchinfo', urlencodedParser, function (req,res) {
     });
     });
 
-    // insert item
-app.post('/insertitems', urlencodedParser, function (req, res) {
-var response={
-  itemid:req.query.id,
-  itemname:req.query.name,
-  itemdescription:req.query.description,
-  container:req.query.container,
-  // Item_Unit:req.query.unit,
-  // Item_Type:req.query.type,
-  // Item_Group:req.query.group,
-  status:req.query.purchase
-};
-connection.query('INSERT INTO m_itemdetail SET ?',[response],function(err,result){
-  if(result.affectedRows>0)
-    res.status(200).json({'returnval': "Saved!"});
-  else
-    res.status(200).json({'returnval': "Unable to save!"});
-  });
-});
-
 //CEO customer
 
 app.post('/ceocustomerapprovalinfo', urlencodedParser, function (req, res) {
@@ -331,22 +372,6 @@ connection.query('INSERT INTO vehicle_table SET ?',[response],function(err,resul
     res.status(200).json({'datavalue': "Unable to save!"});
   });
 });
-
-
-//search item
-app.post('/searchitem', urlencodedParser, function (req, res) {
-var response={
-  Item_ID:req.query.id
-};
-  connection.query('Select * FROM itemdetails_card WHERE ?',[response],function(err,rows){
-  if(rows.length>0)
-    res.status(200).json({'returnval': rows});
-  else{
-    res.status(200).json({'returnval': "Data not found!"});
-  }
-  });
-});
-
 
 // customer data
 app.post('/savedata', urlencodedParser, function (req, res) {
