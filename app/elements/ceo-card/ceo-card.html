@@ -1,0 +1,60 @@
+<dom-module id="ceo-card">
+  <template>
+      <paper-card heading="{{itemname}}" on-click="openitemdetails" style="margin-top:6px;">
+        <iron-collapse id="content">
+        <div class="card-content">
+          <table>
+          <tr><td><b>Item ID:</b>{{itemid}}</td></tr>
+          <tr><td><b>Item Description:</b>{{itemdescription}}</td></tr>
+          <tr><td><b>Item Specification1:</b>{{itemspecification1}}</td></tr>
+          <tr><td><b>Item Specification2:</b>{{itemspecification2}}</td></tr>
+          <tr><td><b>Item Container:</b>{{itemcontainer}}</td></tr>
+          <tr><td><b>Unit of Measures:</b>{{unitofmeasures}}</td></tr>
+          <tr><td><b>Item Group:</b>{{itemgroup}}</td></tr>
+          <tr><td><b>Item Type:</b>{{itemtype}}</td></tr>
+          <tr><td><b>Item Status:</b>{{itemstatus}}</td></tr>
+          <tr><td><b>Item Purchase Type:</b>{{itempurchasetype}}</td></tr>
+          <tr><td><b>Status:</b>{{status}}</td></tr>
+        </table>
+          <div>
+            <paper-radio-group attr-for-selected="value" selected="{{responsevalue}}" on-iron-select="respond">
+              <paper-radio-button value="Approve">Approve</paper-radio-button>
+              <paper-radio-button value="Reject">Reject</paper-radio-button>
+            </paper-radio-group>
+          </div>
+        </div>
+      </iron-collapse>
+      </paper-card>
+      <iron-ajax
+        id="ceorespond"
+        method="post"
+        params="{{responseparam}}"
+        url="http://localhost:4000/ceoresponse"
+        handle-as="json"
+        on-response="handleResponse">
+      </iron-ajax>
+  </template>
+  <script>
+  Polymer({
+    is:"ceo-card",
+
+    openitemdetails:function(){
+      this.$.content.toggle();
+      // this.hidevar=0;
+    },
+
+    respond:function(){
+      var jobj={};
+      jobj.respond=this.responsevalue;
+      jobj.itemid=this.itemid;
+      jobj.itemtype=this.itemtype;
+      this.responseparam=jobj;
+      this.$.ceorespond.generateRequest();
+    },
+
+    handleResponse:function(e){
+      alert(e.detail.response.returnval);
+    }
+  })
+  </script>
+</dom-module>
