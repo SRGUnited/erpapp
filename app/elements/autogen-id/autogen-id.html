@@ -29,9 +29,13 @@
         var supstringid="sup"+getid;
       document.querySelector("call-add-supplier").submitFn(supstringid);
     }
-    else{
+    if(this.getstring=="cus"){
       var cusstringid="cus"+getid;
       document.querySelector("call-add-customer").submitFn(cusstringid);
+    }
+      if(this.getstring=="ite"){
+      var itestringid="ite"+getid;
+     document.querySelector("item-details").save(itestringid);
     }
     },
     send:function(data){
