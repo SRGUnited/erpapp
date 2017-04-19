@@ -1,0 +1,127 @@
+<link rel="import" href="ajax-timeline.html" />
+<dom-module id="timeline-chart">
+<style>
+    .htimeline
+    {
+      list-style: none; padding: 0; margin: 10px 0 0;
+    }
+    .totaldesign
+    {
+      margin-left: 70px;
+
+    }
+   .htimeline .step {
+      float: left;
+      border-bottom-style: solid;
+      border-bottom-width: 7px;
+      position: relative;
+      margin-top: 2.4px;
+      color: #333;
+      height: 50px;
+      width: 90px;
+      transition: all 0.5s ease;
+    }
+    .htimeline .step1 {
+      float: left;
+      position: relative;
+      color: #333;
+      height: 50px;
+      width: 90px;
+      transition: all 0.5s ease;
+    }
+    .htimeline .step.green { border-bottom-color: #348F50;}
+    .htimeline .step1.green { border-bottom-color: #348F50;}
+    .htimeline .step::before {
+      width: 20px;
+      height: 15px;
+      border-radius: 50px;
+      content: ' ';
+      background-color: white;
+      position: absolute;
+      bottom: -10px;
+      left: 0px;
+      border-style: solid;
+      border-width: 3px;
+      transition: all 0.5s ease;
+      }
+    .htimeline .step1::before {
+      width: 20px;
+      height: 15px;
+      border-radius: 50px;
+      content: ' ';
+      background-color: white;
+      position: absolute;
+      bottom: -10px;
+      left: 0px;
+      border-style: solid;
+      border-width: 3px;
+      transition: all 0.5s ease;
+    }
+    .htimeline .step:hover::before {
+      width: 30px;
+      height: 25px;
+      bottom: -12px;
+    }
+    .htimeline .step1:hover::before {
+      width: 30px;
+      height: 25px;
+      bottom: -12px;
+    }
+    .htimeline .step.green::before {
+      border-color: #348F50;
+    }
+    .htimeline .step1.green::before {
+      border-color: #348F50;
+    }
+    #label{
+      margin-top: 42px;
+      margin-left: 1px;
+      font-style: bold;
+      color: var(--paper-grey);
+    }
+    #label1{
+      margin-top: 23px;
+      margin-left: 1px;
+      color: var(--paper-grey);
+    }
+    #label2{
+      margin-top: 40px;
+      margin-left: 1px;
+      color: var(--paper-grey);
+    }
+    #value1{
+      /*color: var(--pape/grey);*/
+      font-size: 13px;
+    }
+    #value2{
+      /*color: var(--paper-grey);*/
+      margin-top: 8px;
+    }
+    .htimeline .step.green.rate-name { color: var(--paper-grey); }
+
+    .htimeline .step1.green.rate-name { color: var(--paper-grey); }
+
+    .rate-header { @apply(--paper-font-headline);
+      font-size: 20px;
+     }
+
+</style>
+  <template>
+  <div class="container">
+  <div class='totaldesign'>
+   <div id="vehicle" class="rate-header">Vehicle Status Tracking</div>
+    <div class='vehno'>  {{vehicleno}} </div>
+      <ul class='htimeline'>
+        <li style="margin-top:6px;" class='step green rate-name'><div id="value1" >{{vehicleintime}}</div><div id="label">{{vehicleintimelabel}}</div></li>
+        <li style="margin-top:6px;" class='step green rate-name'><div id="value1">{{vehicleloadstartdatetime}}</div><div id="label1">{{vehicleloadstartdatetimelabel}}</div></li>
+        <li  style="margin-top:6px;" class='step green rate-name'><div id="value1">{{vehicleloadenddatetime}}</div><div id="label1">{{vehicleloadenddatetimelabel}}</div></li>
+        <li style="margin-top:6px;" class='step green rate-name'><div id="value1">{{vehicleouttime}}</div><div id="label">{{vehicleouttimelabel}}</div></li>
+        <li class='step1 green rate-name'><div id="value2">{{deliveredtime}}</div><div id="label2">{{deliveredtimelabel}}</div></li>
+      </ul>
+    </div>
+    <ajax-timeline></ajax-timeline>
+    </div>
+  </div>
+</template>
+  <script src="timeline-chart.js"></script>
+</dom-module>
