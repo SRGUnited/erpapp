@@ -1,8 +1,5 @@
-var express    = require('express');
-var mysql      = require('mysql');
-var jsonfile   = require('jsonfile');
-var app = express();
-var item_approval_write='/polymer/erpapp/app/elements/call-ceo-card/item_approval_write.json';
+var mysql=require('mysql');
+
 exports.searchitem=function(callback){
   connection.query("select * from m_item_details where status='Created'",function(err,rows){
   	if(rows.length>0){
@@ -16,13 +13,19 @@ exports.searchitem=function(callback){
     });
 }
 
-exports.ceoresponse=function(respond,id,callback){
-// Other than finished goods
-  connection.query('update m_item_details set status="'+respond+'" where itemid="'+id+'"',function(err,rows){
-
-  })
-// For finished Goods
+exports.ceoresponse=function(respond,id,type,callback){
+  if(type=="FG"){
   connection.query('update finishedgoods_itemtype set status="'+respond+'" where itemid="'+id+'"',function(err,rows){
-
+    return callback("Updated");
   })
+}
+  else if(type!="FG"){
+  connection.query('update m_item_details set status="'+respond+'" where itemid="'+id+'"',function(err,rows){
+    return callback("Updated");
+  })
+}
+
+  else {
+    return callback("Not Updated!")
+  }
 }
