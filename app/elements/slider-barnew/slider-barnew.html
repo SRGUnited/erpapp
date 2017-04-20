@@ -4,11 +4,8 @@
   <style>
       input[type=range] {
        -webkit-appearance: none;
-       margin: 10px 0;
-       width: 40%;
-       margin-top: 1px;
-       margin-left: 50px;
-     }
+        width: 35%;
+       }
      input[type=range]:focus {
        outline: none;
      }
@@ -93,10 +90,12 @@
      }
      .range.range-primary output {
          background-color: rgb(66, 139, 202);
-         /*margin-left: 50px;*/
+          margin-left: 155px;
+         /*margin-left: 500px;*/
+         margin-top: 10px;
      }
      .range output {
-         display: table-cell;
+         display: table;
          /*padding: 3px 5px 2px;*/
          min-width: 40px;
          color: rgb(255, 255, 255);
@@ -109,7 +108,7 @@
          width:50px ;
          white-space: nowrap;
          vertical-align: middle;
-         margin-left: 500px;
+         /*margin-left: 500px;*/
          -webkit-transition: all 0.5s ease;
          -moz-transition: all 0.5s ease;
          -o-transition: all 0.5s ease;
@@ -121,20 +120,65 @@
          -moz-user-select: -moz-none;
          -o-user-select: none;
          user-select: none;
-     }
+       }
+       .maximumordered {
+           /*display: table;*/
+           /*padding: 3px 5px 2px;*/
+           min-width: 40px;
+           color: rgb(255, 255, 255);
+           background-color: rgb(153, 153, 153);
+           text-align: center;
+
+           text-decoration: none;
+           border-radius: 4px;
+           border-bottom-left-radius: 0;
+           border-top-left-radius: 0;
+           width:50px ;
+           white-space: nowrap;
+           vertical-align: middle;
+           /*margin-left: 500px;*/
+           -webkit-transition: all 0.5s ease;
+           -moz-transition: all 0.5s ease;
+           -o-transition: all 0.5s ease;
+           -ms-transition: all 0.5s ease;
+           transition: all 0.5s ease;
+
+           -webkit-user-select: none;
+           -khtml-user-select: none;
+           -moz-user-select: -moz-none;
+           -o-user-select: none;
+           user-select: none;
+         }
      .maximumordered{
-       margin-left: 450px;
+       margin-left: 355px;
+       background-color: rgb(66, 139, 202);
+       /*margin-top: 20px;*/
      }
+     /*#rangePrimary{
+       margin-left: 100px;
+       margin-top: 20px;
+     }*/
+     .rate-header { @apply(--paper-font-headline);
+       font-size: 20px;
+      }
+      .totaldesign
+      {
+        margin-left: 70px;
+
+      }
 </style>
 	<div class="container">
+    <div class='totaldesign'>
   	<div class="range range-primary">
+      <div id="stock" class="rate-header">Stock Tracking</div><br>
     		<input type="range" name="range" min="0" max="{{max1}}" value="{{value1}}" onchange="rangePrimary.value=value">
-  	<div class="maximumordered">
+  	<div class="maximumordered" style="margin-top:10px;">
    	<b>{{max1}}</b>
   	 </div>
-  	<output  class="outputrange" id="rangePrimary">{{value1}}</output>
+  	<output  class="outputrange" id="rangePrimary" style="margin-top:1px;">{{value1}}</output>
   	</div>
   	</div>
+  </div>
       <slider-ironajax></slider-ironajax>
 </template>
   <script src="slider-barnew.js"></script>

@@ -2,6 +2,7 @@
     'use strict';
  Polymer({
       is: 'timeline-chart',
+    
     	    getJsondata:function(goodsvehiclenumber,goodsvehicleintime,loadstart,loadend,goodsvehicleouttime,delivered){
     			  	this.vehicleno=goodsvehiclenumber;
           	  this.vehicleintime=goodsvehicleintime;

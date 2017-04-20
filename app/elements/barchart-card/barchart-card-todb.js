@@ -10,9 +10,9 @@ var itemid = sessionStorage.getItem('itemid');
     if(rows.length>0){
         jsonfile.writeFile(barcharttablefetchpath,rows,function(err){
       })
- }
+  }
     else{
       res.status(200).json({'returnval': "Data not found!"});
- }
+  }
 });
 }
