@@ -1,8 +1,8 @@
 <dom-module id="call-ceo-card">
   <template>
-    <div class="row" style="margin-left:10px;">
+    <div class="row" style="margin-left:10px;margin-top:15px;">
       <div>
-        <b>Finished Goods</b>
+        <b>Finished Goods Items</b>
       </div>
       <template is="dom-repeat" items="{{newitemsfg}}">
         <ceo-card itemid="{{item.itemid}}"
@@ -10,7 +10,7 @@
                   itemdescription="{{item.itemdescription}}"
                   itemspecification1="{{item.itemspecification1}}"
                   itemspecification2="{{item.itemspecification2}}"
-                  itemcontainer="{{item.itemcontainer}}"
+                  itemcontainer="{{item.containerid}}"
                   unitofmeasures="{{item.unitofmeasures}}"
                   itemgroup="{{item.itemgroup}}"
                   itemtype="{{item.itemtypeid}}"
@@ -24,7 +24,7 @@
 
     <div class="row" style="margin-left:10px;margin-top:15px;">
       <div>
-        <b>Other Goods</b>
+        <b>Purchased Items</b>
       </div>
     <template is="dom-repeat" items="{{newitems}}">
       <ceo-card itemid="{{item.itemid}}"
@@ -32,7 +32,7 @@
                 itemdescription="{{item.itemdescription}}"
                 itemspecification1="{{item.itemspecification1}}"
                 itemspecification2="{{item.itemspecification2}}"
-                itemcontainer="{{item.itemcontainer}}"
+                itemcontainer="{{item.containerid}}"
                 unitofmeasures="{{item.unitofmeasures}}"
                 itemgroup="{{item.itemgroup}}"
                 itemtype="{{item.itemtypeid}}"
