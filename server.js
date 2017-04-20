@@ -523,18 +523,36 @@ app.post('/barcharttablefetch',urlencodedParser,function (req, res) {
 });
 
 
-// sales order page
+// // sales order page
 var salespersondb=require("./app/elements/sales-order/sales-order-todb.js");
-app.post('/insertsales', urlencodedParser, function (req, res) {
-  salespersondb.insertsales(req.query.salesid,req.query.datetimeq,req.query.customerid,req.query.id,req.query.itemname,req.query.description,req.query.ispecification,req.query.rcoilsq,req.query.rtonq,req.query.rdqty,req.query.datetimeq1,req.query.status,function(callback){
+app.post('/salesinsert', urlencodedParser, function (req, res) {
+  console.log("working");
+  // console.log(req.query.salesid+req.query.datetimeq+req.query.customerid+req.query.id+req.query.description+req.query.ispecification+req.query.rcoilsq+req.query.rtonq+req.query.rdqty+req.query.datetimeq1+req.query.status);
+  salespersondb.insertsales(req.query.salesid,req.query.datetimeq,req.query.customerid,req.query.id,req.query.description,req.query.ispecification,req.query.rcoilsq,req.query.rtonq,req.query.rdqty,req.query.datetimeq1,req.query.status,function(callback){
     if(callback==saved){
+      console.log("saved");
     res.status(200).json({'returnval':"saved"});
     console.log(err);}
     else {
+      console.log("not saved");
     res.status(200).json({'returnval':"not saved"});
     console.log(err);
     }
   })
+});
+
+//auto complete item
+
+app.post('/autocompleteitem', urlencodedParser, function (req, res) {
+// console.log("select distinct finishedgoods_itemtype.itemid,UPPER(finishedgoods_itemtype.itemname) as itemname FROM finishedgoods_itemtype inner join item_customer_map on item_customer_map.itemid=finishedgoods_itemtype.itemid inner join salesordercreate on salesordercreate.customerid = item_customer_map.customerid where salesordercreate.customerid='"+req.query.customerid+"'");
+  global.connection.query("select distinct finishedgoods_itemtype.itemid,UPPER(finishedgoods_itemtype.itemname) as itemname FROM finishedgoods_itemtype inner join item_customer_map on item_customer_map.itemid=finishedgoods_itemtype.itemid inner join salesordercreate on salesordercreate.customerid = item_customer_map.customerid where salesordercreate.customerid='"+req.query.customerid+"'",function(err,rows){
+  if(rows.length>0){
+    // console.log("here:"+JSON.stringify(rows));
+    res.status(200).json({'returnval': rows});
+    }
+  else
+    res.status(200).json({'returnval': "Invalid!"});
+  });
 });
 
 //itemcard
