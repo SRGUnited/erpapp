@@ -10,7 +10,7 @@
   <template>
     <div class="row">
       <div class="col-sm-6">
-        <img src="../../dist/img/items.jpg" width="60%" height="60%" style="margin-left:110px;margin-top:160px;"/>
+        <img src="../../dist/img/no_image.jpg" width="60%" height="60%" style="margin-left:110px;margin-top:160px;"/>
         <div style="margin-top:10%;">
           <center>
             <a class="btn btn-app" on-click="openmapping" style="margin-top:10px;">
@@ -110,9 +110,9 @@
     </div>
     <div class="row">
       <template is="dom-repeat" items="{{suppliers}}">
-        <paper-card heading="{{item.suppliername}}">
+        <paper-card heading="{{item.suppliername}}" image="../../dist/img/no_image.jpg">
           <div class="card-content">
-            {{item.city}}
+            Location:{{item.city}}
           </div>
         </paper-card>
       </template>
