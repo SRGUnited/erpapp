@@ -3,13 +3,12 @@ var mysql      = require('mysql');
 var jsonfile   = require('jsonfile');
 var sales_person_directory='./app/elements/sales-order/sales-order.json';
 
-exports.insertsales=function(salesid,datetimeq,customerid,id,itemname,description,ispecification,rcoilsq,rtonq,rdqty,datetimeq1,status,callback){
+exports.insertsales=function(salesid,datetimeq,customerid,id,description,ispecification,rcoilsq,rtonq,rdqty,datetimeq1,status,callback){
   var response={
     "salesorderid":salesid,
     "salesorderdate":datetimeq,
     "customerid":customerid,
     "itemid":id,
-    "itemname":itemname,
     "itemdescription":description,
     "itemspecification":ispecification,
     "containerquantity":rcoilsq,

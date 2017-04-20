@@ -1,4 +1,5 @@
 <link rel="import" href="sales-ironajax.html">
+<link rel="import" href="../autogen-id/autogen-id.html">
 <dom-module id="sales-order">
 <style is="custom-style">
      paper-card.size{
@@ -37,8 +38,8 @@
        <paper-card elevation="0" heading="Sales Order">
          <div class="card-content"> <!--card-content-->
 
-      <paper-input label="{{salesorderid}}" value="{{salesid}}"></paper-input>
-      <paper-input  label="{{customername}}" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input>
+      <paper-input hidden label="{{salesorderid}}" value="{{salesid}}"></paper-input>
+      <paper-input  label="{{customername}}" is="" value="{{value}}" on-tap="functionitem" on-keydown="FnSearchEnquiry"></paper-input>
       <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry1">
         <template is="dom-repeat" items="{{itemArray}}" as="item">
           <paper-item value="{{item.customerid}}">{{item.itemdes}}</paper-item>
@@ -46,7 +47,13 @@
       </paper-listbox>
       <paper-input hidden label="{{customerlocation}}" value="{{clocation}}"></paper-input>
       <paper-input hidden label="{{ItemId}}" value="{{iid}}"></paper-input>
-      <paper-input label="{{Itemname}}" value="{{iname}}"></paper-input>
+
+      <paper-input  label="{{Itemname}}" is="" value="{{value1}}" on-keydown="FnSearchEnquiry1"></paper-input>
+      <paper-listbox class="dropdown-content" id="transportinput3" on-iron-select="FnSelectEnquiry2">
+        <template is="dom-repeat" items="{{itemArray1}}" as="item1">
+          <paper-item value="{{item1.itemid}}">{{item1.itemdes1}}</paper-item>
+        </template>
+      </paper-listbox>
       <paper-input label="{{itemdescription}}" value="{{idescription}}"></paper-input>
       <paper-input label="{{itemspecification}}" value="{{ispecification}}"></paper-input>
       <paper-input label="{{container}}" value="{{rcoils}}"></paper-input>
@@ -64,6 +71,7 @@
       </paper-listbox>
     </paper-dropdown-menu>
      <sales-ironajax></sales-ironajax>
+     <autogen-id></autogen-id>
     <div class="row">
       <div class="col-sm-6">
     <div style="margin-top:10px;">
@@ -79,7 +87,7 @@
   <br>
   <div class="card-actions">
     <center>
-      <a class="btn btn-app" on-click="saveitems1">
+      <a class="btn btn-app" on-click="salesidfn">
         <i class="fa fa-save"></i>Save
       </a>
     </center>
@@ -88,17 +96,13 @@
     </paper-card>
       </div>
     </div>
-
-    <iron-ajax
-          method="post"
-          id="writeajax"
-          url="{{requesturl1}}"
-          params="{{writeparam}}"
-          handle-as="json"
-          content-type="application/json"
-          on-response="salesResponse"
-          debounce-duration="300">
-    </iron-ajax>
+    <iron-ajax id="insertajax"
+               method="post"
+               url="http://localhost:4000/salesinsert"
+               params="{{writeparam}}"
+               handle-as="json"
+               content-type="application/json"
+               on-response="salesResponse"></iron-ajax>
 
     <iron-ajax
             auto
@@ -106,6 +110,14 @@
             url="http://localhost:4000/autocomplete"
             handle-as="json"
             on-response="autocompletearr">
+    </iron-ajax>
+    <iron-ajax
+            method="post"
+            id="writeajax"
+            params="{{writeparam}}"
+            url="{{urlname}}"
+            handle-as="json"
+            on-response="autocompletearr1">
     </iron-ajax>
 
     <iron-ajax
