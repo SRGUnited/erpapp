@@ -101,27 +101,27 @@ app.post('/ceoresponse', urlencodedParser, function (req, res) {
 //********************************END
 
 //********************************ITEM TO SUPPLIER MAPPING
+var mapItemsDB=require("./app/elements/item-details/map-items-todb.js");
 app.post('/mapitem', urlencodedParser, function (req, res) {
-  global.connection.query("SELECT itemname FROM m_item_details",function(err,rows){
-  if(rows.length>0){
-    global.connection.query("SELECT itemname FROM finishedgoods_itemtype",function(err,rows1){
-      rows.push(rows1[0]);
-      res.status(200).json({'returnval': rows});
-    });
-  }
-
-  else
-    res.status(200).json({'returnval': "Invalid!"});
-  });
+  mapItemsDB.mapitem(function(callback){
+    if(callback!=null){
+      res.status(200).json({'returnval': callback});
+    }
+    else{
+      res.status(200).json({'returnval': "Invalid!"});
+    }
+  })
 });
 
 app.post('/mapsupplier', urlencodedParser, function (req, res) {
-  global.connection.query("SELECT suppliername FROM m_supplierdetails",function(err,rows){
-  if(rows.length>0)
-  res.status(200).json({'returnval': rows});
-  else
-    res.status(200).json({'returnval': "Invalid!"});
-  });
+  mapItemsDB.mapsupplier(function(callback){
+    if(callback!=null){
+      res.status(200).json({'returnval': callback});
+    }
+    else{
+      res.status(200).json({'returnval': "Invalid!"});
+    }
+  })
 });
 
 var itemToAddSupplier=require("./app/elements/item-details/item-to-addsupplier.js");
