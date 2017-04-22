@@ -6,7 +6,6 @@
   </style>
   <template>
     <p hidden>{{getstring}}</p>
-    <!-- <paper-button raised on-click="generateid">Generate ID</paper-button> -->
     <iron-ajax
       id="autogen"
       method="post"
@@ -17,35 +16,36 @@
   </template>
 </dom-module>
 <script type="text/javascript">
-  var autoid;
   Polymer({
     is: "autogen-id",
     ready:function(){
-      alert("autogen-id");
+      // alert("autogen-id");
     },
+
     handleautogenerateid:function(e){
-      alert("response"+e.detail.response.returnid)
+
       var getid=e.detail.response.returnid;
+      alert("generateId"+getid);
       if(this.getstring=="sup"){
         var supstringid="sup"+getid;
-      document.querySelector("call-add-supplier").submitFn(supstringid);
-    }
-    if(this.getstring=="cus"){
-      var cusstringid="cus"+getid;
-      document.querySelector("call-add-customer").submitFn(cusstringid);
-    }
+        document.querySelector("call-add-supplier").submitFn(supstringid);
+      }
+      if(this.getstring=="cus"){
+        var cusstringid="cus"+getid;
+        document.querySelector("call-add-customer").submitFn(cusstringid);
+      }
       if(this.getstring=="ite"){
-      var itestringid="ite"+getid;
-     document.querySelector("item-details").save(itestringid);
-    }
+        var itestringid="ite"+getid;
+        document.querySelector("item-details").save(itestringid);
+      }
+      if(this.getstring=="irn"){
+        var irnstringid="irn"+getid;
+        document.querySelector("vehicle-in-process-itemdetails").saveitemauto(irnstringid);
+      }
     },
-        confirm:function(){
-      autoid="sal"+autoid;
-      document.querySelector("sales-projection").confirm1(autoid);
-    },
-    
+
     send:function(data){
-      alert(data);
+      // alert("getting");
       this.getstring=data;
       this.$.autogen.generateRequest();
     }
