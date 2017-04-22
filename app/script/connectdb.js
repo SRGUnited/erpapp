@@ -381,3 +381,37 @@ connection.query(" INSERT INTO m_customerdetail SET ?",[data],function(result,er
   }
   });
 }
+
+exports.storeFn=function(callback){
+  callback=callback||function(){};
+  	connection.query("SELECT item_id,supplier_id,inward_register_number FROM od_inward_item_register where status='stores'",function(err,getrows){
+        var arr=[];
+  	if(getrows.length>0){
+      for(var i=0;i<getrows.length;i++){
+          connection.query("SELECT T1.itemname,T1.itemspecification1,T2.suppliername,T3.*,T4.item_quantity,T4.container_quantity,T4.unit_of_measure_id,T4.container_id,T4.status,T4.po_number,T4.po_date FROM m_item_details T1 JOIN m_supplierdetails T2 ON T1.itemid = '"+getrows[i].item_id+"' AND T2.supplierid = '"+getrows[i].supplier_id+"' JOIN od_inward_item_invoice T3 ON inward_register_number='"+getrows[i].inward_register_number+"' JOIN od_inward_item_register T4 ON T4.item_id='"+getrows[i].item_id+"'",function(err,rows){
+            arr.push(rows[0]);
+            if(getrows.length==arr.length){
+              return callback(arr);
+            }
+        });
+      }
+    }
+  });
+}
+
+exports.purchaseFn=function(callback){
+  callback=callback||function(){};
+  connection.query("SELECT item_id,supplier_id,inward_register_number FROM od_inward_item_register where status='purchase'",function(err,getrows){
+      var arr=[];
+  if(getrows.length>0){
+    for(var i=0;i<getrows.length;i++){
+        connection.query("SELECT T1.itemname,T1.itemspecification1,T2.suppliername,T3.*,T4.item_quantity,T4.container_quantity,T4.unit_of_measure_id,T4.container_id,T4.status,T4.po_date,T4.po_number FROM m_item_details T1 JOIN m_supplierdetails T2 ON T1.itemid = '"+getrows[i].item_id+"' AND T2.supplierid = '"+getrows[i].supplier_id+"' JOIN od_inward_item_invoice T3 ON inward_register_number='"+getrows[i].inward_register_number+"' JOIN od_inward_item_register T4 ON T4.item_id='"+getrows[i].item_id+"'",function(err,rows){
+          arr.push(rows[0]);
+          if(getrows.length==arr.length){
+            return callback(arr);
+          }
+      });
+    }
+  }
+});
+}
