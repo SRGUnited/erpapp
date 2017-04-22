@@ -641,4 +641,179 @@ app.post('/stores', urlencodedParser, function (req,res) {
           res.status(200).json({'returnval': "does not get saleid"});
       });
       });
+var supplierautocompletedb=require("./app/elements/vehicle-in-process-suppliername/supplierautocompletedb.js");
+app.post('/supplierautocomplete',urlencodedParser,function (req, res) {
+
+  supplierautocompletedb.supplierautocomplete(function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+});
+});
+
+var itemautocompletedb=require("./app/elements/vehicle-in-process-itemdetails/itemautocompletedb.js");
+app.post('/itemdescriptionautocomplete', urlencodedParser, function (req, res) {
+  itemautocompletedb.itemdescriptionautocomplete(req.query.suppliername,req.query.supplierid,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+var containerdbpath=require("./app/elements/vehicle-in-process-itemdetails/containerdb.js");
+app.post('/containeridfetch', urlencodedParser, function (req, res) {
+  containerdbpath.containeridfetch(req.query.containeridvalue,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+var quantitydbpath=require("./app/elements/vehicle-in-process-itemdetails/quantitydb.js");
+app.post('/quantityidfetch', urlencodedParser, function (req, res) {
+  quantitydbpath.quantityidfetch(req.query.unitofmeasureidvalue,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
+var autoGenerateID=require("./app/elements/autogen-id/autogen-id-todb.js");
+app.post ('/autogenerateid', urlencodedParser, function (req, res) {
+  autoGenerateID.generateId(function(retrievedData){
+    if(retrievedData>=0)
+      res.status(200).json({'returnid': retrievedData});
+    else
+      res.status(200).json({'returnid': "No ID to Generate!"});
+  });
+});
+
+var invoicedbpath=require("./app/elements/vehicle-in-process-itemdetails/invoiceprocessdb.js");
+app.post('/invoicesaving', urlencodedParser, function (req, res) {
+  console.log(req.query.invoicenovalue);
+  console.log(req.query.invoicedatevalue);
+  console.log(req.query.irnnumber);
+  invoicedbpath.invoicesaving(req.query.invoicenovalue,req.query.invoicedatevalue,req.query.irnnumber,function(rows){
+    if(rows=="saved"){
+      res.status(200).json({'returnval': "Invoice detail saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
+var vehicledbpath=require("./app/elements/vehicle-in-process-itemdetails/vehicleprocessdb.js");
+app.post('/vehiclesaving', urlencodedParser, function (req, res) {
+  vehicledbpath.vehiclesaving(req.query.vehiclenamevalue,req.query.vehiclenovalue,req.query.drivernamevalue,req.query.drivernovalue,req.query.irnnumber,function(rows){
+    if(rows=="saved"){
+      res.status(200).json({'returnval': "vehicle detail saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Not saved!"});
+  });
+});
+var supplierdbpath=require("./app/elements/vehicle-in-process-itemdetails/supplierprocessdb.js");
+app.post('/supplieridsaving', urlencodedParser, function (req, res) {
+  supplierdbpath.supplieridsaving(req.query.supplieridvalue,req.query.irnnumber,req.query.item_id,req.query.containeridvalue,req.query.unitofmeasureidvalue,req.query.remarks,req.query.containergetvalue,req.query.qtygetvalue,function(rows){
+    if(rows=="saved"){
+      res.status(200).json({'returnval': "supplierdetails saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Not saved!"});
+  });
+});
+var supplierautocompletedb=require("./app/elements/vehicle-in-process-suppliername/supplierautocompletedb.js");
+app.post('/supplierautocomplete',urlencodedParser,function (req, res) {
+
+  supplierautocompletedb.supplierautocomplete(function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+});
+});
+
+var itemautocompletedb=require("./app/elements/vehicle-in-process-itemdetails/itemautocompletedb.js");
+app.post('/itemdescriptionautocomplete', urlencodedParser, function (req, res) {
+  itemautocompletedb.itemdescriptionautocomplete(req.query.suppliername,req.query.supplierid,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+var containerdbpath=require("./app/elements/vehicle-in-process-itemdetails/containerdb.js");
+app.post('/containeridfetch', urlencodedParser, function (req, res) {
+  containerdbpath.containeridfetch(req.query.containeridvalue,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+var quantitydbpath=require("./app/elements/vehicle-in-process-itemdetails/quantitydb.js");
+app.post('/quantityidfetch', urlencodedParser, function (req, res) {
+  quantitydbpath.quantityidfetch(req.query.unitofmeasureidvalue,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
+var autoGenerateID=require("./app/elements/autogen-id/autogen-id-todb.js");
+app.post ('/autogenerateid', urlencodedParser, function (req, res) {
+  autoGenerateID.generateId(function(retrievedData){
+    if(retrievedData>=0)
+      res.status(200).json({'returnid': retrievedData});
+    else
+      res.status(200).json({'returnid': "No ID to Generate!"});
+  });
+});
+
+var invoicedbpath=require("./app/elements/vehicle-in-process-itemdetails/invoiceprocessdb.js");
+app.post('/invoicesaving', urlencodedParser, function (req, res) {
+  console.log(req.query.invoicenovalue);
+  console.log(req.query.invoicedatevalue);
+  console.log(req.query.irnnumber);
+  invoicedbpath.invoicesaving(req.query.invoicenovalue,req.query.invoicedatevalue,req.query.irnnumber,function(rows){
+    if(rows=="saved"){
+      res.status(200).json({'returnval': "Invoice detail saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
+var vehicledbpath=require("./app/elements/vehicle-in-process-itemdetails/vehicleprocessdb.js");
+app.post('/vehiclesaving', urlencodedParser, function (req, res) {
+  vehicledbpath.vehiclesaving(req.query.vehiclenamevalue,req.query.vehiclenovalue,req.query.drivernamevalue,req.query.drivernovalue,req.query.irnnumber,function(rows){
+    if(rows=="saved"){
+      res.status(200).json({'returnval': "vehicle detail saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Not saved!"});
+  });
+});
+var supplierdbpath=require("./app/elements/vehicle-in-process-itemdetails/supplierprocessdb.js");
+app.post('/supplieridsaving', urlencodedParser, function (req, res) {
+  supplierdbpath.supplieridsaving(req.query.supplieridvalue,req.query.irnnumber,req.query.item_id,req.query.containeridvalue,req.query.unitofmeasureidvalue,req.query.remarks,req.query.containergetvalue,req.query.qtygetvalue,function(rows){
+    if(rows=="saved"){
+      res.status(200).json({'returnval': "supplierdetails saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Not saved!"});
+  });
+});
+
 app.listen(4000);
