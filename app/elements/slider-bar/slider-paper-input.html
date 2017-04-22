@@ -1,0 +1,18 @@
+<dom-module id="slider-paper-input">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <paper-input label=">" value={{actualval}} on-change="actuals"></paper-input>
+  </template>
+</dom-module>
+<script type="text/javascript">
+  Polymer({
+    is: "slider-paper-input",
+    actuals:function(){
+      document.querySelector('slider-bar').actualsip(this.actualval);
+    }
+      });
+</script>
