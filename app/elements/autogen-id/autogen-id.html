@@ -17,6 +17,7 @@
   </template>
 </dom-module>
 <script type="text/javascript">
+  var autoid;
   Polymer({
     is: "autogen-id",
     ready:function(){
@@ -38,6 +39,11 @@
      document.querySelector("item-details").save(itestringid);
     }
     },
+        confirm:function(){
+      autoid="sal"+autoid;
+      document.querySelector("sales-projection").confirm1(autoid);
+    },
+    
     send:function(data){
       alert(data);
       this.getstring=data;
