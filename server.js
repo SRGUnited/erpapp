@@ -623,4 +623,22 @@ app.post('/vehiclesavedata', urlencodedParser, function (req, res) {
 
 });
 
+app.post('/stores', urlencodedParser, function (req,res) {
+    connectdb.storeFn(function(rows){
+      if(rows!="reject"){
+        res.status(200).json({'returnval': rows});
+      }
+      else
+        res.status(200).json({'returnval': "does not get saleid"});
+    });
+    });
+    app.post('/purchase', urlencodedParser, function (req,res) {
+      connectdb.purchaseFn(function(rows){
+        if(rows!="reject"){
+          res.status(200).json({'returnval': rows});
+        }
+        else
+          res.status(200).json({'returnval': "does not get saleid"});
+      });
+      });
 app.listen(4000);
