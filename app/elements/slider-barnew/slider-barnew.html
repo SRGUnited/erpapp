@@ -4,7 +4,7 @@
   <style>
       input[type=range] {
        -webkit-appearance: none;
-        width: 35%;
+        width: 38%;
        }
      input[type=range]:focus {
        outline: none;
@@ -149,36 +149,32 @@
            -o-user-select: none;
            user-select: none;
          }
-     .maximumordered{
-       margin-left: 355px;
-       background-color: rgb(66, 139, 202);
-       /*margin-top: 20px;*/
-     }
-     /*#rangePrimary{
-       margin-left: 100px;
-       margin-top: 20px;
-     }*/
-     .rate-header { @apply(--paper-font-headline);
-       font-size: 20px;
-      }
+      .maximumordered{
+          margin-left: 358px;
+          background-color: rgb(66, 139, 202);
+         /*margin-top: 20px;*/
+       }
+      .rate-header { @apply(--paper-font-headline);
+            font-size: 20px;
+        }
       .totaldesign
       {
-        margin-left: 70px;
+          margin-left: 65px;
 
       }
 </style>
 	<div class="container">
     <div class='totaldesign'>
   	<div class="range range-primary">
-      <div id="stock" class="rate-header">Stock Tracking</div><br>
+      <div class="rate-header">Stock Tracking</div><br>
     		<input type="range" name="range" min="0" max="{{max1}}" value="{{value1}}" onchange="rangePrimary.value=value">
-  	<div class="maximumordered" style="margin-top:10px;">
-   	<b>{{max1}}</b>
-  	 </div>
-  	<output  class="outputrange" id="rangePrimary" style="margin-top:1px;">{{value1}}</output>
-  	</div>
-  	</div>
-  </div>
+      <div class="maximumordered" style="margin-top:10px;">
+         	<b>{{max1}}</b>
+      </div>
+    	     <output  class="outputrange" id="rangePrimary" style="margin-top:1px;">{{value1}}</output>
+    	</div>
+    	</div>
+    </div>
       <slider-ironajax></slider-ironajax>
 </template>
   <script src="slider-barnew.js"></script>
