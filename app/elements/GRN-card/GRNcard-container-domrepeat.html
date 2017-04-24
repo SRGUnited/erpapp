@@ -12,8 +12,7 @@
        background-size: cover;
       }
       .rate-content {
-       @apply(--layout-flex);
-       float: left;
+       margin-left: 10%;
       }
       .rate-header { @apply(--paper-font-headline); }
       .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
@@ -23,17 +22,18 @@
       }
   </style>
   <paper-card  class="rate" style="margin-top:6px;margin-left:15px;width:80%">
+    <div class="rate-content">{{idvalue}}&nbsp{{index}}</div>
     <div class="card-content">
       <paper-input label="Container Number" value="{{cntnoVal}}"></paper-input>
       <paper-input hidden={{btno}} label="Batch No" value="{{btnoVal}}"></paper-input>
       <paper-input hidden={{htno}} label="Heat No" value="{{htnoVal}}"></paper-input>
       <paper-input label="Quantity" value="{{quantityVal}}"></paper-input>
-      <paper-button raised on-click="savecontaineridFn">save</paper-button>
+      <paper-checkbox align="right" id="checked" on-change="change"></paper-checkbox>
     </div>
-    <div>{{idvalue}}&nbsp{{index}}</div>
     <div class="rate-image" hidden>{{idval}}{{indexval}}</div>
   <span><b></b></span><span></span>
 </paper-card>
+<paper-button raised on-click="savecontaineridFn">save</paper-button>
     <iron-ajax
       method="post"
       id="savecontaineridAjax"
@@ -55,7 +55,7 @@
         this.containeridparams={Containerno:this.cntnoVal,
                                 quantityVal:this.quantityVal
                               };
-        alert(JSON.stringify(this.containeridparams));
+        // alert(JSON.stringify(this.containeridparams));
                         }
                         if(this.btno==0){
                         this.containeridparams={Containerno:this.cntnoVal,
@@ -63,9 +63,14 @@
                                                 htnoVal:this.htnoVal,
                                                 quantityVal:this.quantityVal
                                               };
-                        alert(JSON.stringify(this.containeridparams));
-                                        }
+                        // alert(JSON.stringify(this.containeridparams));
+                      }
+                                        var a = $('input[type="checkbox"]:checked').length;
+                                        alert(a);
         // this.$.savecontaineridAjax.generateRequest();
+      },
+      change:function(e){
+
       }
     });
   </script>
