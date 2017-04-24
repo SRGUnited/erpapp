@@ -115,7 +115,7 @@
         this.$.itemajax.generateRequest();
     },
     itemautocomplete:function(e){
-      alert(JSON.stringify(e.detail.response.returnval));
+      // alert(JSON.stringify(e.detail.response.returnval));
        var itemvalues=e.detail.response.returnval;
       for(var i=0;i<=itemvalues.length;i++){
       containeridvalue=itemvalues[i].containerid;
@@ -162,10 +162,10 @@
         this.querySelector('#transportinput2').style.visibility='visible';
 
         if(e.keyCode==8){
-          this.itemflag="true";
-          this.itemval="";
-          var len=(this.value).length;
-          if(len<=1){
+        this.itemflag="true";
+        this.itemval="";
+        var len=(this.value).length;
+        if(len<=1){
             this.querySelector('#transportinput2').style.visibility='hidden';
             this.itemArray="";
             this.itemval="";
@@ -205,12 +205,13 @@
 }
           if(this.itemval.length>0)
           {
+       alert(this.itemval);
             for(var i=0;i<item.length;i++)
             {
               // alert("ok ok");
 
             var subval=((item[i].itemname).trim()).substring(0,this.itemval.length);
-              alert(JSON.stringify(item[i].itemname));
+              // alert(JSON.stringify(item[i].itemname));
               // alert(this.itemval);
               // alert(JSON.stringify(this.itemval));
               // alert(this.itemval.length);
@@ -218,6 +219,7 @@
                 // subval1.push(subval);
              if(this.itemval == subval)
              {
+              // alert(this.itemval);
                alert("equal");
               if((item[i].itemname).toUpperCase().indexOf((this.itemval).toUpperCase())!=-1)
               {
@@ -226,9 +228,14 @@
                 obj.itemid=item[i].itemid;
                 // var obj1={"itemdes":obj.itemname};
                 arr.push(obj);
+
+
               }
-            }
-            }
+
+           }
+  break;
+
+          }
             if(arr.length>0)
               this.itemArray=arr;
             else
