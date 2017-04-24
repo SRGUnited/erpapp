@@ -78,7 +78,7 @@ app.post('/searchitem', urlencodedParser, function (req, res) { //add item searc
 //*********************************CEO APPROVAL PROCESSES
 var itemapprovaldb=require("./app/elements/call-ceo-card/call-ceo-card-todb.js")
 app.post('/ceoitemsearch', urlencodedParser, function (req, res) {
-  itemapprovaldb.searchitem(function(callback,fgrows){ // Othre than Finished Goods
+  itemapprovaldb.searchitem(function(callback,fgrows){ // Other than Finished Goods
     if(callback||fgrows!=null){
       res.status(200).json({'returnval': callback,'returnfg': fgrows});
     }
@@ -813,6 +813,18 @@ app.post('/supplieridsaving', urlencodedParser, function (req, res) {
     }
     else
       res.status(200).json({'returnval': "Not saved!"});
+  });
+});
+
+var sliderDB=require("./app/elements/slider-bar/slider-bar-todb.js");
+app.post ('/testingdata', urlencodedParser, function (req, res) {
+  console.log("testingdata");
+  sliderDB.gettestingdata(function(testingdata){
+    console.log("server:"+testingdata);
+    if(testingdata.length>0)
+      res.status(200).json({'testingdata': testingdata});
+    else
+      res.status(200).json({'testingdata': "No testingdata!"});
   });
 });
 
