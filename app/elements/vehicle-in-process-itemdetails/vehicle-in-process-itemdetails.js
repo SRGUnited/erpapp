@@ -13,7 +13,7 @@
     var drivernamevalue="";
     var drivernovalue="";
     var supplieridvalue="";
-
+    var subval1=[];
   Polymer({
     is: 'vehicle-in-process-itemdetails',
 
@@ -119,11 +119,11 @@
        var itemvalues=e.detail.response.returnval;
       for(var i=0;i<=itemvalues.length;i++){
       containeridvalue=itemvalues[i].containerid;
-      alert(JSON.stringify(containeridvalue));
+      // alert(JSON.stringify(containeridvalue));
       unitofmeasureidvalue=itemvalues[i].unitofmeasures;
-       item=[{"itemname":itemvalues[i].itemname,"itemid":itemvalues[i].itemid}];
-
-      alert(JSON.stringify(item));
+     item=[{"itemname":itemvalues[i].itemname,"itemid":itemvalues[i].itemid}];
+       document.querySelector("vehicle-in-process-itemdetails").FnSearchEnquiry(item);
+      // alert(JSON.stringify(item));
     }
     },
     containerfunction:function(){
@@ -152,6 +152,8 @@
     },
 
     FnSearchEnquiry:function(e){
+
+
         if(e.keyCode==13|| e.keyCode==40)
         this.querySelector('#transportinput2').focus();
 
@@ -192,22 +194,28 @@
         //while typing item display
         if(e.keyCode!=8&& e.keyCode!=16&& e.keyCode!=13 && e.keyCode!=38&&e.keyCode!=40&&e.keyCode!=37&&e.keyCode!=39)
         {
-          alert("ok");
+          // alert("ok");
           if(this.itemflag=="true") {
             this.itemval = (this.value).toUpperCase()+String.fromCharCode((e.keyCode)).toUpperCase();
             this.itemflag="false";
           }
           else{
           this.itemval = this.value +String.fromCharCode((e.keyCode));
-          alert(this.itemval);
+          // alert(this.itemval);
 }
           if(this.itemval.length>0)
           {
             for(var i=0;i<item.length;i++)
             {
-              alert("ok ok");
-              var subval=((item[i].itemname).trim()).substring(0,this.itemval.length);
+              // alert("ok ok");
+
+            var subval=((item[i].itemname).trim()).substring(0,this.itemval.length);
+              alert(JSON.stringify(item[i].itemname));
+              // alert(this.itemval);
+              // alert(JSON.stringify(this.itemval));
+              // alert(this.itemval.length);
               alert(subval);
+                // subval1.push(subval);
              if(this.itemval == subval)
              {
                alert("equal");
