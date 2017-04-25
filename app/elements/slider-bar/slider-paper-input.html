@@ -3,8 +3,8 @@
     :host {
       display: block;
     }
-    /*input[type=range] {
-      -webkit-appearance: none;  
+    input[type=range] {
+      -webkit-appearance: none;
       margin: 10px 0;
       width: 100%;
     }
@@ -87,19 +87,58 @@
     }
     input[type=range]:focus::-ms-fill-upper {
       background: #3071A9;
-    }*/
-
+    }
+    #slider{
+      /*width:70%;*/
+    }
+    #paperinput{
+      /*width:20%;
+      padding-left:10%;*/
+    }
+    #statusicon{
+      /*padding-left:10%;*/
+      /*width:15%;*/
+    }
   </style>
   <template>
-    <!-- <input type="range" value="{{para1}}"></input> -->
-    <paper-input label="" value={{actualval}} on-change="actuals" disable></paper-input>
+    <!-- <div hidden>
+      {{temp}}
+    </div> -->
+    <table>
+        <tr>
+          <!-- <template is="dom-repeat" items="{{x}}" as="y"> -->
+            <td>{{qualityParameterName}}</td>
+            <td id="slider"><span>{{minimumvalue}}&#8195{{maximumvalue}}</span><input type="range" value="{{para1}}"></input></td>
+
+            <td id="paperinput"><paper-input label="" value={{actualval}} on-change="actuals"></paper-input></td>
+            <td id="statusicon">
+              <span style="color:#A2CD6F;" class="fa fa-check" hidden="{{check}}"></span>
+              <span style="color:red;" class="fa fa-close" hidden="{{close}}"></span>
+            </td>
+          <!-- </template> -->
+        </tr>
+    </table>
+    <iron-ajax
+      auto
+      method="post"
+      url="http://localhost:4000/testingdata"
+      handle-as="json"
+      on-response="handletestingdata">
+    </iron-ajax>
   </template>
 </dom-module>
 <script type="text/javascript">
   Polymer({
     is: "slider-paper-input",
     actuals:function(){
-      document.querySelector('slider-bar').actualsip(this.actualval);
-    }
-      });
+      document.querySelector('slider-bar').temp(this.actualval);
+    },
+    handletestingdata:function(e){
+      this.dbdata=e.detail.response.testingdata;
+      // alert(this.dbdata);
+      // this.x=e.detail.response.testingdata;
+      document.querySelector('slider-bar').dbResponse(this.dbdata);
+    },
+
+  });
 </script>

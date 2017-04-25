@@ -818,9 +818,9 @@ app.post('/supplieridsaving', urlencodedParser, function (req, res) {
 
 var sliderDB=require("./app/elements/slider-bar/slider-bar-todb.js");
 app.post ('/testingdata', urlencodedParser, function (req, res) {
-  console.log("testingdata");
+  // console.log("testingdata");
   sliderDB.gettestingdata(function(testingdata){
-    console.log("server:"+testingdata);
+    // console.log("server:"+testingdata);
     if(testingdata.length>0)
       res.status(200).json({'testingdata': testingdata});
     else

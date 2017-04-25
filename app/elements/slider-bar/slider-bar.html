@@ -1,90 +1,5 @@
 <dom-module id="slider-bar">
   <style>
-  input[type=range] {
-    -webkit-appearance: none;
-    margin: 10px 0;
-    width: 100%;
-  }
-  input[type=range]:focus {
-    outline: none;
-  }
-  input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 10px;
-    cursor: pointer;
-    animate: 0.2s;
-    background: #C6C4C4;
-    border-radius: 5px;
-  }
-  input[type=range]::-webkit-slider-thumb {
-    box-shadow: 1px 1px 1px #000000;
-    border: 1px solid #000000;
-    height: 30px;
-    width: 15px;
-    border-radius: 5px;
-    background: #FFFFFF;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -11px;
-  }
-  input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #C6C4C4;
-  }
-  input[type=range]::-moz-range-track {
-    width: 100%;
-    height: 10px;
-    cursor: pointer;
-    animate: 0.2s;
-    box-shadow: 1px 1px 1px #000000;
-    background: #3071A9;
-    border-radius: 5px;
-    border: 1px solid #000000;
-  }
-  input[type=range]::-moz-range-thumb {
-    box-shadow: 1px 1px 1px #000000;
-    border: 1px solid #000000;
-    height: 30px;
-    width: 15px;
-    border-radius: 5px;
-    background: #FFFFFF;
-    cursor: pointer;
-  }
-  input[type=range]::-ms-track {
-    width: 100%;
-    height: 10px;
-    cursor: pointer;
-    animate: 0.2s;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-  }
-  input[type=range]::-ms-fill-lower {
-    background: #3071A9;
-    border: 1px solid #000000;
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px #000000;
-  }
-  input[type=range]::-ms-fill-upper {
-    background: #3071A9;
-    border: 1px solid #000000;
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px #000000;
-  }
-  input[type=range]::-ms-thumb {
-    box-shadow: 1px 1px 1px #000000;
-    border: 1px solid #000000;
-    height: 30px;
-    width: 15px;
-    border-radius: 5px;
-    background: #FFFFFF;
-    cursor: pointer;
-  }
-  input[type=range]:focus::-ms-fill-lower {
-    background: #3071A9;
-  }
-  input[type=range]:focus::-ms-fill-upper {
-    background: #3071A9;
-  }
   #insertionPoint{
     cursor: pointer;
   }
@@ -92,7 +7,7 @@
   <template>
     <section class="content">
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-sm-6">
           <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Testing</h3>
@@ -100,30 +15,23 @@
             <div class="box-body">
               <table> <!--  <table class="table"> for no border -->
                 <tr>
-                  <th></th>
-                  <th></th>
-                  <th style="width: 10%;padding-left:30px;" class="text-center">Actuals</th>
-                  <th></th>
+                  <th>asdf</th>
+                  <th class="text-center">Actuals</th>
                 </tr>
-                <template is="dom-repeat" items="{{x}}" as="y">
-                  <tr>
-                    <td class="text-center">{{y.quality_parameter_name}}</td>
-                    <td style="padding-left:30px;">
-                      <div>
-                      <input type="range" value="{{para1}}"></input>
-                    </div>
-                    &#8195{{y.minimum_value}}&#8195&#8195&#8195&#8195&#8195
-                    &#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195
-                    &#8195{{y.maximum_value}}
+                <slider-paper-input check="1" close="1" hidden></slider-paper-input>
+                <template is="dom-repeat" items="{{response}}">
+                  <!-- <tr>
+                    <td>{{y.quality_parameter_name}}</td>
+                    <td style="width:100%;padding-left:2%;"> -->
+                        <slider-paper-input qualityParameterName="{{item.quality_parameter_name}}"
+                                            minimumvalue="{{item.minimum_value}}"
+                                            maximumvalue="{{item.maximum_value}}"
+                                            check="1"
+                                            close="1"></slider-paper-input>
+                    <!-- {{y.minimum_value}}&#8195&#8195&#8195&#8195&#8195
+                    &#8195&#8195&#8195&#8195&#8195&#8195{{y.maximum_value}}
                     </td>
-                    <td style="padding-left:30px;">
-                      <slider-paper-input></slider-paper-input>
-                    </td>
-                    <td style="width:15%;padding-left:40px;font-size: 20px;">
-                      <span style="color:#A2CD6F;" class="fa fa-check" hidden="{{hidevar}}"></span>
-                      <span style="color:red;" class="fa fa-close" hidden="{{hidevar1}}"></span>
-                    </td>
-                  </tr>
+                  </tr> -->
                 </template>
               </table>
             </div>
@@ -149,12 +57,12 @@
         </div>
       </div>
     </section>
-    <iron-ajax
+    <!-- <iron-ajax
       auto
       method="post"
       url="http://localhost:4000/testingdata"
       handle-as="json"
-      on-response="handletestingdata"></iron-ajax>
+      on-response="handletestingdata"></iron-ajax> -->
 
     <iron-ajax
       id="SaveActualsIA"
@@ -173,41 +81,56 @@
     HandleSaveActualsIA:function(){
 
     },
-    handletestingdata:function(e){
-      this.dbdata=e.detail.response.testingdata;
-      this.x=e.detail.response.testingdata;
-      for(var i=0;i<=x.length;i++){
-        alert(JSON.stringify(x[i].minimum_value));
-      }
-    },
+
     SaveActuals:function(){
-      $(".HeaderName").after("your html here");
-      this.hidevar=0;
-        // document.querySelector("#anchorID").style.display="none";
-    },
-    actualsip:function(x){
-      this.hidevar1=1;
-      this.hidevar=1;
-      var min=this.dbdata[0].minimum_value;
-      var max=this.dbdata[0].maximum_value;
-      if(x<min||x>max){
-        this.hidevar1=0;
-      }
-      else {
-        this.hidevar=0;
-      }
+      alert(this.actualval);
+      // $(".HeaderName").after("your html here");
+      // this.hidevar=0;
     },
     pass: function() {
       this.PorF="pass";
       document.getElementById("down").style.color = "grey";
       document.getElementById("up").style.color = "#A2CD6F";
-      alert(this.PorF);
     },
     fail: function() {
       this.PorF="fail";
       document.getElementById("up").style.color = "grey";
       document.getElementById("down").style.color = "red";
-      alert(this.PorF);
+    },
+    // handletestingdata:function(e){
+    //   this.dbdata=e.detail.response.testingdata;
+    //   this.x=e.detail.response.testingdata;
+    // },
+    temp:function(y){
+      // var min=this.dbdata[0].minimum_value;
+      // var max=this.dbdata[0].maximum_value;
+      // if(y<min||y>max){
+      //   document.querySelector('slider-paper-input').hidevar=1;
+      //   document.querySelector('slider-paper-input').hidevar1=0;
+      // }
+      // else {
+      //   document.querySelector('slider-paper-input').hidevar1=1;
+      //   document.querySelector('slider-paper-input').hidevar=0;
+      // }
+      for(var i=0;i<this.dbdata.length;i++){
+        // alert(this.dbdata.length);
+        // alert(y);
+        if(y<this.dbdata[i].minimum_value||y>this.dbdata[i].maximum_value){
+          document.querySelector('slider-paper-input').check=1;
+          document.querySelector('slider-paper-input').close=0;
+          // i=this.dbdata.length;
+        }
+        else {
+          document.querySelector('slider-paper-input').close=1;
+          document.querySelector('slider-paper-input').check=0;
+          // i=this.dbdata.length;
+        }
+
+      }
+    },
+    dbResponse:function(a){
+      this.response=a;
+      alert(JSON.stringify(a));
     }
   });
 </script>
