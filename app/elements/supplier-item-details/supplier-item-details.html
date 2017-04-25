@@ -1,0 +1,36 @@
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<dom-module id="supplier-item-details">
+  <template>
+    <style is="custom-style">
+    paper-card.size{
+     width: 50%;
+    }
+    </style>
+      <paper-card heading="Supplier-Item Details" class="size">
+      <div class="card-content">
+        <!-- <paper-input label="{{SupplierName}}" value="{{SupplierNameVal}}" on-keydown="FnSearchEnquiry"></paper-input> -->
+        <paper-input  label="SupplierName" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input>
+        <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry">
+        <template is="dom-repeat" items="{{itemArray}}" as="item">
+        <paper-item value="{{item.suppliername}}">{{item.itemdes}}</paper-item>
+        </template>
+        </paper-listbox>
+        <!-- <paper-input label="{{CategoryName}}" value="{{CategoryNameVal}}" on-keydown="FnSearchEnquiry"></paper-input>
+        <paper-input label="{{ItemName}}" value="{{ItemNameVal}}" on-keydown="FnSearchEnquiry"></paper-input>
+        <paper-input label="{{Specification1}}" value="{{Specification1Val}}" on-keydown="FnSearchEnquiry"></paper-input>
+        <paper-input label="{{Specification2}}" value="{Specification2Val}}" on-keydown="FnSearchEnquiry"></paper-input>
+        <paper-input label="{{Specification3}}" value="{{Specification3Val}}" on-keydown="FnSearchEnquiry"></paper-input>
+        <paper-input label="{{Specification4}}" value="{{Specification4Val}}" on-keydown="FnSearchEnquiry"></paper-input> -->
+      <supplier-item-details-ironajax></supplier-item-details-ironajax>
+      </div>
+      <div class="card-actions">
+        <center>
+          <paper-button raised on-click="submitFn">Save</paper-button>
+        </center>
+      </div>
+    </paper-card>
+
+  </template>
+  <script src="supplier-item-detailsjs.js"></script>
+
+</dom-module>

@@ -122,7 +122,7 @@
       alert(JSON.stringify(containeridvalue));
       unitofmeasureidvalue=itemvalues[i].unitofmeasures;
        item=[{"itemname":itemvalues[i].itemname,"itemid":itemvalues[i].itemid}];
-
+document.querySelector("vehicle-in-process-suppliername").FnSearchEnquiry(item);
       alert(JSON.stringify(item));
     }
     },
@@ -192,7 +192,7 @@
         //while typing item display
         if(e.keyCode!=8&& e.keyCode!=16&& e.keyCode!=13 && e.keyCode!=38&&e.keyCode!=40&&e.keyCode!=37&&e.keyCode!=39)
         {
-          alert("ok");
+          // alert("ok");
           if(this.itemflag=="true") {
             this.itemval = (this.value).toUpperCase()+String.fromCharCode((e.keyCode)).toUpperCase();
             this.itemflag="false";
@@ -205,7 +205,7 @@
           {
             for(var i=0;i<item.length;i++)
             {
-              alert("ok ok");
+              // alert("ok ok");
               var subval=((item[i].itemname).trim()).substring(0,this.itemval.length);
               alert(subval);
              if(this.itemval == subval)

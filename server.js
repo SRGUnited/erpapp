@@ -505,7 +505,17 @@ app.post('/autocomplete', urlencodedParser, function (req, res) {
     res.status(200).json({'returnval': "Invalid!"});
   });
 });
-
+app.post('/supplieritemautocomplete', urlencodedParser, function (req, res) {
+  global.connection.query("SELECT UPPER(suppliername) as suppliername FROM supplier_item_details",function(err,rows){
+    // console.log("adfasf:"+JSON.stringify(rows));
+  if(rows.length>0){
+    // console.log("here:"+JSON.stringify(rows));
+    res.status(200).json({'returnval': rows});
+    }
+  else
+    res.status(200).json({'returnval': "Invalid!"});
+  });
+});
 
 //bar-chart
 var barchart=require("./app/elements/barchart-card/barchart-card-todb.js");
@@ -622,6 +632,20 @@ app.post('/vehiclesavedata', urlencodedParser, function (req, res) {
   });
 
 });
+// supplier-item-details
+var supplieritemdetails=require("./app/elements/supplier-item-details/supplier-item-details-todb.js");
+app.post('/supplieritemdetailssavedata', urlencodedParser, function (req, res) {
+  supplieritemdetails.supplieritemdetailssavedata(req.query.SupplierNameVal,req.query.CategoryNameVal,req.query.ItemNameVal,req.query.Specification1Val,req.query.Specification2Val,req.query.Specification3Val,req.query.Specification4Val,function(callback){
+    if(callback=="saved!"){
+      res.status(200).json({'returnval': "Saved!"});
+    }
+    else{
+      res.status(200).json({'returnval': "Unable to save!"});
+    }
+  });
+
+});
+
 
 app.post('/stores', urlencodedParser, function (req,res) {
     connectdb.storeFn(function(rows){

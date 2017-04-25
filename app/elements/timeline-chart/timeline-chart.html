@@ -3,8 +3,7 @@
 <style>
 .container{
   width: 500px;
-  /*height: 150px;*/
-}
+  }
 .timeline .timeline-item .timeline-badge {
   color: #fff;
   width: 48px;
@@ -29,93 +28,49 @@
   background-color: #1f9eba;
 }
 
-.timeline .timeline-item .timeline-panel {
-  position: relative;
-  margin-top: 150px;
-  width: auto;
-  float: left;
-  right: 2px;
-  border: 1px solid #c0c0c0;
-  background: #ffffff;
-  border-radius: 2px;
-  padding: 10px;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-}
-
-.timeline .timeline-item .timeline-panel .timeline-heading{
-  color: inherit;
-}
 .timeline-horizontal {
   list-style: none;
   position: relative;
-  width: 500px;
+  width: 470px;
   height: 130px;
   padding: 20px 0px 20px 0px;
-  display: inline-block;
-  /*margin-left: 2px;*/
 }
 .timeline-horizontal:before {
   height: 3px;
   top: auto;
+  /*margin-left: 2px;*/
   bottom: 26px;
-  /*left: 56px;*/
   right: 0;
-  width: 75%;
+  width: 76%;
   margin-bottom: 20px;
-}
-.timeline-horizontal .timeline-item {
-  display: table-cell;
-  height: 110px;
-  width: 500px;
-  float: none !important;
-  padding-left: 0px;
-  padding-right: 20px;
-  margin: 10 auto;
-  vertical-align: bottom;
 }
 .timeline-horizontal .timeline-item{
   display: table-cell;
   height: 110px;
   width: 500px;
-  float: none !important;
-  padding-left: 0px;
-  padding-right: 20px;
-  margin: 10 auto;
   vertical-align: bottom;
 }
+/*.timeline-horizontal .timeline-item .timeline-badge:hover{
+  background-color: grey;
+}
+.timeline-horizontal .timeline-item .timeline-badge:active{
+  background-color: grey;
+}*/
 .timeline-horizontal .timeline-item .timeline-badge {
  margin-top: 20px;
+ /*margin-left: 2px;*/
  bottom: 0px;
- left: 20px;
 }
 .custom {
   --paper-tooltip-background: grey;
-  --paper-tooltip-text-color: var(--paper-white-500);
-  width: auto;
-  /*margin-left: auto;*/
-
- }
-.custom position{
-  margin-top: 15px;
-  /*margin-left: 2px;*/
-}
-paper-tooltip{
+  --paper-tooltip-text-color: var(--paper-white);
   margin-top: 40px;
-  /*margin-left: 2psx;*/
-  width: 100px;
+  width: auto;
+ }
 
-}
-paper-tooltip-inner {
-background-color: #FF0000;
-}
 .totaldesign
 {
-  margin-left: 40px;
-
-}
-.timeline-heading{
-  margin-left: 2px;
+  margin-left: 50px;
 }
 .rate-header { @apply(--paper-font-headline);
   font-size: 20px;
@@ -130,7 +85,7 @@ background-color: #FF0000;
         	<div class="row">
     				<div class="col-md-12">
               <ul class="timeline timeline-horizontal">
-                <li class="timeline-item">
+                <li class="timeline-item" >
                     <div class="timeline-badge primary"><i class="glyphicon glyphicon-time"></i></div>
                     <paper-tooltip class="custom"  position="top" animation-delay="0">
                     {{vehicleintime}}
@@ -139,7 +94,7 @@ background-color: #FF0000;
               	</li>
 
     						<li class="timeline-item">
-    							<div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
+    							<div class="timeline-badge primary" ><i class="glyphicon glyphicon-check"></i></div>
       							<paper-tooltip class="custom" style="width: 60px;" position="top" animation-delay="0" >
                     {{vehicleloadstartdatetime}}
                     </paper-tooltip>
@@ -168,7 +123,6 @@ background-color: #FF0000;
     							<div class="timeline-heading">{{deliveredtimelabel}}</div>
     						</li>
     					</ul>
-
     				</div>
     			</div>
         </div>
@@ -176,4 +130,5 @@ background-color: #FF0000;
     <ajax-timeline></ajax-timeline>
 </template>
   <script src="timeline-chart.js"></script>
+
 </dom-module>
