@@ -38,7 +38,7 @@ exports.insertsales=function(salesid,datetimeq,customerid,id,description,ispecif
   });
 }
 
-//update sales order
+//update sales ORDERED page
 exports.updatesales=function(salesid,datetimeq,customerid,id,description,ispecification,rcoilsq,rtonq,rdqty,datetimeq1,status,callback){
   var response={
     "salesorderid":salesid,
@@ -57,7 +57,6 @@ exports.updatesales=function(salesid,datetimeq,customerid,id,description,ispecif
     if(!err){
       require('fs').readFile(sales_person_directory,'utf8',function(err,jsondata){
         dbjsondata=JSON.parse(jsondata);
-        // console.log("update salesordercreate set itemspecification='"+ispecification+"',orderquantity='"+rtonq+"',containerquantity='"+rcoilsq+"'  where salesorderid='"+salesid+"'");
         connection.query("update salesordercreate set itemspecification='"+ispecification+"',orderquantity='"+rtonq+"',containerquantity='"+rcoilsq+"',status='"+status+"'  where salesorderid='"+salesid+"'",[dbjsondata],function(err){
           if(!err)
           console.log("saved");
