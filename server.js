@@ -31,7 +31,7 @@ app.use(express.static('app'));
 app.get('/' ,function (req, res) {
   res.sendFile( "app/index.html" );
 });
-
+console.log("Welcome!!!");
 //login-card
 app.post('/login', urlencodedParser, function (req, res) {
   var response={
@@ -696,9 +696,6 @@ app.post ('/autogenerateid', urlencodedParser, function (req, res) {
 
 var invoicedbpath=require("./app/elements/vehicle-in-process-itemdetails/invoiceprocessdb.js");
 app.post('/invoicesaving', urlencodedParser, function (req, res) {
-  console.log(req.query.invoicenovalue);
-  console.log(req.query.invoicedatevalue);
-  console.log(req.query.irnnumber);
   invoicedbpath.invoicesaving(req.query.invoicenovalue,req.query.invoicedatevalue,req.query.irnnumber,function(rows){
     if(rows=="saved"){
       res.status(200).json({'returnval': "Invoice detail saved"});
@@ -783,9 +780,6 @@ app.post ('/autogenerateid', urlencodedParser, function (req, res) {
 
 var invoicedbpath=require("./app/elements/vehicle-in-process-itemdetails/invoiceprocessdb.js");
 app.post('/invoicesaving', urlencodedParser, function (req, res) {
-  console.log(req.query.invoicenovalue);
-  console.log(req.query.invoicedatevalue);
-  console.log(req.query.irnnumber);
   invoicedbpath.invoicesaving(req.query.invoicenovalue,req.query.invoicedatevalue,req.query.irnnumber,function(rows){
     if(rows=="saved"){
       res.status(200).json({'returnval': "Invoice detail saved"});

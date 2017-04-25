@@ -21,7 +21,6 @@
       // alert("click");
       document.querySelector("autogen-id").send("irn");
       document.querySelector("vehicle-in-process-itemdetails").autogenbackfunction();
-
     },
     autogenbackfunction:function(){
       document.querySelector("vehicle-in-process-invoiceno").invoiceprocess();
@@ -115,7 +114,7 @@
         this.$.itemajax.generateRequest();
     },
     itemautocomplete:function(e){
-      alert(JSON.stringify(e.detail.response.returnval));
+      // alert(JSON.stringify(e.detail.response.returnval));
        var itemvalues=e.detail.response.returnval;
       for(var i=0;i<=itemvalues.length;i++){
       containeridvalue=itemvalues[i].containerid;
@@ -152,96 +151,93 @@
     },
 
     FnSearchEnquiry:function(e){
-
-
         if(e.keyCode==13|| e.keyCode==40)
         this.querySelector('#transportinput2').focus();
-
         var arr=[];
         arr.push({"itemdes":"-----Select-----"});
         this.querySelector('#transportinput2').style.visibility='visible';
-
         if(e.keyCode==8){
-          this.itemflag="true";
-          this.itemval="";
-          var len=(this.value).length;
-          if(len<=1){
+        this.itemflag="true";
+        this.itemval="";
+        var len=(this.value).length;
+        if(len<=1){
             this.querySelector('#transportinput2').style.visibility='hidden';
             this.itemArray="";
             this.itemval="";
-          }
-          if(len>1){
+                  }
+        if(len>1){
             this.querySelector('#transportinput2').style.visibility='visible';
             var backsubval=(((this.value).substring(0,(len-1))).trim()).toUpperCase();
             for(var i=0;i<item.length;i++)
             {
-              var subval=((item[i].itemname).trim()).substring(0,backsubval.length);
-              if((item[i].itemname).toUpperCase().indexOf((this.value).toUpperCase())!=-1)
+            var subval=((item[i].itemname).trim()).substring(0,backsubval.length);
+            if((item[i].itemname).toUpperCase().indexOf((this.value).toUpperCase())!=-1)
               {
                 var obj={"itemdes":""};;
-
                 obj.itemdes=item[i].itemname;
                 obj.itemid=item[i].itemid;
                 // var obj1={"itemdes":obj.itemname};
-
                 arr.push(obj);
               }
             }
             this.itemArray=arr;
-          }
-        }
-
+                }
+                }
         //while typing item display
         if(e.keyCode!=8&& e.keyCode!=16&& e.keyCode!=13 && e.keyCode!=38&&e.keyCode!=40&&e.keyCode!=37&&e.keyCode!=39)
         {
           // alert("ok");
-          if(this.itemflag=="true") {
+          if(this.itemflag=="true")
+          {
             this.itemval = (this.value).toUpperCase()+String.fromCharCode((e.keyCode)).toUpperCase();
             this.itemflag="false";
+            // alert(this.itemval);
           }
-          else{
+          else
+          {
           this.itemval = this.value +String.fromCharCode((e.keyCode));
           // alert(this.itemval);
-}
+          }
           if(this.itemval.length>0)
           {
-            for(var i=0;i<item.length;i++)
-            {
+            alert(this.itemval);
+          for(var i=0;i<item.length;i++)
+          {
               // alert("ok ok");
-
-            var subval=((item[i].itemname).trim()).substring(0,this.itemval.length);
-              alert(JSON.stringify(item[i].itemname));
+           var subval=((item[i].itemname).trim()).substring(0,this.itemval.length);
+              // alert(JSON.stringify(item[i].itemname));
               // alert(this.itemval);
               // alert(JSON.stringify(this.itemval));
               // alert(this.itemval.length);
-              alert(subval);
+            alert(subval);
                 // subval1.push(subval);
-             if(this.itemval == subval)
-             {
-               alert("equal");
-              if((item[i].itemname).toUpperCase().indexOf((this.itemval).toUpperCase())!=-1)
+           if(this.itemval == subval)
               {
-                var obj={"itemdes":""};
-                obj.itemdes=item[i].itemname;
-                obj.itemid=item[i].itemid;
-                // var obj1={"itemdes":obj.itemname};
-                arr.push(obj);
-              }
-            }
-            }
-            if(arr.length>0)
-              this.itemArray=arr;
-            else
-            {
-              var obj={"itemdes":"No items found"};
-              obj.itemdes;
-              arr.push(obj);
-              this.itemArray=arr;
-            }
+              // alert(this.itemval);
+              alert("equal");
+              if((item[i].itemname).toUpperCase().indexOf((this.itemval).toUpperCase())!=-1)
+                {
+                  var obj={"itemdes":""};
+                  obj.itemdes=item[i].itemname;
+                  obj.itemid=item[i].itemid;
+                  // var obj1={"itemdes":obj.itemname};
+                  arr.push(obj);
+                  }
+                  }
+                        break;
           }
-        }
-      },
-
+                  if(arr.length>0)
+                  this.itemArray=arr;
+                  else
+                  {
+                    var obj={"itemdes":"No items found"};
+                    obj.itemdes;
+                    arr.push(obj);
+                    this.itemArray=arr;
+                  }
+                  }
+                  }
+                  },
       FnSelectEnquiry1:function(e){
       this.querySelector('#transportinput2').style.visibility='hidden';
       item_name = e.target.selectedItem.textContent.trim();
