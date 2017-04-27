@@ -28,6 +28,7 @@
                                       maximumvalue="{{item.maximum_value}}"
                                       min="{{item.minimum_value}}"
                                       max="{{item.maximum_value}}"
+                                      iid="{{_id(item.index)}}"
                                       check="1"
                                       close="1">
                   </slider-paper-input>
@@ -76,7 +77,8 @@
     },
 
     SaveActuals:function(){
-      alert(this.actualval);
+      // alert("_id"+index);
+      // alert(this.actualval);
     },
     pass: function() {
       this.PorF="pass";

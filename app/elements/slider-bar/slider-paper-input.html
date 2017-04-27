@@ -212,9 +212,22 @@
 var dbdata;
 var tempActualsVal=[];
 // var temp=[];
+// this.actualval=[];
   Polymer({
     is: "slider-paper-input",
     actuals:function(){
+      alert("_id"+index);
+      tempActualsVal.push(this.actualval)
+      alert(tempActualsVal.indexOf(10));
+      alert("tempActualsVal length"+tempActualsVal.length);
+      alert("dbdata length"+this.dbdata.length);
+      if(tempActualsVal.length>this.dbdata.length)
+      {
+
+        tempActualsVal.splice(0, 1);
+        // tempActualsVal.move(0,1);
+        alert("after splice"+tempActualsVal);
+      }
       // tempActualsVal.push(this.actualval);
       // alert(tempActualsVal);
       // tempActualsVal.slice(-1);
