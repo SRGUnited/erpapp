@@ -31,7 +31,7 @@ app.use(express.static('app'));
 app.get('/' ,function (req, res) {
   res.sendFile( "app/index.html" );
 });
-
+console.log("Welcome!!!");
 //login-card
 app.post('/login', urlencodedParser, function (req, res) {
   var response={
@@ -78,7 +78,7 @@ app.post('/searchitem', urlencodedParser, function (req, res) { //add item searc
 //*********************************CEO APPROVAL PROCESSES
 var itemapprovaldb=require("./app/elements/call-ceo-card/call-ceo-card-todb.js")
 app.post('/ceoitemsearch', urlencodedParser, function (req, res) {
-  itemapprovaldb.searchitem(function(callback,fgrows){ // Othre than Finished Goods
+  itemapprovaldb.searchitem(function(callback,fgrows){ // Other than Finished Goods
     if(callback||fgrows!=null){
       res.status(200).json({'returnval': callback,'returnfg': fgrows});
     }
@@ -425,22 +425,7 @@ app.post('/savesupplierdata', urlencodedParser, function (req, res) {
     }
   });
 });
-app.post('/savecontaineridinfo', urlencodedParser, function (req,res) {
-  var response={inward_register_number:req.query.grnnumber,
-                container_id:req.query.containerid,
-                container_number:req.query.Containerno,
-                heat_number:req.query.htnoVal,
-                batch_number:req.query.btnoVal,
-                quantity:req.query.quantityVal
-                };
-    connectdb.savecontaineridFn(response,function(rows){
-      if(rows=="saved"){
-        res.status(200).json({'returnval': rows});
-      }
-      else
-        res.status(200).json({'returnval': "not saved"});
-    });
-    });
+
 //tax info
 app.post('/Taxsaveinfo', urlencodedParser, function (req, res) {
 var response={
@@ -656,76 +641,6 @@ app.post('/stores', urlencodedParser, function (req,res) {
           res.status(200).json({'returnval': "does not get saleid"});
       });
       });
-
-      app.post('/searchheatnoinfo', urlencodedParser, function (req,res) {
-        connectdb.searchheatnoFn(req.query.heatno,function(rows){
-          if(rows!=req.query.heatno){
-            res.status(200).json({'returnval': rows});
-          }
-          else{
-            res.status(200).json({'returnval': rows});
-          }
-        });
-        });
-        app.post('/insert_ht_bt_noinfo', urlencodedParser, function (req,res) {
-          var response={heat_number:req.query.heatno,
-                        batch_number:req.query.batchno};
-          connectdb.insert_ht_bt_noFn(response,function(rows){
-            if(rows=="inserted"){
-              res.status(200).json({'returnval':rows});
-            }
-            else{
-              res.status(200).json({'returnval': rows});
-            }
-          });
-          });
-
-      app.post('/loopsecuritysearchinfo', urlencodedParser, function (req,res) {
-      connectdb.loopsecuritysearchFn(req.query.salid,function(rows){
-        if(rows!="reject"){
-          res.status(200).json({'returnval': rows});
-        }
-        else
-          res.status(200).json({'returnval': "does not get saleid"});
-      });
-      });
-      app.post('/loopsecuritysearchinfo', urlencodedParser, function (req,res) {
-      connectdb.loopsecuritysearchFn(req.query.salid,function(rows){
-        if(rows!="reject"){
-          res.status(200).json({'returnval': rows});
-        }
-        else
-          res.status(200).json({'returnval': "does not get saleid"});
-      });
-      });
-      app.post('/loopsecuritysearchinfo', urlencodedParser, function (req,res) {
-      connectdb.loopsecuritysearchFn(req.query.salid,function(rows){
-        if(rows!="reject"){
-          res.status(200).json({'returnval': rows});
-        }
-        else
-          res.status(200).json({'returnval': "does not get saleid"});
-      });
-      });
-      app.post('/loopsecuritysearchinfo', urlencodedParser, function (req,res) {
-      connectdb.loopsecuritysearchFn(req.query.salid,function(rows){
-        if(rows!="reject"){
-          res.status(200).json({'returnval': rows});
-        }
-        else
-          res.status(200).json({'returnval': "does not get saleid"});
-      });
-      });
-      app.post('/loopsecuritysearchinfo', urlencodedParser, function (req,res) {
-      connectdb.loopsecuritysearchFn(req.query.salid,function(rows){
-        if(rows!="reject"){
-          res.status(200).json({'returnval': rows});
-        }
-        else
-          res.status(200).json({'returnval': "does not get saleid"});
-      });
-      });
-
 var supplierautocompletedb=require("./app/elements/vehicle-in-process-suppliername/supplierautocompletedb.js");
 app.post('/supplierautocomplete',urlencodedParser,function (req, res) {
 
@@ -781,9 +696,6 @@ app.post ('/autogenerateid', urlencodedParser, function (req, res) {
 
 var invoicedbpath=require("./app/elements/vehicle-in-process-itemdetails/invoiceprocessdb.js");
 app.post('/invoicesaving', urlencodedParser, function (req, res) {
-  console.log(req.query.invoicenovalue);
-  console.log(req.query.invoicedatevalue);
-  console.log(req.query.irnnumber);
   invoicedbpath.invoicesaving(req.query.invoicenovalue,req.query.invoicedatevalue,req.query.irnnumber,function(rows){
     if(rows=="saved"){
       res.status(200).json({'returnval': "Invoice detail saved"});
@@ -868,9 +780,6 @@ app.post ('/autogenerateid', urlencodedParser, function (req, res) {
 
 var invoicedbpath=require("./app/elements/vehicle-in-process-itemdetails/invoiceprocessdb.js");
 app.post('/invoicesaving', urlencodedParser, function (req, res) {
-  console.log(req.query.invoicenovalue);
-  console.log(req.query.invoicedatevalue);
-  console.log(req.query.irnnumber);
   invoicedbpath.invoicesaving(req.query.invoicenovalue,req.query.invoicedatevalue,req.query.irnnumber,function(rows){
     if(rows=="saved"){
       res.status(200).json({'returnval': "Invoice detail saved"});
@@ -898,6 +807,18 @@ app.post('/supplieridsaving', urlencodedParser, function (req, res) {
     }
     else
       res.status(200).json({'returnval': "Not saved!"});
+  });
+});
+
+var sliderDB=require("./app/elements/slider-bar/slider-bar-todb.js");
+app.post ('/testingdata', urlencodedParser, function (req, res) {
+  // console.log("testingdata");
+  sliderDB.gettestingdata(function(testingdata){
+    // console.log("server:"+testingdata);
+    if(testingdata.length>0)
+      res.status(200).json({'testingdata': testingdata});
+    else
+      res.status(200).json({'testingdata': "No testingdata!"});
   });
 });
 
