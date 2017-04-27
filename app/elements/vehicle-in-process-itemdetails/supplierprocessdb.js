@@ -15,7 +15,7 @@ exports.supplieridsaving=function(supplieridvalue,irnnumber,item_id,containeridv
   };
  connection.query("INSERT INTO od_inward_item_register SET ?",[supplieridresponse],function(err,rows){
    if(rows.length>0){
-    //  console.log(rows);
+     console.log(rows);
       return callback("saved");
   }
   else{

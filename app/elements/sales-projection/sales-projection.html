@@ -45,18 +45,19 @@
              <paper-item value="{{item.customerid}}">{{item.itemdes}}</paper-item>
            </template>
          </paper-listbox>
+         <paper-input  label="Customer Location" is="" value="{{value3}}" on-keydown="functionlocation"></paper-input>
+         <paper-listbox class="dropdown-content" id="transportinput4" on-iron-select="FnSelectEnquiry6">
+           <template is="dom-repeat" items="{{itemArray2}}" as="item2">
+             <paper-item value="{{item2}}">{{item2.itemdes2}}</paper-item>
+           </template>
+         </paper-listbox>
+         <!-- <paper-input label="Customer Location" value="{{clocation}}"></paper-input> -->
          <paper-input hidden label="{{ItemId}}" value="{{iid}}"></paper-input>
-         <paper-input  label="{{Itemname}}" is="" value="{{value1}}"  on-tap="functionlocation" on-keydown="FnSearchEnquiry1"></paper-input>
+         <paper-input  label="{{Itemname}}" is="" value="{{value1}}" on-keydown="FnSearchEnquiry1"></paper-input>
          <paper-listbox class="dropdown-content" id="transportinput3" on-iron-select="FnSelectEnquiry2">
            <template is="dom-repeat" items="{{itemArray1}}" as="item1">
              <paper-item value="{{item1.itemid}}">{{item1.itemdes1}}</paper-item>
            </template>
-         </paper-listbox>
-         <paper-input  label="Customer Location" is="" value="{{value5}}" on-keydown="locationkey"></paper-input>
-         <paper-listbox class="dropdown-content" id="locationid" on-iron-select="locationlistbox">
-         <template is="dom-repeat" items="{{itemArray5}}" as="item5">
-         <paper-item value="{{item5.city}}">{{item5.itemdes5}}</paper-item>
-        </template>
          </paper-listbox>
          <paper-input hidden label="{{itemdescription}}" value="{{idescription}}"></paper-input>
 
@@ -141,7 +142,7 @@
             params="{{locationparam}}"
             url="{{urlname1}}"
             handle-as="json"
-            on-response="autocompletearr5">
+            on-response="autocompletearr2">
     </iron-ajax>
 
     <iron-ajax
