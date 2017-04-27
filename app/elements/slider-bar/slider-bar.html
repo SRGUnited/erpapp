@@ -1,49 +1,143 @@
 <dom-module id="slider-bar">
   <style>
-  #insertionPoint{
+  input[type=range] {
+    -webkit-appearance: none;
+    margin: 10px 0;
+    width: 100%;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: #C6C4C4;
+    border-radius: 5px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    box-shadow: 1px 1px 1px #000000;
+    border: 1px solid #000000;
+    height: 30px;
+    width: 15px;
+    border-radius: 5px;
+    background: #FFFFFF;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -11px;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #C6C4C4;
+  }
+  input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 1px 1px 1px #000000;
+    background: #3071A9;
+    border-radius: 5px;
+    border: 1px solid #000000;
+  }
+  input[type=range]::-moz-range-thumb {
+    box-shadow: 1px 1px 1px #000000;
+    border: 1px solid #000000;
+    height: 30px;
+    width: 15px;
+    border-radius: 5px;
+    background: #FFFFFF;
     cursor: pointer;
   }
+  input[type=range]::-ms-track {
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #3071A9;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #000000;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #3071A9;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #000000;
+  }
+  input[type=range]::-ms-thumb {
+    box-shadow: 1px 1px 1px #000000;
+    border: 1px solid #000000;
+    height: 30px;
+    width: 15px;
+    border-radius: 5px;
+    background: #FFFFFF;
+    cursor: pointer;
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #3071A9;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #3071A9;
+  }
   </style>
+
   <template>
     <section class="content">
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-md-7">
           <div class="box">
             <div class="box-header with-border">
               <h3 class="box-title">Testing</h3>
             </div>
             <div class="box-body">
-              <table class="table"> <!--  <table class="table"> for no border -->
+              <table> <!--  <table class="table"> for no border -->
                 <tr>
-                  <th>Parameters&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195
-                    &#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195
-                    &#8195Actuals</th>
-                  <!-- <th class="text-center">Actuals</th> -->
+                  <th></th>
+                  <th></th>
+                  <th style="width: 15%;padding-left:30px;" class="text-center">Actuals</th>
+                  <th></th>
                 </tr>
-                <slider-paper-input check="1" close="1" hidden></slider-paper-input>
-                <td style="width:100%">
-                <template is="dom-repeat" items="{{response}}">
-                  <slider-paper-input parametername="{{item.quality_parameter_name}}"
-                                      minimumvalue="{{item.minimum_value}}"
-                                      maximumvalue="{{item.maximum_value}}"
-                                      min="{{item.minimum_value}}"
-                                      max="{{item.maximum_value}}"
-                                      check="1"
-                                      close="1">
-                  </slider-paper-input>
+                <template is="dom-repeat" items="{{x}}" as="y">
+                  <tr>
+                    <td class="text-center">{{y.itemid}}</td>
+                    <td>
+                      <div>
+                      <input type="range" value="{{para1}}"></input>
+                    </div>
+                    {{y.minimum_value}}&#8195&#8195&#8195&#8195&#8195
+                    &#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195&#8195
+                    &#8195&#8195&#8195&#8195&#8195&#8195&#8195{{y.maximum_value}}
+                    </td>
+                    <td style="padding-left:30px;">
+                      <slider-paper-input></slider-paper-input>
+                    </td>
+                    <td style="padding-left:40px;font-size: 20px;">
+                      <span class="glyphicon glyphicon-ok-circle" hidden="{{hidevar}}"></span>
+                      <span class="glyphicon glyphicon-remove-circle" hidden="{{hidevar1}}"></span>
+                    </td>
+                  </tr>
                 </template>
-              </td>
               </table>
             </div>
             <div class"box-footer clearfix">
               <div>&#8195&#8195&#8195&#8195&#8195&#8195
-                <a on-click="pass" id="insertionPoint">
-                  <span id="up" class="glyphicon glyphicon-thumbs-up" style="font-size: 30px;color:grey"></span>
+                <a>
+                  <span class="glyphicon glyphicon-thumbs-up" style="font-size: 30px;color:green;"></span>
                 </a>
                 &#8195&#8195
-                <a on-click="fail" id="insertionPoint">
-                  <span id="down" class="glyphicon glyphicon-thumbs-down" style="font-size: 30px;color:grey;"></span>
+                <a>
+                  <span class="glyphicon glyphicon-thumbs-down" style="font-size: 30px;color:red;"></span>
                 </a>
+                <!-- <paper-radio-group selected="">
+                  <paper-radio-button name="Pass">Pass</paper-radio-button>
+                  <paper-radio-button name="Fail">Fail</paper-radio-button>
+                </paper-radio-group> -->
               </div>
               <div>
                 <center>
@@ -58,6 +152,13 @@
       </div>
     </section>
     <iron-ajax
+      auto
+      method="post"
+      url="http://localhost:4000/testingdata"
+      handle-as="json"
+      on-response="handletestingdata"></iron-ajax>
+
+    <iron-ajax
       id="SaveActualsIA"
       method="post"
       url="http://localhost:4000/"
@@ -67,30 +168,40 @@
   </template>
 </dom-module>
 <script type="text/javascript">
-  var actualsValue;
-  var PorF;
+var dbdata;
   Polymer({
     is: "slider-bar",
     HandleSaveActualsIA:function(){
 
     },
-
+    handletestingdata:function(e){
+      this.dbdata=e.detail.response.testingdata;
+      this.x=e.detail.response.testingdata;
+      for(var i=0;i<=x.length;i++){
+        alert(JSON.stringify(x[i].minimum_value));
+      }
+    },
     SaveActuals:function(){
-      alert(this.actualval);
+      $(".HeaderName").after("your html here");
+      this.hidevar=0;
+        // document.querySelector("#anchorID").style.display="none";
     },
-    pass: function() {
-      this.PorF="pass";
-      document.getElementById("down").style.color = "grey";
-      document.getElementById("up").style.color = "#A2CD6F";
-    },
-    fail: function() {
-      this.PorF="fail";
-      document.getElementById("up").style.color = "grey";
-      document.getElementById("down").style.color = "red";
-    },
-    dbResponse:function(a){
-      this.response=a;
-      // alert(JSON.stringify(a));
+    actualsip:function(x){
+      alert(x);
+      // alert(this.actualval);
+      // alert(this.dbdata[0].minimum_value);
+      this.hidevar1=1;
+      this.hidevar=1;
+      var min=this.dbdata[0].minimum_value;
+      var max=this.dbdata[0].maximum_value;
+      if(x<min||x>max){
+      // if(this.actualval<this.dbdata[0].minimum_value||this.actualval>this.dbdata[0].maximum_value){
+        this.hidevar1=0;
+      }
+      else {
+        // alert("else");
+        this.hidevar=0;
+      }
     }
   });
 </script>

@@ -2,6 +2,14 @@
     'use strict';
  Polymer({
       is: 'timeline-chart',
+//       mouseover:function(e){
+//         // document.addEventListener('mouseover', function (e) {
+//         var time = document.getElementById('timeline-badge');
+//         time.time = "active";
+//         false;
+//
+// },
+
     	    getJsondata:function(goodsvehiclenumber,goodsvehicleintime,loadstart,loadend,goodsvehicleouttime,delivered){
     			  	this.vehicleno=goodsvehiclenumber;
           	  this.vehicleintime=goodsvehicleintime;
@@ -16,27 +24,6 @@
               this.vehicleloadenddatetimelabel=vehicleloadenddatetime;
               this.vehicleouttimelabel=vehicleouttime;
               this.deliveredtimelabel=vehicledelivered;
-          },
-
-          confirm: function() {
-            document.getElementById("myH1").style.backgroundColor = "green";
-          },
-
-          confirm1: function() {
-            document.getElementById("myH2").style.backgroundColor = "green";
-          },
-
-          confirm2: function() {
-            document.getElementById("myH3").style.backgroundColor = "green";
-          },
-
-          confirm3: function() {
-            document.getElementById("myH4").style.backgroundColor = "green";
-          },
-
-          confirm4: function() {
-            document.getElementById("myH5").style.backgroundColor = "green";
           }
-
     });
   })();
