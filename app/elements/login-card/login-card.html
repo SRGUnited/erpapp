@@ -83,8 +83,10 @@
             }
             else {
               var arr=e.detail.response.returnval;
+              // alert(e.detail.response.role);
               // this.password="";
               // this.empid="";
+              document.querySelector('header-left').loggedrole=e.detail.response.role;
               document.querySelector('app-page').page='home-page';
               document.querySelector('header-left').menuarr=arr;
               }

@@ -215,13 +215,13 @@ var tempActualsVal=[];
   Polymer({
     is: "slider-paper-input",
     actuals:function(){
-      alert("temp length"+tempActualsVal.length);
-      alert("dbdata length"+this.dbdata.length);
+      // alert("temp length"+tempActualsVal.length);
+      // alert("dbdata length"+this.dbdata.length);
       tempActualsVal.push(this.actualval);
       alert("temp"+tempActualsVal);
       if(tempActualsVal.length>this.dbdata.length){
-        tempActualsVal.splice(0,1);
-        tempActualsVal.move(0,3);
+        tempActualsVal.splice(0,1,this.actualval);
+        // tempActualsVal.move(0,3);
         alert("splice"+tempActualsVal);
       }
       // tempActualsVal.push(this.actualval);
@@ -255,8 +255,9 @@ var tempActualsVal=[];
       this.dbdata=e.detail.response.testingdata;
       document.querySelector('slider-bar').dbResponse(this.dbdata);
     },
-    ready:function(){
-      alert(this.uid);
-    }
+    // ready:function(){
+    //   alert(this.uid);
+    //   this.uid++;
+    // }
   });
 </script>
