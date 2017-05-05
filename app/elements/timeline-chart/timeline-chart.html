@@ -3,8 +3,7 @@
 <style>
 .container{
   width: 500px;
-  /*height: 150px;*/
-}
+  }
 .timeline .timeline-item .timeline-badge {
   color: #fff;
   width: 48px;
@@ -29,78 +28,51 @@
   background-color: #1f9eba;
 }
 
-.timeline .timeline-item .timeline-panel {
-  position: relative;
-  margin-top: 150px;
-  width: auto;
-  float: left;
-  right: 2px;
-  border: 1px solid #c0c0c0;
-  background: #ffffff;
-  border-radius: 2px;
-  padding: 10px;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-}
-
-.timeline .timeline-item .timeline-panel .timeline-heading{
-  color: inherit;
-}
 .timeline-horizontal {
   list-style: none;
   position: relative;
-  width: 500px;
+  width: 470px;
   height: 130px;
   padding: 20px 0px 20px 0px;
-  display: inline-block;
-  /*margin-left: 2px;*/
 }
 .timeline-horizontal:before {
   height: 3px;
   top: auto;
+  /*margin-left: 2px;*/
   bottom: 26px;
-  /*left: 56px;*/
   right: 0;
-  width: 75%;
+  width: 76%;
   margin-bottom: 20px;
-}
-.timeline-horizontal .timeline-item {
-  display: table-cell;
-  height: 110px;
-  width: 500px;
-  float: none !important;
-  padding-left: 0px;
-  padding-right: 20px;
-  margin: 10 auto;
-  vertical-align: bottom;
 }
 .timeline-horizontal .timeline-item{
   display: table-cell;
   height: 110px;
   width: 500px;
-  float: none !important;
-  padding-left: 0px;
-  padding-right: 20px;
-  margin: 10 auto;
   vertical-align: bottom;
 }
+/*.timeline-horizontal .timeline-item .timeline-badge:hover{
+  background-color: grey;
+}
+.timeline-horizontal .timeline-item .timeline-badge:active{
+  background-color: grey;
+}*/
 .timeline-horizontal .timeline-item .timeline-badge {
  margin-top: 20px;
+ /*margin-left: 2px;*/
  bottom: 0px;
- left: 20px;
 }
-/*.timeline-horizontal .timeline-item .timeline-badge:hover {
-
-background-color: green;
-}*/
 .custom {
   --paper-tooltip-background: grey;
-  --paper-tooltip-text-color: var(--paper-white-500);
+  --paper-tooltip-text-color: var(--paper-white);
+  margin-top: 40px;
   width: auto;
-  /*margin-left: auto;*/
-
  }
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 
+=======
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
 .custom position{
   margin-top: 15px;
   /*margin-left: 2px;*/
@@ -109,133 +81,90 @@ paper-tooltip{
   margin-top: 40px;
   /*margin-left: 2psx;*/
   width: 100px;
+>>>>>>> c2b354b6d33d0ec2a01edf4de76e876162e05ce7
 
-}
-paper-tooltip-inner {
-background-color: #FF0000;
-}
 .totaldesign
 {
-  margin-left: 40px;
-
-}
-.timeline-heading{
-  margin-left: 2px;
+  margin-left: 50px;
 }
 .rate-header { @apply(--paper-font-headline);
   font-size: 20px;
  }
 
- /*//click*/
- /* Popup container - can be anything you want */
-.popup {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* The actual popup */
-.popup .popuptext {
-    visibility: hidden;
-    width: 160px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -80px;
-}
-
-/* Popup arrow */
-.popup .popuptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-/* Toggle this class - hide and show the popup */
-.popup .show {
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
-}
-paper-toast.toasttime{
-  margin-top: 1000px;
-}
-
 </style>
   <template>
     <div class="container">
       <div class='totaldesign'>
-        <!-- <div id="vehicle" class="rate-header" >Vehicle Status Tracking</div> -->
+        <div id="vehicle" class="rate-header" >Vehicle Status Tracking</div>
         <div class='vehno'>  {{vehicleno}} </div>
         	<div class="row">
     				<div class="col-md-12">
               <ul class="timeline timeline-horizontal">
+<<<<<<< HEAD
+<<<<<<< HEAD
+                <li class="timeline-item" >
+                    <div class="timeline-badge primary"><i class="glyphicon glyphicon-time"></i></div>
+                    <paper-tooltip class="custom"  position="top" animation-delay="0">
+                    {{vehicleintime}}
+=======
                 <li class="timeline-item" onclick="scrolling.open()" id="clk1">
                     <div class="timeline-badge primary" id="myH1"><i class="glyphicon glyphicon-time"></i></div>
                     <paper-tooltip id="myPopup" class="custom"  position="top" animation-delay="0">
                         {{vehicleintime}}
+>>>>>>> c2b354b6d33d0ec2a01edf4de76e876162e05ce7
+=======
+                <li class="timeline-item">
+                    <div class="timeline-badge primary"><i class="glyphicon glyphicon-time"></i></div>
+                    <paper-tooltip class="custom"  position="top" animation-delay="0">
+                    {{vehicleintime}}
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
                     </paper-tooltip>
                     <div class="timeline-heading">{{vehicleintimelabel}}</div>
               	</li>
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+    						<li class="timeline-item">
+    							<div class="timeline-badge primary" ><i class="glyphicon glyphicon-check"></i></div>
+=======
     						<li class="timeline-item" onclick="scrolling1.open()" id="clk2">
     							<div class="timeline-badge primary" id="myH2"><i class="glyphicon glyphicon-check"></i></div>
+>>>>>>> c2b354b6d33d0ec2a01edf4de76e876162e05ce7
+=======
+    						<li class="timeline-item">
+    							<div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
       							<paper-tooltip class="custom" style="width: 60px;" position="top" animation-delay="0" >
                     {{vehicleloadstartdatetime}}
                     </paper-tooltip>
     							<div class="timeline-heading">{{vehicleloadstartdatetimelabel}}</div>
     						</li>
 
-                <li class="timeline-item"  onclick="scrolling2.open()" id="clk3">
-    							<div class="timeline-badge primary" id="myH3"><i class="glyphicon glyphicon-check"></i></div>
+                <li class="timeline-item">
+    							<div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
                     <paper-tooltip class="custom" style="width: 60px;" position="top" animation-delay="0">
                     {{vehicleloadenddatetime}}
                     </paper-tooltip>
     							<div class="timeline-heading">{{vehicleloadenddatetimelabel}}</div>
     						</li>
-
-                <li class="timeline-item"  onclick="scrolling3.open()" id="clk4">
-    							<div class="timeline-badge primary" id="myH4"><i class="glyphicon glyphicon-time"></i></div>
+                <li class="timeline-item">
+    							<div class="timeline-badge primary"><i class="glyphicon glyphicon-time"></i></div>
                     <paper-tooltip class="custom" position="top" animation-delay="0">
                     {{vehicleouttime}}
                     </paper-tooltip>
     							<div class="timeline-heading">{{vehicleouttimelabel}}</div>
               	</li>
-
-                <li class="timeline-item"  onclick="scrolling4.open()" id="clk5">
-    							<div class="timeline-badge primary" id="myH5"><i class="glyphicon glyphicon-check"></i></div>
+                <li class="timeline-item">
+    							<div class="timeline-badge primary" ><i class="glyphicon glyphicon-check"></i></div>
       						  <paper-tooltip class="custom" position="top" animation-delay="0">
                     {{deliveredtime}}
                     </paper-tooltip>
     							<div class="timeline-heading">{{deliveredtimelabel}}</div>
     						</li>
     					</ul>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
               <!-- vehile in time -->
               <paper-dialog id="scrolling">
                 <h2>CONFIRM</h2>
@@ -291,6 +220,10 @@ paper-toast.toasttime{
                   <paper-button dialog-confirm autofocus on-click="confirm4">YES</paper-button>
                 </div>
               </paper-dialog>
+>>>>>>> c2b354b6d33d0ec2a01edf4de76e876162e05ce7
+=======
+
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
     				</div>
     			</div>
         </div>
@@ -298,4 +231,5 @@ paper-toast.toasttime{
     <ajax-timeline></ajax-timeline>
 </template>
   <script src="timeline-chart.js"></script>
+
 </dom-module>

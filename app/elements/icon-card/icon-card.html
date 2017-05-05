@@ -1,0 +1,379 @@
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Template</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="css/bootstrap.css">
+<dom-module id="icon-card">
+<template>
+  <style>
+  .nav.nav-justified > li > a { position: relative; height: auto; width: auto; }
+  /*.nav.nav-justified > li > a:hover,*/
+  /*.nav.nav-justified > li > a:focus {
+    background-color: transparent;}*/
+  .nav.nav-justified > li > a > .quote {
+
+      width: 30px;
+      height: 30px;
+
+  }
+
+  .nav.nav-justified > li.active > a > .quote { opacity: 1; }
+  .nav.nav-justified > li > a > img { box-shadow: }
+  .nav.nav-justified > li > a > img {
+      max-width: 80%;
+      margin-left: 2px;
+      opacity: .3;
+      -webkit-transform: scale(.8,.8);
+              transform: scale(.8,.8);
+      -webkit-transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+              transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .nav.nav-justified > li.active > a > img,
+  .nav.nav-justified > li:hover > a > img,
+  .nav.nav-justified > li:focus > a > img {
+      opacity: 1;
+      -webkit-transform: none;
+              transform: none;
+      -webkit-transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+              transition: all 0.3s 0s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+ /*.tab-inner > li { display:inline; width:10px; height:10px; }*/
+  @media (min-width: 300px) {
+      .nav.nav-justified > li > a > .quote {
+          margin-left: 2px;
+          top: 70px;
+          right: 5px;
+          bottom: 0px;
+      }
+
+    }
+
+.sub img{
+  width: 150px;
+ /*margin-left: 2px;*/
+}
+.nav-tabs img{
+  width: 100px;
+}
+.sub1 img{
+  width: 200px;
+}
+
+
+
+
+  </style>
+
+<nav>
+  <div class="container">
+
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand" href="#"><img class="img-responsive" src="../../images/heading.png"></a> </div>
+
+  </div>
+  <!-- /.container-fluid -->
+</nav>
+<br><br>
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div id="carousel1" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#carousel1" data-slide-to="0" class="active"> </li>
+            <li data-target="#carousel1" data-slide-to="1" class=""> </li>
+            <li data-target="#carousel1" data-slide-to="2" class=""> </li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="item "> <img class="img-responsive" src="../../images/ladies_tshirts.jpg" alt="">
+
+              <div class="carousel-caption">  </div>
+            </div>
+            <div class="item "> <img class="img-responsive" src="../../images/mens_outerwear.jpg" alt="">
+              <div class="carousel-caption">  </div>
+            </div>
+            <div class="item active"> <img class="img-responsive" src="../../images/ladies_outerwear.jpg" alt="">
+              <div class="carousel-caption">  </div>
+            </div>
+          </div>
+          <a class="left carousel-control" href="#carousel1" data-slide="prev"><span class="icon-prev"></span></a> <a class="right carousel-control" href="#carousel1" data-slide="next"><span class="icon-next"></span></a></div>
+      </div>
+</div>
+    <hr>
+  </div>
+  <hr>
+  <h2 class="text-left">  Category</h2>
+  <hr>
+<div class="container">
+  <div class="row">
+    <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"> -->
+        <div class="sub">
+      <!-- <div class="row"> -->
+        <!-- <div class="col-lg-2 col-md-3 col-sm-3 col-xs-2"> -->
+          <ul class="[ nav nav-justified ]" id="nav-tabs" role="tablist">
+            <li role="presentation" class="active text-left">
+          <a href="#men" aria-controls="men" role="tab" data-toggle="tab">
+          <img class="img-rounded " src="../../images/mmale1.jpg" class="img-responsive"><br>Men's wear
+          <!-- <span class="quote"><i class="fa fa-quote-left"></i></span> -->
+        </a>
+      </li>
+        <li role="presentation" class="text-left" >
+          <a href="#women" aria-controls="women" role="tab" data-toggle="tab">
+          <img class="img-rounded" src="../../images/mfemale.jpg"  class="img-responsive"><br>Women's wear
+          <!-- <span class="quote"><i class="fa fa-quote-left"></i></span> -->
+        <!-- </div> -->
+        </a>
+      </li>
+
+
+        <li role="presentation" class="text-left">
+          <a href="#kid" aria-controls="kids" role="tab" data-toggle="tab">
+          <img class="img-rounded" src="../../images/mchild.jpg"  class="img-responsive"><br>kid's wear
+          <!-- <span class="quote"><i class="fa fa-quote-left"></i></span> -->
+        </div>
+        </a>
+      </li>
+
+        <!-- <div class="col-lg-6 col-md-9 col-sm-9 col-xs-9">
+          <h4>kid's wear</h4>
+                  </div> -->
+
+      </ul>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
+
+<hr>
+<!-- <h4 class="text-left">Subcategory</h4> -->
+<hr>
+<div class="container">
+  <div class="row text-center">
+    <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6"> -->
+      <div class="tab-content" id="tabs-collapse">
+          <div role="tabpanel" class="tab-pane fade in active" id="men">
+              <div class="tab-inner">
+                <div class="sub1">
+                  <ul class="[ nav nav-justified ]" id="nav-tabs" role="tablist">
+                  <!-- <li> <a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li> -->
+                   <li role="presentation" class="">
+                <a href="#itemmen1" aria-controls="itemmen1" role="tab" data-toggle="tab">
+                <img class="img-rounded" src="../../images/hackett.jpg"/><br>Shirts
+                <!-- <span class="quote"><i class="fa fa-quote-left"></i></span> -->
+              </a>
+            </li>
+
+             <li role="presentation" class="active">
+              <a href="#itemmen2" aria-controls="itemmen2" role="tab" data-toggle="tab">
+                <img class="img-rounded" src="../../images/fashiontshirt.jpg" /><br>T-shirts
+              <!-- <span class="quote"><i class="fa fa-quote-right"></i></span> -->
+            </a>
+          </li>
+
+           <li role="presentation" class="">
+               <a href="#itemmen3" aria-controls="itemmen3" role="tab" data-toggle="tab">
+                <img class="img-rounded" src="../../images/1.jpg" /><br>Jerkin
+              <!-- <span class="quote"><i class="fa fa-quote-right"></i></span> -->
+            </a>
+          </li>
+            <li role="presentation" class="">
+             <a href="#itemmen2" aria-controls="itemmen2" role="tab" data-toggle="tab">
+               <img class="img-rounded" src="../../images/fashiontshirt.jpg" /><br>T-shirts
+             <!-- <span class="quote"><i class="fa fa-quote-right"></i></span> -->
+           </a>
+         </li>
+
+          <li role="presentation" class="">
+              <a href="#itemmen3" aria-controls="itemmen3" role="tab" data-toggle="tab">
+               <img class="img-rounded" src="../../images/hackett.jpg" /><br>Jerkin
+             <!-- <span class="quote"><i class="fa fa-quote-right"></i></span> -->
+           </a>
+           </li>
+             <!-- <li class="Next"> <span aria-hidden="true">&raquo;</span></li> -->
+            </ul>
+
+           </div>
+          </div>
+        </div>
+
+          <div role="tabpanel" class="tab-pane fade" id="women">
+              <div class="tab-inner">
+               <div class="sub1">
+               <ul class="[ nav nav-justified ]" id="nav-tabs" role="tablist">
+               <!-- <li> <a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li> -->
+               <li role="presentation" class="">
+                <a href="#itemwomen1" aria-controls="itemwomen1" role="tab" data-toggle="tab">
+                <img  class="img-rounded" src="../../images/chudi10.jpg" />Chudithar</a></li>
+
+                <li role="presentation" class="">
+                <a href="#itemwomen2" aria-controls="itemwomen2" role="tab" data-toggle="tab">
+                <img  class="img-rounded" src="../../images/tops1.jpg" />Tops</a></li>
+                 <li role="presentation" class="">
+                <a href="#itemwomen3" aria-controls="itemwomen3" role="tab" data-toggle="tab">
+                <img  class="img-rounded" src="../../images/sarees.png" />Sarees</a></li>
+                <li role="presentation" class="">
+                <a href="#itemwomen2" aria-controls="itemwomen2" role="tab" data-toggle="tab">
+                <img  class="img-rounded" src="../../images/tops1.jpg" />Tops</a></li>
+                 <li role="presentation" class="">
+                <a href="#itemwomen3" aria-controls="itemwomen3" role="tab" data-toggle="tab">
+                <img  class="img-rounded" src="../../images/sarees.png" />Sarees</a></li>
+                <!-- <li aria-label="Next"><span aria-hidden="true">&raquo;</span> </li> -->
+              </ul>
+              </div>
+              </div>
+          </div>
+
+          <div role="tabpanel" class="tab-pane fade" id="kid">
+              <div class="tab-inner">
+                <div class="sub1">
+                  <ul class="[ nav nav-justified ]" id="nav-tabs" role="tablist">
+                  <!-- <li> <a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li> -->
+                  <li role="presentation" class="active">
+               <a href="#itemkid" aria-controls="itemkid3" role="tab" data-toggle="tab">
+                <img class="img-rounded" src="../../images/frocks1.jpg" />Frocks</a></li>
+
+                <li role="presentation" class="">
+                <a href="#itemkid2" aria-controls="itemkid3" role="tab" data-toggle="tab">
+                <img class="img-rounded" src="../../images/topskids.jpg" />Middy</a></li>
+                <li role="presentation" class="">
+                <a href="#itemkid3" aria-controls="itemkid3" role="tab" data-toggle="tab">
+                <img class="img-rounded" src="../../images/middy.jpg" />Western</a></li>
+                <li role="presentation" class="">
+                <a href="#itemkid2" aria-controls="itemkid3" role="tab" data-toggle="tab">
+                <img class="img-rounded" src="../../images/topskids.jpg" />Middy</a></li>
+                <li role="presentation" class="">
+                <a href="#itemkid3" aria-controls="itemkid3" role="tab" data-toggle="tab">
+                <img class="img-rounded" src="../../images/middy.jpg" />Western</a></li>
+                  <!-- <li aria-label="Next"><span aria-hidden="true">&raquo;</span></li> -->
+              </ul>
+              </div>
+              </div>
+          </div>
+    </div>
+    <!-- </div> -->
+    </div>
+
+</div>
+<!-- mens -->
+
+<div class="container">
+
+    <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6"> -->
+
+
+       <!-- <div role="tabpanel" class="tab-pane fade" id="itemmen2">
+        <div class="tab-inner"> -->
+       <!-- <div id="itemmen1"> -->
+         <div role="tabpanel" class="tab-pane fade" id="itemmen1">
+            <div class="tab-inner">
+              <hr>
+              <h2 class="text-left">Items</h2>
+              <hr>
+       <div class="sub1">
+        <ul class="[ nav nav-justified ]" id="nav-tabs" role="tablist">
+            <div class="row text-center">
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+          <div class="thumbnail" >
+           <li role="presentation" class="">
+         <img  class="img-circle"  alt="Thumbnail Image 1" class="img-responsive" src="../../images/shirts.jpg"/>Causal shirts</li></div></div>
+           <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+         <div class="thumbnail">
+             <li role="presentation" class="">
+         <img  class="img-circle" alt="Thumbnail Image 2" class="img-responsive" src="../../images/black.jpg" />Formal shirts</li></div></div>
+           <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+         <div class="thumbnail">
+             <li role="presentation" class="">
+         <img  class="img-circle" alt="Thumbnail Image 3" class="img-responsive" src="../../images/shirts.jpg" />PartyWear shirts</li></ul></div>
+       </div><br>
+       <hr>
+       <h2 class="text-left">Brands</h2>
+       <hr>
+       <div class="sub1">
+        <ul class="[ nav nav-justified ]" id="nav-tabs" role="tablist">
+            <div class="row text-center">
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+          <div class="thumbnail" >
+           <li role="presentation" class="">
+         <img  class="img-circle"  alt="Thumbnail Image 1" class="img-responsive" src="../../images/og1.jpg"/>Nike</li></div></div>
+           <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+         <div class="thumbnail">
+             <li role="presentation" class="">
+         <img  class="img-circle" alt="Thumbnail Image 2" class="img-responsive" src="../../images/og1.jpg" />levis</li></div></div>
+           <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+         <div class="thumbnail">
+             <li role="presentation" class="">
+         <img  class="img-circle" alt="Thumbnail Image 3" class="img-responsive" src="../../images/og1.jpg" />Puma</li></ul></div></div>
+       </div><br>
+
+
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- </div> -->
+
+    <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+      <div class="thumbnail">
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6">
+      <div class="thumbnail">
+      </div>
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xs-6 hidden-lg hidden-md hidden-sm">
+      <div class="thumbnail">
+      </div>
+    </div>
+  </div>
+  <div class="row text-center hidden-xs">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div class="thumbnail">
+      </div>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div class="thumbnail">
+      </div>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+      <div class="thumbnail">
+      </div> -->
+
+  <!-- <nav class="text-center">
+    Add
+    <ul class="pagination">
+      <li> <a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a> </li>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li class="disabled"><a href="#">5</a></li>
+      <li> <a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a> </li>
+    </ul>
+  </nav>
+</div> -->
+
+<!-- <footer class="text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <p>Copy@.</p>
+      </div>
+    </div>
+  </div>
+</footer> -->
+
+</template>
+<script>
+Polymer({
+  is: 'icon-card',
+
+});
+
+  </script>
+  <!-- <script src="js/jquery-1.11.2.min.js"></script>
+  <script src="js/bootstrap.min.js"></script> -->
+</dom-module>

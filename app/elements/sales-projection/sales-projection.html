@@ -29,6 +29,9 @@
        :host([hidden]), .paper-item[hidden] {
           display: none !important;
         }
+        #date{
+          width:100%;
+        }
 </style>
   <template>
     <div class="row">
@@ -39,14 +42,14 @@
        <paper-card elevation="0" heading="Sales projection" style="width:100%;">
        <div class="card-content"> <!--card-content-->
          <paper-input hidden label="{{salesorderid}}" value="{{salesid}}"></paper-input>
-         <paper-input  label="{{customername}}" is="" value="{{value}}" on-tap="functionitem" on-keydown="FnSearchEnquiry"></paper-input>
+         <paper-input  label="{{customername}}" is="" value="{{value}}" on-change="functionitem" on-keydown="FnSearchEnquiry"></paper-input>
          <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry1">
            <template is="dom-repeat" items="{{itemArray}}" as="item">
              <paper-item value="{{item.customerid}}">{{item.itemdes}}</paper-item>
            </template>
          </paper-listbox>
          <paper-input hidden label="{{ItemId}}" value="{{iid}}"></paper-input>
-         <paper-input  label="{{Itemname}}" is="" value="{{value1}}"  on-tap="functionlocation" on-keydown="FnSearchEnquiry1"></paper-input>
+         <paper-input  label="{{Itemname}}" is="" value="{{value1}}"  on-change="functionlocation" on-keydown="FnSearchEnquiry1"></paper-input>
          <paper-listbox class="dropdown-content" id="transportinput3" on-iron-select="FnSelectEnquiry2">
            <template is="dom-repeat" items="{{itemArray1}}" as="item1">
              <paper-item value="{{item1.itemid}}">{{item1.itemdes1}}</paper-item>
@@ -58,6 +61,7 @@
          <paper-item value="{{item5.city}}">{{item5.itemdes5}}</paper-item>
         </template>
          </paper-listbox>
+         <!-- <paper-input label="Customer Location" value="{{clocation}}"></paper-input> -->
          <paper-input hidden label="{{itemdescription}}" value="{{idescription}}"></paper-input>
 
          <paper-input hidden label="status" value="Projection"></paper-input>
@@ -73,10 +77,7 @@
      <autogen-id></autogen-id>
      <div class="row">
        <div class="col-sm-6" style="margin-top:10px;">
-         <!-- <p> Required Date </p> -->
-          <!-- <paper-date-picker-item icon="icons:today" date="{{min1}}" date-format="ll"></paper-date-picker-item> -->
-          <!-- <datetime-picker model date-string="{{min1}}"  min-date="[[max]]" ></datetime-picker> -->
-          <vaadin-date-picker label="Required Delivered Date" value="{{min1}}"></vaadin-date-picker>
+          <vaadin-date-picker id="date" label="Required Delivered Date" value="{{min1}}"></vaadin-date-picker>
         </div>
         <div class="col-sm-6">
           <div style="margin-top:10px;">
@@ -84,7 +85,7 @@
           </div>
         </div>
       </div>
-
+        <br><br>
 
  <!-- save details -->
     <div class="card-actions" style="margin-top=10px;">

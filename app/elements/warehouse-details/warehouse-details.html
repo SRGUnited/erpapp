@@ -1,0 +1,18 @@
+<dom-module id="warehouse-details">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <paper-dropdown-menu label="{{warehouselabel}}">
+      <paper-listbox class="dropdown-content">
+        <template is="dom-repeat" items="{{}}">
+          <paper-item>{{}}</paper-item>
+        </template>
+      </paper-listbox>
+    </paper-dropdown-menu>
+  </template>
+  <warehouse-details-ironajax></warehouse-details-ironajax>
+</dom-module>
+<script src="warehouse-details.js"></script>

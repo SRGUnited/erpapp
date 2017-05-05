@@ -39,12 +39,10 @@
           autocompletearr1:function(e)
               {
                  item1=e.detail.response.returnval;
-
               },
               autocompletearr2:function(e)
                   {
                      item2=e.detail.response.returnval;
-                     alert(JSON.stringify(item2));
                      document.querySelector("sales-projection").FnSearchEnquiry5();
                   },
                   autocompletearr5:function(e)
@@ -85,11 +83,11 @@
             obj.datetimeq1=this.min1;
             this.updateparam=obj;
             this.$.updateajax.generateRequest();
-            alert(JSON.stringify("confirm"+obj.salesid));
+            // alert(JSON.stringify("confirm"+obj.salesid));
           },
             confirm1:function(first) {
              this.autogenid=first;
-             alert(this.autogenid);
+            //  alert(this.autogenid);
             },
         saveitemsfn:function(data){
             var obj={};
@@ -106,7 +104,7 @@
             obj.datetimeq1=this.min1;
             this.writeparam=obj;
             this.$.insertajax.generateRequest();
-            alert(JSON.stringify(obj));
+            // alert(JSON.stringify(obj));
             document.querySelector("autogen-id").confirm();
           },
         salesResponse:function(e){
@@ -187,6 +185,7 @@
                     obj.itemdes=item[i].customername;
                     obj.customerid=item[i].customerid;
                     arr.push(obj);
+                    // alert(JSON.stringify(obj));
                   }
                 }
                 }
@@ -212,7 +211,7 @@
               this.itemArray=[];
               document.querySelector('#transportinput2').selected=-1;
               this.value=customer_name;
-              alert(customer_id);
+              // alert(customer_id);
               sessionStorage.setItem('customerid1',customer_id);
               // document.querySelector('home-page').FnSetPage('sales-order');
       },
@@ -278,7 +277,7 @@
                       obj.itemdes1=item1[i].itemname;
                       obj.itemid=item1[i].itemid;
                       arr.push(obj);
-                      alert("ashgdf"+JSON.stringify(obj));
+                      // alert("ashgdf"+JSON.stringify(obj));
                     }
                   }
                   }
@@ -300,7 +299,7 @@
             this.querySelector('#transportinput3').style.visibility='hidden';
             supplier_name = e.target.selectedItem.textContent.trim();
             supplier_id = e.target.selectedItem.value.trim();
-            alert(supplier_name+"  "+supplier_id);
+            // alert(supplier_name+"  "+supplier_id);
             // localStorage.setItem("curr_sess_studentname",student_name);
             this.itemArray1=[];
             document.querySelector('#transportinput3').selected=-1;
