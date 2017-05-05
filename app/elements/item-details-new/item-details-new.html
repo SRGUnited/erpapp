@@ -1,0 +1,38 @@
+<dom-module id="item-details-new">
+<template>
+  <style>
+    .card-content{
+      width:100%;
+    }
+  </style>
+  <paper-card  elevation="0" style="width:100%;" >
+  <div class="card-content">
+       <paper-input  label="{{itemname}}" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input>
+       <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry1">
+         <template is="dom-repeat" items="{{itemArray}}" as="item">
+           <paper-item value="{{item.itemid}}">{{item.itemdes}}</paper-item>
+         </template>
+       </paper-listbox>
+  </div>
+  </paper-card>
+     <iron-ajax
+       auto
+       method="post"
+       url="http://localhost:4000/itemdetailsautocomplete"
+       handle-as="json"
+       on-response="itemautocompletefunction">
+     </iron-ajax>
+     <iron-ajax
+        auto
+        method="get"
+        url="itemdetailsname.json"
+        handle-as="json"
+        content-type="application/json"
+        on-response="itemlabelinfo"
+        last-response="{{jsondata}}"
+        debounce-duration="300">
+     </iron-ajax>
+
+</template>
+  <script src="item-detailsjs.js"></script>
+</dom-module>

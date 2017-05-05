@@ -1,6 +1,10 @@
 <dom-module id="vehicle-in-process-suppliername">
 <template>
-<paper-card  elevation="0" style="width:100%;">
+<style>
+.card-content{
+  width:100%;
+}</style>
+<paper-card  elevation="0" style="width:100%;" >
 <div class="card-content">
    <paper-input  label="{{Suppliername}}" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input>
    <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry1">

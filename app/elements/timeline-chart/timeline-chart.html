@@ -61,12 +61,28 @@
  /*margin-left: 2px;*/
  bottom: 0px;
 }
+/*.timeline-horizontal .timeline-item .timeline-badge:hover {
+
+background-color: green;
+}*/
 .custom {
   --paper-tooltip-background: grey;
   --paper-tooltip-text-color: var(--paper-white);
   margin-top: 40px;
   width: auto;
  }
+<<<<<<< HEAD
+=======
+
+.custom position{
+  margin-top: 15px;
+  /*margin-left: 2px;*/
+}
+paper-tooltip{
+  margin-top: 40px;
+  /*margin-left: 2psx;*/
+  width: 100px;
+>>>>>>> c2b354b6d33d0ec2a01edf4de76e876162e05ce7
 
 .totaldesign
 {
@@ -76,53 +92,186 @@
   font-size: 20px;
  }
 
+ /*//click*/
+ /* Popup container - can be anything you want */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+paper-toast.toasttime{
+  margin-top: 1000px;
+}
+
 </style>
   <template>
     <div class="container">
       <div class='totaldesign'>
-        <div id="vehicle" class="rate-header" >Vehicle Status Tracking</div>
+        <!-- <div id="vehicle" class="rate-header" >Vehicle Status Tracking</div> -->
         <div class='vehno'>  {{vehicleno}} </div>
         	<div class="row">
     				<div class="col-md-12">
               <ul class="timeline timeline-horizontal">
+<<<<<<< HEAD
                 <li class="timeline-item" >
                     <div class="timeline-badge primary"><i class="glyphicon glyphicon-time"></i></div>
                     <paper-tooltip class="custom"  position="top" animation-delay="0">
                     {{vehicleintime}}
+=======
+                <li class="timeline-item" onclick="scrolling.open()" id="clk1">
+                    <div class="timeline-badge primary" id="myH1"><i class="glyphicon glyphicon-time"></i></div>
+                    <paper-tooltip id="myPopup" class="custom"  position="top" animation-delay="0">
+                        {{vehicleintime}}
+>>>>>>> c2b354b6d33d0ec2a01edf4de76e876162e05ce7
                     </paper-tooltip>
                     <div class="timeline-heading">{{vehicleintimelabel}}</div>
               	</li>
 
+<<<<<<< HEAD
     						<li class="timeline-item">
     							<div class="timeline-badge primary" ><i class="glyphicon glyphicon-check"></i></div>
+=======
+    						<li class="timeline-item" onclick="scrolling1.open()" id="clk2">
+    							<div class="timeline-badge primary" id="myH2"><i class="glyphicon glyphicon-check"></i></div>
+>>>>>>> c2b354b6d33d0ec2a01edf4de76e876162e05ce7
       							<paper-tooltip class="custom" style="width: 60px;" position="top" animation-delay="0" >
                     {{vehicleloadstartdatetime}}
                     </paper-tooltip>
     							<div class="timeline-heading">{{vehicleloadstartdatetimelabel}}</div>
     						</li>
 
-                <li class="timeline-item">
-    							<div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
+                <li class="timeline-item"  onclick="scrolling2.open()" id="clk3">
+    							<div class="timeline-badge primary" id="myH3"><i class="glyphicon glyphicon-check"></i></div>
                     <paper-tooltip class="custom" style="width: 60px;" position="top" animation-delay="0">
                     {{vehicleloadenddatetime}}
                     </paper-tooltip>
     							<div class="timeline-heading">{{vehicleloadenddatetimelabel}}</div>
     						</li>
-                <li class="timeline-item">
-    							<div class="timeline-badge primary"><i class="glyphicon glyphicon-time"></i></div>
+
+                <li class="timeline-item"  onclick="scrolling3.open()" id="clk4">
+    							<div class="timeline-badge primary" id="myH4"><i class="glyphicon glyphicon-time"></i></div>
                     <paper-tooltip class="custom" position="top" animation-delay="0">
                     {{vehicleouttime}}
                     </paper-tooltip>
     							<div class="timeline-heading">{{vehicleouttimelabel}}</div>
               	</li>
-                <li class="timeline-item">
-    							<div class="timeline-badge primary" ><i class="glyphicon glyphicon-check"></i></div>
+
+                <li class="timeline-item"  onclick="scrolling4.open()" id="clk5">
+    							<div class="timeline-badge primary" id="myH5"><i class="glyphicon glyphicon-check"></i></div>
       						  <paper-tooltip class="custom" position="top" animation-delay="0">
                     {{deliveredtime}}
                     </paper-tooltip>
     							<div class="timeline-heading">{{deliveredtimelabel}}</div>
     						</li>
     					</ul>
+<<<<<<< HEAD
+=======
+              <!-- vehile in time -->
+              <paper-dialog id="scrolling">
+                <h2>CONFIRM</h2>
+                <paper-dialog-scrollable>
+                  <div>Vehicle In Time :{{vehicleintime}}</div>
+                </paper-dialog-scrollable>
+                <div class="buttons">
+                  <paper-button dialog-dismiss on-click="reject">NO</paper-button>
+                  <paper-button dialog-confirm autofocus on-click="confirm">YES</paper-button>
+                </div>
+              </paper-dialog>
+              <!-- load start time -->
+              <paper-dialog id="scrolling1">
+                <h2>CONFIRM</h2>
+                <paper-dialog-scrollable>
+                  <div>Load Start Date/Time :{{vehicleloadstartdatetime}}</div>
+                </paper-dialog-scrollable>
+                <div class="buttons">
+                  <paper-button dialog-dismiss on-click="reject1">NO</paper-button>
+                  <paper-button dialog-confirm autofocus on-click="confirm1">YES</paper-button>
+                </div>
+              </paper-dialog>
+              <!-- load end time -->
+              <paper-dialog id="scrolling2">
+                <h2>CONFIRM</h2>
+                <paper-dialog-scrollable>
+                  <div>Load End Date/Time  :{{vehicleloadenddatetime}}</div>
+                </paper-dialog-scrollable>
+                <div class="buttons">
+                  <paper-button dialog-dismiss on-click="reject2">NO</paper-button>
+                  <paper-button dialog-confirm autofocus on-click="confirm2">YES</paper-button>
+                </div>
+              </paper-dialog>
+              <!-- vehicle out time -->
+              <paper-dialog id="scrolling3">
+                <h2>CONFIRM</h2>
+                <paper-dialog-scrollable>
+                  <div>Vehicle Out Time :{{vehicleouttime}}</div>
+                </paper-dialog-scrollable>
+                <div class="buttons">
+                  <paper-button dialog-dismiss on-click="reject3">NO</paper-button>
+                  <paper-button dialog-confirm autofocus on-click="confirm3">YES</paper-button>
+                </div>
+              </paper-dialog>
+              <!-- delivered -->
+              <paper-dialog id="scrolling4">
+                <h2>CONFIRM</h2>
+                <paper-dialog-scrollable>
+                  <div>Delivered Time :{{deliveredtime}}</div>
+                </paper-dialog-scrollable>
+                <div class="buttons">
+                  <paper-button dialog-dismiss on-click="reject4">NO</paper-button>
+                  <paper-button dialog-confirm autofocus on-click="confirm4">YES</paper-button>
+                </div>
+              </paper-dialog>
+>>>>>>> c2b354b6d33d0ec2a01edf4de76e876162e05ce7
     				</div>
     			</div>
         </div>

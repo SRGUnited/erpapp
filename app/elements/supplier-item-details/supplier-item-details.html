@@ -1,36 +1,100 @@
-<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <dom-module id="supplier-item-details">
-  <template>
-    <style is="custom-style">
-    paper-card.size{
-     width: 50%;
-    }
-    </style>
-      <paper-card heading="Supplier-Item Details" class="size">
-      <div class="card-content">
-        <!-- <paper-input label="{{SupplierName}}" value="{{SupplierNameVal}}" on-keydown="FnSearchEnquiry"></paper-input> -->
-        <paper-input  label="SupplierName" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input>
-        <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry">
-        <template is="dom-repeat" items="{{itemArray}}" as="item">
-        <paper-item value="{{item.suppliername}}">{{item.itemdes}}</paper-item>
-        </template>
-        </paper-listbox>
-        <!-- <paper-input label="{{CategoryName}}" value="{{CategoryNameVal}}" on-keydown="FnSearchEnquiry"></paper-input>
-        <paper-input label="{{ItemName}}" value="{{ItemNameVal}}" on-keydown="FnSearchEnquiry"></paper-input>
-        <paper-input label="{{Specification1}}" value="{{Specification1Val}}" on-keydown="FnSearchEnquiry"></paper-input>
-        <paper-input label="{{Specification2}}" value="{Specification2Val}}" on-keydown="FnSearchEnquiry"></paper-input>
-        <paper-input label="{{Specification3}}" value="{{Specification3Val}}" on-keydown="FnSearchEnquiry"></paper-input>
-        <paper-input label="{{Specification4}}" value="{{Specification4Val}}" on-keydown="FnSearchEnquiry"></paper-input> -->
-      <supplier-item-details-ironajax></supplier-item-details-ironajax>
+<template>
+  <div class="container">
+    <div class="row">
+      <div  class="col-sm-6">
+        <img src="../../images/og1.jpg" width="60%" height="60%" style="margin-left:110px;margin-top:160px;"/>
       </div>
-      <div class="card-actions">
-        <center>
-          <paper-button raised on-click="submitFn">Save</paper-button>
-        </center>
+      <div class="col-sm-6">
+      <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+      <div class="panel-heading">
+      <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Supplier Details</a>
+      </h4>
       </div>
-    </paper-card>
+      <div id="collapse1" class="panel-collapse collapse in">
+        <supplier-details-new></supplier-details-new>
+      </div>
+      </div>
+      <div class="panel panel-default">
+      <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Category Details</a>
+      </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <category-details-new></category-details-new>
+      </div>
+      </div>
+      <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Item Details</a>
+        </h4>
+      </div>
+      <div id="collapse3" class="panel-collapse collapse">
+        <item-details-new></item-details-new>
 
-  </template>
-  <script src="supplier-item-detailsjs.js"></script>
+      </div>
+      </div>
+      <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Specification1 Details</a></a>
+        </h4>
+      </div>
+      <div id="collapse4" class="panel-collapse collapse">
+     <specification-1></specification-1>
 
+      </div>
+      </div>
+      <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Specification2 Details</a>
+        </h4>
+      </div>
+      <div id="collapse5" class="panel-collapse collapse">
+         <specification-2></specification-2>
+
+      </div>
+      </div>
+      <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Specification3 Details</a>
+        </h4>
+      </div>
+      <div id="collapse6" class="panel-collapse collapse">
+       <specification-3></specification-3>
+
+      </div>
+      </div>
+      <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Specification4 Details</a>
+        </h4>
+      </div>
+      <div id="collapse7" class="panel-collapse collapse">
+         <specification-4></specification-4>
+
+      </div>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  (function() {
+      'use strict';
+          Polymer({
+            is: 'supplier-item-details',
+
+            });
+  })();
+</script>
 </dom-module>
