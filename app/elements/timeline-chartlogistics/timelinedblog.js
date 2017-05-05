@@ -16,29 +16,16 @@ var jsonfile=require('jsonfile');
     }
       });
   }
-//update
 
-//update sales order
-exports.updatevehicle=function(,callback){
+// update timeline query
+exports.updatevehicle=function(x,y,vehicleno,callback){
   var response={
-    "salesorderid":salesid,
-    "salesorderdate":datetimeq,
-    "customerid":customerid,
-    "itemid":id,
-    "itemdescription":description,
-    "itemspecification":ispecification,
-    "containerquantity":rcoilsq,
-    "orderquantity":rtonq,
-    "deliveredquantity":rdqty,
-    "requireddeliverydate":datetimeq1,
-    "status":status
+    "loadstart":x,
+    "loadend":y
   };
-  jsonfile.writeFile(sales_person_directory,response,function(err){
-    if(!err){
-      require('fs').readFile(sales_person_directory,'utf8',function(err,jsondata){
-        dbjsondata=JSON.parse(jsondata);
-        // console.log("update salesordercreate set itemspecification='"+ispecification+"',orderquantity='"+rtonq+"',containerquantity='"+rcoilsq+"'  where salesorderid='"+salesid+"'");
-        connection.query("update salesordercreate set itemspecification='"+ispecification+"',orderquantity='"+rtonq+"',containerquantity='"+rcoilsq+"',status='"+status+"'  where salesorderid='"+salesid+"'",[dbjsondata],function(err){
+    console.log("fdsggfdgfdggdfhshfdjgj");
+    console.log("update goodsvehiclestatustracking set loadstart='"+x+"' where goodsvehiclenumber='"+vehicleno+"'");
+        connection.query("update goodsvehiclestatustracking set loadstart='"+x+"' where goodsvehiclenumber='"+vehicleno+"'",[response],function(err){
           if(!err)
           console.log("saved");
           else {
@@ -46,7 +33,23 @@ exports.updatevehicle=function(,callback){
             console.log("not saved");
           }
         });
-      });
+
   }
-  });
-}
+
+
+  exports.updatevehicleend=function(x,y,vehicleno,callback){
+    var update={
+      "loadstart":x,
+      "loadend":y
+      };
+      console.log("update goodsvehiclestatustracking set loadend='"+y+"' where goodsvehiclenumber='"+vehicleno+"'");
+          connection.query("update goodsvehiclestatustracking set loadend='"+y+"' where goodsvehiclenumber='"+vehicleno+"'",[update],function(err){
+            if(!err)
+            console.log("saved");
+            else {
+              console.log(err);
+              console.log("not saved");
+            }
+          });
+
+    }

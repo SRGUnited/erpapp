@@ -3,18 +3,38 @@
   <template>
     <!-- <p hidden>{{containerid}}</p>
     <p hidden>{{grnnumber}}</p> -->
+    <p hidden>{{db_update_name}}</p>
+    <p hidden>{{testid}}</p>
   <style is="custom-style">
-      paper-card{
-        width: 70%;
-        height: 60%
+      section {
+        width: 100%;
+        height: 750px;
+        @apply(--layout-vertical);
       }
+      .scroll{
+        overflow-y: hidden;
+        overflow-x: hidden;
+        }
+      #header1{
+        margin-left: 5%;
+      }
+      /*paper-dialog-scrollable{
+      overflow-y: hidden;
+      }*/
+      section paper-dialog-scrollable {
+        @apply(--layout-flex);
+      }
+      /*paper-card{
+        width: 70%;
+        height: 50%
+      }*/
       paper-card.rate {
          @apply(--layout-horizontal);
-         background-color: #F5F5F5;
+         /*background-color: #F5F5F5;*/
        }
       .rate-image {
-       width: 200px;
-       height: 200px;
+       width: 150px;
+       /*height:200px;*/
        background-size: cover;
       }
       .rate-content {
@@ -28,33 +48,33 @@
        --iron-icon-stroke-color: var(--paper-grey-600);
       }
       hr {
-    display: block;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    margin-left: auto;
-    margin-right: auto;
-    border-style: inset;
-    border-width: 0px;
-} 
+          display: block;
+          margin-top: 2em;
+          margin-bottom: 2em;
+          margin-left: 100px;
+          margin-right: 200px;
+          border-style: inset;
+          border-width: 1px;
+        }
   </style>
   <div class="container">
     <div class="row">
       <div class="col-sm-6">
         <template is="dom-repeat" items="{{displaycontent}}">
-        <center><div class="rate-header">{{item.inward_register_number}}</div></center>
-        <center><paper-card class="rate" style="margin-top:6px;margin-left:15px;" on-click="cardgetFn">
+        <div class="rate-header" id="header1">{{item.inward_register_number}}</div>
+        <paper-card class="rate" style="margin-top:6px;margin-left:15px; width: 70%; height: 100px" on-click="cardgetFn" elevation="0">
           <div class="rate-content">
           <div class="card-content">
             <div class="rate-name">
               <table>
                 <div hidden>{{item.po_number}}</div>
                 <div hidden>{{item.po_date}}</div>
-                <div class="rate-header">{{item.Itemname}}</div>
-                <div>{{item.itemname}}</div>
+                <!-- <div class="rate-header">{{item.Itemname}}</div> -->
+                <div class="rate-header">{{item.itemname}}</div>
                 <div>{{item.itemspecification}}</div>
-                <div class="rate-header">{{item.Containername}}</div>
-                <div>{{item.item_quantity}}{{item.unit_of_measure_id}}</div>
-                <div>{{item.container_quantity}}{{item.container_id}}</div>
+                <div>{{item.container_quantity}}{{item.container_id}}&nbsp&nbsp
+                {{item.item_quantity}}{{item.unit_of_measure_id}}</div>
+                <!-- <div class="rate-header">{{item.Containername}}</div> -->
                 <div class="rate-header">{{item.Suppliername}}</div>
                 <div>{{item.suppliername}}</div>
                 <div class="rate-header">{{item.Invoice}}</div>
@@ -65,24 +85,29 @@
         </div>
         <div class="rate-image" style="background-image: url({{item.images}})"></div>
       </paper-card>
-    </center>
-      </template>
       <hr>
+      </template>
+      <!-- <hr> -->
     </div>
     <div class="col-sm-6">
-      <paper-button raised on-click="saveconFn">save</paper-button>
-      <template is="dom-repeat-n" count="[[countvalue]]">
+      <!-- <section> -->
+      <!-- <paper-dialog-scrollable class="scroll" style="overflow-y: hidden"> -->
+      <template is="dom-repeat-n" count="{{countvalue}}">
             <GRNcard-container-domrepeat
                                         containerid="{{containerid}}"
                                         grnnumber="{{grnnumber}}"
                                         idval="{{idval}}"
                                         indexval="{{index}}"
                                         btno="{{btno}}"
-                                        htno="{{htno}}"></GRNcard-container-domrepeat>
+                                        htno="{{htno}}"
+                                        btnoVal="{{item.btno}}"
+                                        testbuttonhiddenvar="{{qualityhidden_var}}"></GRNcard-container-domrepeat>
         <div></div>
-        <hr>
-        <div></div>
+        <!-- <hr> -->
       </template>
+      <center><paper-button raised class="btn btn-app" on-click="saveconFn"><i class="fa fa-save"></i>save</paper-button></center>
+    <!-- </paper-dialog-scrollable> -->
+  <!-- </section> -->
     </div>
   </div>
 </div>
@@ -93,8 +118,26 @@
         params="{{containeridparams}}"
         handle-as="json"
         on-response="savecontainerResponse"></iron-ajax>
+        <iron-ajax
+                method="post"
+                id="updatecontaineridAjax"
+                url="http://localhost:4000/updatecontaineridinfo"
+                params="{{updatecontaineridparams}}"
+                handle-as="json"
+                on-response="updatecontainerResponse"></iron-ajax>
+                <iron-ajax
+                        method="post"
+                        id="updatecontainer_to_slider_Ajax"
+                        url="http://localhost:4000/updatecontainer_to_slider_info"
+                        params="{{updatecontainer_to_slider_params}}"
+                        handle-as="json"
+                        on-response="updatecontainer_to_slider_Response"></iron-ajax>
 </template>
 <script>
+  var globalarray=[];
+  var getdata;
+  var grnnumber;
+  var cntnoVal;
   Polymer({
     is:"GRNcard-click-function",
     ready:function(){
@@ -105,6 +148,7 @@
     getfunc:function(data){
       this.displaycontent=data;
       this.grnnumber=data[0].inward_register_number;
+      this.db_update_name=data[0].db_update_name;
       for(var i=0;i<data.length;i++){
       if(data[i].container_quantity!=""){
         if(data[i].container_id=="coil"){
@@ -113,6 +157,12 @@
           this.containerid=data[i].container_id;
           this.btno=0;
           this.htno=0;
+          if(data[0].qualityhidden_var=="1"){
+          this.qualityhidden_var=1;
+          }
+          if(data[0].qualityhidden_var=="0"){
+          this.qualityhidden_var=0;
+          }
         }
         if(data[i].container_id=="bag"){
           this.countvalue=data[i].container_quantity;
@@ -120,18 +170,44 @@
           this.containerid=data[i].container_id;
           this.btno=1;
           this.htno=1;
+          if(data[0].qualityhidden_var=="1"){
+          this.qualityhidden_var=1;
+          }
+          if(data[0].qualityhidden_var=="0"){
+          this.qualityhidden_var=0;
+          }
         }
         }
       }
     },
-    savecontaineridFn:function(data){
+    savecontaineridFn:function(data,itemquantitycount,containeridcount){
       for(var i=0;i<data.length;i++){
         this.containeridparams=data[i];
         this.$.savecontaineridAjax.generateRequest();
-        alert(JSON.stringify(this.containeridparams));
       }
+      this.updatecontaineridparams={updategrnnumber:data[0].grnnumber,
+                                    updateitemquantity:itemquantitycount,
+                                    updatecontaineriquantitycount:containeridcount,
+                                    db_update_name:this.db_update_name};
+      this.$.updatecontaineridAjax.generateRequest();
   },
   savecontainerResponse:function(e){
+    alert(e.detail.response.returnval);
+  },
+  updatecontainerResponse:function(e){
+    alert(e.detail.response.returnval);
+  },
+  update_containerval_to_slider_table:function(qid){
+      this.updatecontainer_to_slider_params={qid:qid,
+                                             grnnumber:grnnumber,
+                                             quantityVal:quantityVal};
+      this.$.updatecontainer_to_slider_Ajax.generateRequest();
+  },
+  containerval_to_slider_values:function(grnnumber,cntnoVal){
+    grnnumber=grnnumber;
+    cntnoVal=cntnoVal;
+  },
+  updatecontainer_to_slider_Response:function(e){
     alert(e.detail.response.returnval);
   }
   });

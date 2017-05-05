@@ -1,5 +1,6 @@
 <dom-module id="ironajax-GRNcard">
   <template>
+    <p hidden>{{elementname}}</p>
     <iron-ajax
       auto
       method="{{grnprocessmethod}}"
@@ -14,26 +15,11 @@
     Polymer({
       is:"ironajax-GRNcard",
       ready:function(){
-        alert("ironajax-GRNcard");
       },
       grnprocessresponse:function(e){
         var jsondata=e.detail.response.returnval;
-        // alert(JSON.stringify(jsondata));
-        var arr=[];
-        for(var i=0;i<jsondata.length;i++){
-          if(jsondata[i].status=="stores"){
-            arr.push(jsondata[i]);
-            if(arr.length==jsondata.length){
-            document.querySelector("grn-stores").grncardcontent=arr;
-          }
-          }
-          if(jsondata[i].status=="purchase"){
-            arr.push(jsondata[i]);
-            if(arr.length==jsondata.length){
-            document.querySelector("grn-purchase").grncardcontent=arr;
-          }
-          }
-        }
+        var elementname=this.elementname;
+        document.querySelector(elementname).grncardcontent=jsondata;
       }
     });
 </script>

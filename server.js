@@ -526,7 +526,46 @@ app.post('/savesupplierdata', urlencodedParser, function (req, res) {
     }
   });
 });
+app.post('/savecontaineridinfo', urlencodedParser, function (req,res) {
+  var response={inward_register_number:req.query.grnnumber,
+                container_id:req.query.containerid,
+                container_number:req.query.Containerno,
+                heat_number:req.query.htnoVal,
+                batch_number:req.query.btnoVal,
+                quantity:req.query.quantityVal
+                };
+    connectdb.savecontaineridFn(response,function(rows){
+      if(rows=="saved"){
+        res.status(200).json({'returnval': rows});
+      }
+      else
+        res.status(200).json({'returnval': "not saved"});
+    });
+    });
 
+app.post('/updatecontaineridinfo', urlencodedParser, function (req,res) {
+    connectdb.updatecontaineridFn(req.query.db_update_name,req.query.updategrnnumber,req.query.updateitemquantity,req.query.updatecontaineriquantitycount,function(rows){
+      if(rows=="updated"){
+        // console.log("updated");
+        res.status(200).json({'returnval': rows});
+      }
+      else
+        res.status(200).json({'returnval': "din't updated"});
+    });
+    });
+
+app.post('/updatecontainer_to_slider_info', urlencodedParser, function (req,res) {
+  var response={inward_register_number:req.query.grnnumber,
+                containerno:req.query.cntnoVal,
+                test_id:req.query.qid};
+    connectdb.updatecontainer_to_slider_Fn(response,function(rows){
+      if(rows=="saved"){
+        res.status(200).json({'returnval': rows});
+      }
+      else
+        res.status(200).json({'returnval': "not saved"});
+    });
+    });
 //tax info
 app.post('/Taxsaveinfo', urlencodedParser, function (req, res) {
 var response={
@@ -816,6 +855,7 @@ app.post('/stores', urlencodedParser, function (req,res) {
           res.status(200).json({'returnval': "does not get saleid"});
       });
       });
+<<<<<<< HEAD
 
 var autoGenerateID=require("./app/elements/autogen-id/autogen-id-todb.js");
 app.post ('/autogenerateid', urlencodedParser, function (req, res) {
@@ -829,6 +869,102 @@ app.post ('/autogenerateid', urlencodedParser, function (req, res) {
 
 
 // ********supplier name in auto complete*********
+=======
+      app.post('/quality', urlencodedParser, function (req,res) {
+        connectdb.qualityFn(function(rows){
+          if(rows!="reject"){
+            res.status(200).json({'returnval': rows});
+          }
+          else
+            res.status(200).json({'returnval': "does not get saleid"});
+        });
+        });
+      app.post('/searchheatnoinfo', urlencodedParser, function (req,res) {
+        connectdb.searchheatnoFn(req.query.heatno,function(rows){
+          if(rows!="No ID Found to Generate"){
+            res.status(200).json({'returnval': rows});
+          }
+          else{
+            res.status(200).json({'returnval': rows});
+          }
+        });
+        });
+        app.post('/insert_ht_bt_noinfo', urlencodedParser, function (req,res) {
+          var response={heat_number:req.query.heatno,
+                        batch_number:req.query.batchno};
+          connectdb.insert_ht_bt_noFn(response,function(rows){
+            if(rows=="inserted"){
+              res.status(200).json({'returnval':rows});
+            }
+            else{
+              res.status(200).json({'returnval': rows});
+            }
+          });
+          });
+          // var itemqualitytestingDB=require("./app/elements/item-quality-testing/item-quality-testing-todb.js");
+          app.post ('/testingdata', urlencodedParser, function (req, res) {
+            connectdb.gettestingdata(function(testingdata){
+              if(testingdata.length>0)
+                res.status(200).json({'testingdata': testingdata});
+              else
+                res.status(200).json({'testingdata': "No testingdata!"});
+            });
+          });
+          app.post ('/saveactual', urlencodedParser, function (req, res) {
+            connectdb.qtest(req.query.id,req.query.actualvalue,req.query.status,function(callback){
+              if(callback=="Saved")
+                res.status(200).json({'serverres': "Saved"});
+              else
+                res.status(200).json({'serverres': "Not Saved!"});
+            });
+          });
+      app.post('/loopsecuritysearchinfo', urlencodedParser, function (req,res) {
+      connectdb.loopsecuritysearchFn(req.query.salid,function(rows){
+        if(rows!="reject"){
+          res.status(200).json({'returnval': rows});
+        }
+        else
+          res.status(200).json({'returnval': "does not get saleid"});
+      });
+      });
+      app.post('/loopsecuritysearchinfo', urlencodedParser, function (req,res) {
+      connectdb.loopsecuritysearchFn(req.query.salid,function(rows){
+        if(rows!="reject"){
+          res.status(200).json({'returnval': rows});
+        }
+        else
+          res.status(200).json({'returnval': "does not get saleid"});
+      });
+      });
+      app.post('/loopsecuritysearchinfo', urlencodedParser, function (req,res) {
+      connectdb.loopsecuritysearchFn(req.query.salid,function(rows){
+        if(rows!="reject"){
+          res.status(200).json({'returnval': rows});
+        }
+        else
+          res.status(200).json({'returnval': "does not get saleid"});
+      });
+      });
+      app.post('/loopsecuritysearchinfo', urlencodedParser, function (req,res) {
+      connectdb.loopsecuritysearchFn(req.query.salid,function(rows){
+        if(rows!="reject"){
+          res.status(200).json({'returnval': rows});
+        }
+        else
+          res.status(200).json({'returnval': "does not get saleid"});
+      });
+      });
+      app.post('/loopsecuritysearchinfo', urlencodedParser, function (req,res) {
+      connectdb.loopsecuritysearchFn(req.query.salid,function(rows){
+        if(rows!="reject"){
+          res.status(200).json({'returnval': rows});
+        }
+        else
+          res.status(200).json({'returnval': "does not get saleid"});
+      });
+      });
+
+>>>>>>> 422fcccd05ab71a79fe2d66361b407aa43050709
 var supplierautocompletedb=require("./app/elements/vehicle-in-process-suppliername/supplierautocompletedb.js");
 app.post('/supplierautocomplete',urlencodedParser,function (req, res) {
 
@@ -874,6 +1010,7 @@ app.post('/quantityidfetch', urlencodedParser, function (req, res) {
   });
 });
 
+<<<<<<< HEAD
 var autoGenerateID=require("./app/elements/autogen-id/autogen-id-todb.js");
 app.post ('/autogenerateid', urlencodedParser, function (req, res) {
   autoGenerateID.generateId(function(retrievedData){
@@ -884,6 +1021,18 @@ app.post ('/autogenerateid', urlencodedParser, function (req, res) {
   });
 });
 // ***Invoice no saving ******
+=======
+// var autoGenerateID=require("./app/elements/autogen-id/autogen-id-todb.js");
+// app.post ('/autogenerateid', urlencodedParser, function (req, res) {
+//   autoGenerateID.generateId(function(retrievedData){
+//     if(retrievedData>=0)
+//       res.status(200).json({'returnid': retrievedData});
+//     else
+//       res.status(200).json({'returnid': "No ID to Generate!"});
+//   });
+// });
+
+>>>>>>> 422fcccd05ab71a79fe2d66361b407aa43050709
 var invoicedbpath=require("./app/elements/vehicle-in-process-itemdetails/invoiceprocessdb.js");
 app.post('/invoicesaving', urlencodedParser, function (req, res) {
   invoicedbpath.invoicesaving(req.query.invoicenovalue,req.query.invoicedatevalue,req.query.irnnumber,function(rows){
@@ -1005,7 +1154,12 @@ brandnameautocompletepathdb.brandnameautocomplete(req.query.itemnameparam,req.qu
       res.status(200).json({'returnval': rows});
     }
     else
+<<<<<<< HEAD
       res.status(200).json({'returnval': "Invalid!"});
+=======
+          res.status(200).json({'returnval': "Invalid!"});
+  });
+>>>>>>> 422fcccd05ab71a79fe2d66361b407aa43050709
 });
 });
 // ****dress varieties auto complete***********
@@ -1025,6 +1179,7 @@ var shopdetailsautocompletepath=require("./app/elements/shop-details/shopdetails
 app.post('/shopdetailsautocomplete',urlencodedParser,function (req, res) {
 shopdetailsautocompletepath.shopdetailsautocomplete(function(rows){
 
+<<<<<<< HEAD
     if(rows!="reject"){
       res.status(200).json({'returnval': rows});
     }
@@ -1049,6 +1204,23 @@ app.post('/subcategoryitemsave', urlencodedParser, function (req, res) {
   subcategoryitempath.subcategoryitemsave(req.query.subcategory_id_back,req.query.dress_id_back,function(rows){
     if(rows!="reject"){
       res.status(200).json({'returnval': "saved"});
+=======
+// var autoGenerateID=require("./app/elements/autogen-id/autogen-id-todb.js");
+// app.post ('/autogenerateid', urlencodedParser, function (req, res) {
+//   autoGenerateID.generateId(function(retrievedData){
+//     if(retrievedData>=0)
+//       res.status(200).json({'returnid': retrievedData});
+//     else
+//       res.status(200).json({'returnid': "No ID to Generate!"});
+//   });
+// });
+
+var invoicedbpath=require("./app/elements/vehicle-in-process-itemdetails/invoiceprocessdb.js");
+app.post('/invoicesaving', urlencodedParser, function (req, res) {
+  invoicedbpath.invoicesaving(req.query.invoicenovalue,req.query.invoicedatevalue,req.query.irnnumber,function(rows){
+    if(rows=="saved"){
+      res.status(200).json({'returnval': "Invoice detail saved"});
+>>>>>>> 422fcccd05ab71a79fe2d66361b407aa43050709
     }
     else
       res.status(200).json({'returnval': "Invalid!"});

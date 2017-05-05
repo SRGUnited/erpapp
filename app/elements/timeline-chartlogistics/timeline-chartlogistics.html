@@ -61,7 +61,7 @@
   bottom: 26px;
   /*left: 56px;*/
   right: 0;
-  width: 75%;
+  width: 80%;
   margin-bottom: 20px;
 }
 .timeline-horizontal .timeline-item {
@@ -97,22 +97,26 @@ background-color: green;
   --paper-tooltip-background: grey;
   --paper-tooltip-text-color: var(--paper-white-500);
   width: auto;
-  /*margin-left: auto;*/
+  margin-top: 50px;
+
 
  }
 
 .custom position{
   margin-top: 15px;
-  /*margin-left: 2px;*/
+
 }
+
+
+
 paper-tooltip{
   margin-top: 40px;
-  /*margin-left: 2psx;*/
   width: 100px;
 
 }
 paper-tooltip-inner {
 background-color: #FF0000;
+
 }
 .totaldesign
 {
@@ -121,8 +125,10 @@ background-color: #FF0000;
 }
 .timeline-heading{
   margin-left: 2px;
+  margin-top:70px;
+
 }
-.rate-header { @apply(--paper-font-headline);
+.rate-header { @apply(--paper-font);
   font-size: 20px;
  }
 
@@ -186,6 +192,13 @@ background-color: #FF0000;
 paper-toast.toasttime{
   margin-top: 1000px;
 }
+paper-button.same{
+  width: 10%;
+  height: 20%;
+  background-color: white;
+
+}
+
 
 </style>
   <template>
@@ -196,47 +209,55 @@ paper-toast.toasttime{
         	<div class="row">
     				<div class="col-md-12">
               <ul class="timeline timeline-horizontal">
-                <li class="timeline-item" onclick="scrolling.open()" id="clk1">
-                    <div class="timeline-badge primary" id="myH1"><i class="glyphicon glyphicon-time"></i></div>
+                <li class="timeline-item"  on-mouseover="vehiin" id="clk1">
+                  <paper-button class="same" id="dis1">
+                    <div class="timeline-badge primary" onclick="scrolling.open()" id="myH1"><i class="glyphicon glyphicon-time"></i></div>
+                  </paper-button>
                     <paper-tooltip id="myPopup" class="custom"  position="top" animation-delay="0">
                     {{vehicleintime}}
                     </paper-tooltip>
                     <div class="timeline-heading">{{vehicleintimelabel}}</div>
               	</li>
-
-    						<li class="timeline-item" onclick="scrolling1.open()" on-click="loadstart" id="clk2">
-    							<div class="timeline-badge primary" id="myH2"><i class="glyphicon glyphicon-check"></i></div>
+    						<li class="timeline-item"  on-mouseover="loadstart" id="clk21" >
+                  <paper-button disabled class="same" id="dis2">
+    							<div disabled onclick="scrolling1.open()" class="timeline-badge primary" id="myH2"><i class="glyphicon glyphicon-check"></i></div>
+                </paper-button>
       							<paper-tooltip class="custom" style="width: 60px;" position="top" animation-delay="0" >
-                    <div  id="loadstart3"></div>
+                    <div  id="loadstart3">{{x}}</div>
                     <datetime-picker date-string="{{min}}"  hidden min-date="[[max]]" use-not-native></datetime-picker>
                     </paper-tooltip>
     							<div class="timeline-heading">{{vehicleloadstartdatetimelabel}}</div>
     						</li>
-
-                <li class="timeline-item"  onclick="scrolling2.open()" on-click="loadend" id="clk3">
-    							<div class="timeline-badge primary" id="myH3"><i class="glyphicon glyphicon-check"></i></div>
+                <li class="timeline-item"  on-mouseover="loadend" id="clk3">
+                  <paper-button disabled class="same" id="dis3">
+    							<div onclick="scrolling2.open()" class="timeline-badge primary" id="myH3"><i class="glyphicon glyphicon-check"></i></div>
+                </paper-button>
                     <paper-tooltip class="custom" style="width: 60px;" position="top" animation-delay="0">
-                    <div  id="loadstart4"></div>
-                    <datetime-picker date-string="{{min}}"  hidden min-date="[[max]]" use-not-native></datetime-picker>
+                    <div  id="loadstart4">{{y}}</div>
                     </paper-tooltip>
     							<div class="timeline-heading">{{vehicleloadenddatetimelabel}}</div>
     						</li>
 
-                <li class="timeline-item"  onclick="scrolling3.open()" id="clk4">
-    							<div class="timeline-badge primary" id="myH4"><i class="glyphicon glyphicon-time"></i></div>
+                <li class="timeline-item"  on-mouseover="vehiout" id="clk4">
+                  <paper-button disabled class="same" id="dis4">
+    							<div onclick="scrolling3.open()" class="timeline-badge primary" id="myH4"><i class="glyphicon glyphicon-time"></i></div>
+                </paper-button>
                     <paper-tooltip class="custom" position="top" animation-delay="0">
                     {{vehicleouttime}}
                     </paper-tooltip>
     							<div class="timeline-heading">{{vehicleouttimelabel}}</div>
               	</li>
 
-                <li class="timeline-item"  onclick="scrolling4.open()" id="clk5">
-    							<div class="timeline-badge primary" id="myH5"><i class="glyphicon glyphicon-check"></i></div>
+                <li class="timeline-item"  on-mouseover="deliver" id="clk5">
+                  <paper-button disabled class="same" id="dis5">
+    							<div  onclick="scrolling4.open()" class="timeline-badge primary" id="myH5"><i class="glyphicon glyphicon-check"></i></div>
+                </paper-button>
       						  <paper-tooltip class="custom" position="top" animation-delay="0">
                     {{deliveredtime}}
                     </paper-tooltip>
     							<div class="timeline-heading">{{deliveredtimelabel}}</div>
     						</li>
+
     					</ul>
               <!-- vehile in time -->
               <paper-dialog id="scrolling">
@@ -298,7 +319,7 @@ paper-toast.toasttime{
         </div>
       </div>
     <ajax-timelinelog></ajax-timelinelog>
-    
+
 </template>
   <script src="timeline-chartlogistics.js"></script>
 </dom-module>

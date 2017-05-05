@@ -239,7 +239,7 @@ else{
 });
 }
 exports.savesalesorderconncetdbFn=function(data,callback){
-  console.log("mapping row"+data);
+  // console.log("mapping row"+data);
 connection.query('insert into vehiclesalesordermapping SET ?',[data],function(err,result){
 if(!err)
   // res.status(200).json({'returnval': "data saved"});
@@ -369,7 +369,7 @@ return callback("not get");
 // }
 
 exports.savecustomertdetFn=function(data,callback){
-  console.log(data);
+  // console.log(data);
 connection.query(" INSERT INTO m_customerdetail SET ?",[data],function(result,err){
   if(!err){
     console.log("saved");
@@ -415,8 +415,37 @@ exports.purchaseFn=function(callback){
   }
 });
 }
+exports.qualityFn=function(callback){
+  callback=callback||function(){};
+  connection.query("SELECT item_id,supplier_id,inward_register_number FROM od_inward_item_register where status='quality'",function(err,getrows){
+    // console.log(getrows);
+      var arr=[];
+  if(getrows.length>0){
+    for(var i=0;i<getrows.length;i++){
+        connection.query("SELECT T1.itemname,T1.itemspecification1,T2.suppliername,T3.*,T4.item_quantity,T4.container_quantity,T4.unit_of_measure_id,T4.container_id,T4.status,T4.po_date,T4.po_number FROM m_item_details T1 JOIN m_supplierdetails T2 ON T1.itemid = '"+getrows[i].item_id+"' AND T2.supplierid = '"+getrows[i].supplier_id+"' JOIN od_inward_item_invoice T3 ON inward_register_number='"+getrows[i].inward_register_number+"' JOIN od_inward_item_register T4 ON T4.item_id='"+getrows[i].item_id+"'",function(err,rows){
+          arr.push(rows[0]);
+          if(getrows.length==arr.length){
+            // console.log(arr);
+            return callback(arr);
+          }
+      });
+    }
+  }
+});
+}
   exports.savecontaineridFn=function(data,callback){
   connection.query("INSERT INTO grncontainerdetail SET ?",[data],function(err,result){
+    if(!err){
+      return callback("saved");
+    }
+    else{
+      console.log(err);
+      return callback("not saved");
+    }
+    });
+  }
+  exports.updatecontainer_to_slider_Fn=function(data,callback){
+  connection.query("INSERT INTO od_quality_test_result SET ?",[data],function(err,result){
     if(!err){
       return callback("saved");
     }
@@ -433,7 +462,22 @@ exports.purchaseFn=function(callback){
           return callback(rows);
         }
       else{
-        return callback(searchval);
+        connection.query("select id from autogenerateid where dummyfield='x'",function(err,retrievedData){
+          // console.log(retrievedData);
+          if(retrievedData.length>0){
+            for(var i=0;retrievedData.length>i;i++){
+              retrievedData[0].id++;
+            }
+            connection.query("update autogenerateid set id='"+retrievedData[0].id+"' where dummyfield='x'",function(err){});
+            // console.log(retrievedData);
+            return callback(retrievedData);
+          }
+          else{
+          console.log("Error:"+err);
+          return callback("No ID Found to Generate");
+          }
+        });
+        // return callback(searchval);
       }
       });
   }
@@ -448,3 +492,99 @@ exports.purchaseFn=function(callback){
       }
       });
   }
+
+// exports.updatecontaineridFn=function(updatename,grnnumber,itemquantity,containerquantity,callback){
+//   callback=callback||function(){};
+//   // console.log(grnnumber);
+//   connection.query("select * from od_inward_item_register where status='stores' and inward_register_number='"+grnnumber+"'",function(err,getrows){
+//     if(getrows.length>0){
+//       connection.query("update od_inward_item_register SET status='stores_history' where inward_register_number='"+grnnumber+"' and status='stores'",function(err,result){
+//         if(!err){
+//           connection.query("INSERT INTO od_inward_item_register SET ?",[getrows[0]],function(err,result){
+//             if(!err){
+//               connection.query("update od_inward_item_register SET accepted_container_quantity='"+containerquantity+"',accepted_item_quantity='"+itemquantity+"',status='quality' where inward_register_number='"+grnnumber+"' and status='stores'",function(err,result){
+//                 if(!err){
+//                   return callback("updated");
+//                 }
+//                 else{
+//                   return callback("didn't updated");
+//                 }
+//               });
+//             }
+//           });
+//         }
+//     });
+//   }
+// });
+// }
+exports.updatecontaineridFn=function(updatename,grnnumber,itemquantity,containerquantity,callback){
+  callback=callback||function(){};
+  // console.log(grnnumber);
+  console.log("updatename"+updatename);
+  connection.query("select * from od_inward_item_register where status='"+updatename+"' and inward_register_number='"+grnnumber+"'",function(err,getrows){
+    if(getrows.length>0){
+      connection.query("update od_inward_item_register SET status='"+updatename+"_history' where inward_register_number='"+grnnumber+"' and status='"+updatename+"'",function(err,result){
+        if(!err){
+          connection.query("INSERT INTO od_inward_item_register SET ?",[getrows[0]],function(err,result){
+            if(!err){
+              connection.query("update od_inward_item_register SET accepted_container_quantity='"+containerquantity+"',accepted_item_quantity='"+itemquantity+"',status='quality' where inward_register_number='"+grnnumber+"' and status='"+updatename+"'",function(err,result){
+                if(!err){
+                  return callback("updated");
+                }
+                else{
+                  return callback("didn't updated");
+                }
+              });
+            }
+          });
+        }
+    });
+  }
+});
+}
+exports.gettestingdata=function(callback){
+  connection.query("select T1.*,T2.* from m_quality_parameter T1 JOIN od_quality_parameter T2 where T1.quality_parameter_id = T2.quality_parameter_id;",function(err,testingdata){
+  if(testingdata.length>0){
+    // console.log(testingdata);
+    return callback(testingdata);
+  }
+  else{
+    console.log(err);
+    return callback("No testingdata!");
+  }
+  });
+}
+exports.qtest=function(id,actualvalue,status,callback){
+  var response={
+    "test_id":id,
+    "itemid":"",
+    "actual_value":actualvalue,
+    "status":status,
+    "inward_register_number":"",
+    "containerno":""
+  }
+  connection.query("insert into od_quality_test_result set ?",[response],function(err){
+  if(!err)
+    return callback("Saved");
+  else{
+    console.log(err);
+    return callback("Not Saved!");
+  }
+  });
+}
+exports.generateIdFn=function(callback){
+    connection.query("select id from autogenerateid where dummyfield='x'",function(err,retrievedData){
+      // console.log(retrievedData);
+      if(retrievedData.length>0){
+        for(var i=0;retrievedData.length>i;i++){
+          retrievedData[0].id++;
+        }
+        connection.query("update autogenerateid set id='"+retrievedData[0].id+"' where dummyfield='x'",function(err){});
+        return callback(retrievedData[0].id);
+      }
+      else{
+      console.log("Error:"+err);
+      return callback("No ID Found to Generate");
+      }
+    });
+}

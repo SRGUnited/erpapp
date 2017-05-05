@@ -1,0 +1,32 @@
+<dom-module id="call-purchase-card">
+  <template>
+      <div class="row" style="margin-left:10px;margin-top:15px;">
+      <div>
+        <b>Purchased Items</b>
+      </div>
+    <template is="dom-repeat" items="{{newitems}}">
+      <purchase-card
+                purchasenumber="{{item.purchasenumber}}"
+                purchasedate="{{item.purchasedate}}"
+                purchasetypeid="{{item.purchasetypeid}}"
+                purchaseid="{{item.purchaseid}}"
+                purchasequantity="{{item.purchasequantity}}"
+                containerquantity="{{item.containerquantity}}"
+                warehousestoresid="{{item.warehousestoresid}}"
+                status="{{item.status}}"
+                purchaserequireddate="{{item.purchaserequireddate}}"
+                hidevar="1"
+                >
+      </purchase-card>
+    </template>
+  </div>
+    <iron-ajax
+      auto
+      method="post"
+      url="http://localhost:4000/purchaseitemsearch"
+      handle-as="json"
+      on-response="handleResponse">
+    </iron-ajax>
+  </template>
+  <script src="call-purchase-card.js"></script>
+</dom-module>

@@ -1,71 +1,86 @@
-<link rel="import" href="../check-autogenid/check-autogenid.html">
+<link rel="import" href="../item-quality-test/item-quality-test.html">
 <dom-module id="GRNcard-container-domrepeat">
   <template>
-    <p hidden>{{heatno}}</P>
-  <style is="custom-style">
-      /*paper-card{
-        width: 80%;
-        height: 80%
+    <p hidden>{{testbuttonhiddenvar}}</p>
+    <p hidden>{{heatno}}</p>
+  <style>
+      #sliderid{
+        width: 100%;
+      }
+      /*#buttonid{
+        display: {{testbuttonhiddenvar}};
+      }*/
+      /*#down{
+        color: red;
+        margin-top: 10%;
+      }
+      #up{
+        color: {{colorchange}};
+        margin-top: 10%;
       }*/
       paper-card.rate {
         @apply(--layout-horizontal);
-        background-color: #FFFACD;
+        /*background-color: #FFFACD;*/
       }
       .rate-image {
+        margin-left: 10%;
+        width: 100%;
         /*background-color: blue;*/
        /*width: 200px;
        height: 200px;
        background-size: cover;*/
       }
       paper-input{
-        --paper-input-color:blue
+        --paper-input-color:green;
       }
       .rate-content {
        margin-left: 10%;
       }
-      .rate-header { @apply(--paper-font-headline); }
+      .rate-header {
+         @apply(--paper-font-headline);}
       .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
       paper-icon-button.rate-icon {
        --iron-icon-fill-color: white;
        --iron-icon-stroke-color: var(--paper-grey-600);
       }
       hr {
-    display: block;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    margin-left: auto;
-    margin-right: auto;
-    border-style: inset;
-    border-width: 0px;
-}
+          border-style: inset;
+          border-width: 1px;
+          width: 60%;
+          margin-left:30%
+        }
+      #testid{
+        float: right;
+      }
   </style>
-  <paper-card  class="rate" style="margin-top:6px;margin-left:15px;">
+  <paper-card class="rate" style="margin-top:6px;margin-left:15px;" elevation="0">
     <div class="rate-content">
     <div class="card-content">
-    <div class="rate-header" style="margin-top:200%;">{{idvalue}}&nbsp{{index}}</div>
+    <div class="rate-header" style="margin-top:200%">{{idvalue}}&nbsp{{index}}</div>
       <div hidden>{{grnnumber}}</div>
       <div hidden>{{containerid}}</div>
       <div hidden>{{idval}}{{indexval}}</div>
     </div>
     </div>
-    <div class="rate-image" style="height:300px;margin-left:30px;">
+    <div class="rate-image">
       <paper-input label="Container Number" value="{{cntnoVal}}"></paper-input>
       <paper-input hidden={{htno}} label="Heat No" value="{{htnoVal}}" on-change="search_heatno"></paper-input>
       <paper-input label="Quantity" value="{{quantityVal}}"></paper-input>
-      <paper-input hidden={{btno}} label="Batch No" value="{{btnoVal}}"></paper-input>
-      <div>
-      <paper-checkbox galign="right" id="checked" on-change="checkboxChanged"></paper-checkbox>
+      <paper-input hidden={{btno}} label="Batch No" value={{btnoVal}}></paper-input>
+      <div id="down" style="float:right; font-size:30px; color:{{colordownchange}};" class="glyphicon glyphicon-thumbs-down" on-click="thumbsdownFn"></div>
+      <div id="up" style="float:right; font-size:30px; color:{{colorupchange}};" class="glyphicon glyphicon-thumbs-up" on-click="thumbsupFn"></div>
+      <br></br>
+    <div>
+        <paper-button id="testid"  raised on-click="qualityTest" hidden="{{testbuttonhiddenvar}}">Add Test >></paper-button>
     </div>
+    <div id="sliderid">
+        <template is="dom-repeat-n" count="[[trigger_item_quality_test]]">
+          <item-quality-testing></item-quality-testing>
+        </template>
     </div>
-    <div></div>
   </div>
 </paper-card>
-
-<template is="dom-repeat-n" count="[[triger_autogenid]]">
-  <check-autogenid
-                  stringname="btno"
-                  elementname="GRNcard-container-domrepeat"></check-autogenid>
-</template>
+<hr>
 <iron-ajax
         id="search_heatnoId"
         method="post"
@@ -86,6 +101,10 @@
      'use strict';
      var arr=[];
      var htno;
+     var containeridcount=0;
+     var itemquantitycount=0;
+     var indexvalues;
+     var autogenid;
     Polymer({
       is:"GRNcard-container-domrepeat",
       ready:function(){
@@ -93,24 +112,25 @@
         this.index=this.indexval+1;
       },
       search_heatno:function(){
+        indexvalues=this.indexval;
         htno=this.htnoVal;
         var obj={};
         obj.heatno=this.htnoVal;
         this.heatnoparams=obj;
-        alert(JSON.stringify(this.heatnoparams));
         this.$.search_heatnoId.generateRequest();
       },
-      checkboxChanged : function(event){
-        if(event.target.checked) {
-            if(event.target.value=="on"){
-              if(event!=0){
+      thumbsupFn : function(){
+        this.colorupchange="green";
+        this.colordownchange="";
+        document.querySelector("GRNcard-click-function").containerval_to_slider_values(this.grnnumber,this.cntnoVal);
                 if(this.btno==1){
                 var containeridparams={Containerno:this.cntnoVal,
                                         quantityVal:this.quantityVal,
                                         grnnumber:this.grnnumber,
                                         containerid:this.containerid};
                 arr.push(containeridparams);
-                // alert(JSON.stringify(arr));
+                containeridcount=containeridcount+1;
+                itemquantitycount=Number(itemquantitycount)+ Number(this.quantityVal);
                                 }
                                 if(this.btno==0){
                                 var containeridparams={Containerno:this.cntnoVal,
@@ -121,34 +141,35 @@
                                                         containerid:this.containerid
                                                       };
                                 arr.push(containeridparams);
-                                // alert(JSON.stringify(arr));
+                                containeridcount=containeridcount+1;
+                                itemquantitycount=Number(itemquantitycount)+ Number(this.quantityVal);
                               }
-              }
-          }
-        }
     },
       savecontaineridFn:function(){
-        document.querySelector("GRNcard-click-function").savecontaineridFn(arr);
+        document.querySelector("GRNcard-click-function").savecontaineridFn(arr,containeridcount,itemquantitycount);
       },
       search_heatnoResponse:function(e){
-        if(e.detail.response.returnval==htno){
-          alert("search response"+e.detail.response.returnval);
-          this.triger_autogenid=1;
+        var data=e.detail.response.returnval;
+        if(data[0].id!=null){
+          var b_no="btno"+data[0].id;
+          this.btnoVal=b_no;
+          this.insertheatnoparams={heatno:htno,
+                                   batchno:b_no};
+          this.$.insert_btnoId.generateRequest();
         }
-        else{
-          var data=e.detail.response.returnval;
-          // alert(JSON.stringify(data));
+        else {
           this.btnoVal=data[0].batch_number;
         }
       },
-      checkid:function(data){
-        this.insertheatnoparams={heatno:htno,
-                                  batchno:data};
-        this.btnoVal=data;
-        this.$.insert_btnoId.generateRequest();
-      },
       btnoResponse:function(e){
           alert(e.detail.response.returnval);
+      },
+      thumbsdownFn:function(){
+        this.colordownchange="red";
+        this.colorupchange="";
+      },
+      qualityTest:function(){
+        this.trigger_item_quality_test=1;
       }
     });
     })();

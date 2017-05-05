@@ -2,6 +2,10 @@
   'use strict';
 Polymer({
   is: "barchart-card",
+  ready:function()
+  {
+    // alert("ok");
+  },
   barchartloading:function(e){
       alert(JSON.stringify(e[0]));
       document.getElementById("chartContainer").innerHTML = "barchart is loaded.";
