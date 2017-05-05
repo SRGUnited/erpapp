@@ -1,77 +1,177 @@
+<link rel="import" href="../item-quality-test/item-quality-test.html">
 <dom-module id="GRNcard-container-domrepeat">
   <template>
-  <style is="custom-style">
-      paper-card{
-        width: 70%;
-        height: 60%
+    <p hidden>{{testbuttonhiddenvar}}</p>
+    <p hidden>{{heatno}}</p>
+  <style>
+      #sliderid{
+        width: 100%;
       }
-      paper-card.rate { @apply(--layout-horizontal); }
+      /*#buttonid{
+        display: {{testbuttonhiddenvar}};
+      }*/
+      /*#down{
+        color: red;
+        margin-top: 10%;
+      }
+      #up{
+        color: {{colorchange}};
+        margin-top: 10%;
+      }*/
+      paper-card.rate {
+        @apply(--layout-horizontal);
+        /*background-color: #FFFACD;*/
+      }
       .rate-image {
-       width: 200px;
+        margin-left: 10%;
+        width: 100%;
+        /*background-color: blue;*/
+       /*width: 200px;
        height: 200px;
-       background-size: cover;
+       background-size: cover;*/
+      }
+      paper-input{
+        --paper-input-color:green;
       }
       .rate-content {
        margin-left: 10%;
       }
-      .rate-header { @apply(--paper-font-headline); }
+      .rate-header {
+         @apply(--paper-font-headline);}
       .rate-name { color: var(--paper-grey-600); margin: 10px 0; }
       paper-icon-button.rate-icon {
        --iron-icon-fill-color: white;
        --iron-icon-stroke-color: var(--paper-grey-600);
       }
+      hr {
+          border-style: inset;
+          border-width: 1px;
+          width: 60%;
+          margin-left:30%
+        }
+      #testid{
+        float: right;
+      }
   </style>
-  <paper-card  class="rate" style="margin-top:6px;margin-left:15px;width:80%">
-    <div class="rate-content">{{idvalue}}&nbsp{{index}}</div>
+  <paper-card class="rate" style="margin-top:6px;margin-left:15px;" elevation="0">
+    <div class="rate-content">
     <div class="card-content">
-      <paper-input label="Container Number" value="{{cntnoVal}}"></paper-input>
-      <paper-input hidden={{btno}} label="Batch No" value="{{btnoVal}}"></paper-input>
-      <paper-input hidden={{htno}} label="Heat No" value="{{htnoVal}}"></paper-input>
-      <paper-input label="Quantity" value="{{quantityVal}}"></paper-input>
-      <paper-checkbox align="right" id="checked" on-change="change"></paper-checkbox>
+    <div class="rate-header" style="margin-top:200%">{{idvalue}}&nbsp{{index}}</div>
+      <div hidden>{{grnnumber}}</div>
+      <div hidden>{{containerid}}</div>
+      <div hidden>{{idval}}{{indexval}}</div>
     </div>
-    <div class="rate-image" hidden>{{idval}}{{indexval}}</div>
-  <span><b></b></span><span></span>
+    </div>
+    <div class="rate-image">
+      <paper-input label="Container Number" value="{{cntnoVal}}"></paper-input>
+      <paper-input hidden={{htno}} label="Heat No" value="{{htnoVal}}" on-change="search_heatno"></paper-input>
+      <paper-input label="Quantity" value="{{quantityVal}}"></paper-input>
+      <paper-input hidden={{btno}} label="Batch No" value={{btnoVal}}></paper-input>
+      <div id="down" style="float:right; font-size:30px; color:{{colordownchange}};" class="glyphicon glyphicon-thumbs-down" on-click="thumbsdownFn"></div>
+      <div id="up" style="float:right; font-size:30px; color:{{colorupchange}};" class="glyphicon glyphicon-thumbs-up" on-click="thumbsupFn"></div>
+      <br></br>
+    <div>
+        <paper-button id="testid"  raised on-click="qualityTest" hidden="{{testbuttonhiddenvar}}">Add Test >></paper-button>
+    </div>
+    <div id="sliderid">
+        <template is="dom-repeat-n" count="[[trigger_item_quality_test]]">
+          <item-quality-testing></item-quality-testing>
+        </template>
+    </div>
+  </div>
 </paper-card>
-<paper-button raised on-click="savecontaineridFn">save</paper-button>
-    <iron-ajax
-      method="post"
-      id="savecontaineridAjax"
-      url="http://localhost:4000/savecontaineridinfo"
-      params="{{containeridparams}}"
-      handle-as="json"
-      on-response="handleResponse"></iron-ajax>
-
+<hr>
+<iron-ajax
+        id="search_heatnoId"
+        method="post"
+        params="{{heatnoparams}}"
+        url="http://localhost:4000/searchheatnoinfo"
+        handle-as="json"
+        on-response="search_heatnoResponse"></iron-ajax>
+        <iron-ajax
+                id="insert_btnoId"
+                method="post"
+                params="{{insertheatnoparams}}"
+                url="http://localhost:4000/insert_ht_bt_noinfo"
+                handle-as="json"
+                on-response="btnoResponse"></iron-ajax>
   </template>
   <script>
+  (function() {
+     'use strict';
+     var arr=[];
+     var htno;
+     var containeridcount=0;
+     var itemquantitycount=0;
+     var indexvalues;
+     var autogenid;
     Polymer({
       is:"GRNcard-container-domrepeat",
       ready:function(){
         this.idvalue=this.idval;
         this.index=this.indexval+1;
       },
-      savecontaineridFn:function(){
-        if(this.btno==1){
-        this.containeridparams={Containerno:this.cntnoVal,
-                                quantityVal:this.quantityVal
-                              };
-        // alert(JSON.stringify(this.containeridparams));
-                        }
-                        if(this.btno==0){
-                        this.containeridparams={Containerno:this.cntnoVal,
-                                                btnoVal:this.btnoVal,
-                                                htnoVal:this.htnoVal,
-                                                quantityVal:this.quantityVal
-                                              };
-                        // alert(JSON.stringify(this.containeridparams));
-                      }
-                                        var a = $('input[type="checkbox"]:checked').length;
-                                        alert(a);
-        // this.$.savecontaineridAjax.generateRequest();
+      search_heatno:function(){
+        indexvalues=this.indexval;
+        htno=this.htnoVal;
+        var obj={};
+        obj.heatno=this.htnoVal;
+        this.heatnoparams=obj;
+        this.$.search_heatnoId.generateRequest();
       },
-      change:function(e){
-
+      thumbsupFn : function(){
+        this.colorupchange="green";
+        this.colordownchange="";
+        document.querySelector("GRNcard-click-function").containerval_to_slider_values(this.grnnumber,this.cntnoVal);
+                if(this.btno==1){
+                var containeridparams={Containerno:this.cntnoVal,
+                                        quantityVal:this.quantityVal,
+                                        grnnumber:this.grnnumber,
+                                        containerid:this.containerid};
+                arr.push(containeridparams);
+                containeridcount=containeridcount+1;
+                itemquantitycount=Number(itemquantitycount)+ Number(this.quantityVal);
+                                }
+                                if(this.btno==0){
+                                var containeridparams={Containerno:this.cntnoVal,
+                                                        btnoVal:this.btnoVal,
+                                                        htnoVal:this.htnoVal,
+                                                        quantityVal:this.quantityVal,
+                                                        grnnumber:this.grnnumber,
+                                                        containerid:this.containerid
+                                                      };
+                                arr.push(containeridparams);
+                                containeridcount=containeridcount+1;
+                                itemquantitycount=Number(itemquantitycount)+ Number(this.quantityVal);
+                              }
+    },
+      savecontaineridFn:function(){
+        document.querySelector("GRNcard-click-function").savecontaineridFn(arr,containeridcount,itemquantitycount);
+      },
+      search_heatnoResponse:function(e){
+        var data=e.detail.response.returnval;
+        if(data[0].id!=null){
+          var b_no="btno"+data[0].id;
+          this.btnoVal=b_no;
+          this.insertheatnoparams={heatno:htno,
+                                   batchno:b_no};
+          this.$.insert_btnoId.generateRequest();
+        }
+        else {
+          this.btnoVal=data[0].batch_number;
+        }
+      },
+      btnoResponse:function(e){
+          alert(e.detail.response.returnval);
+      },
+      thumbsdownFn:function(){
+        this.colordownchange="red";
+        this.colorupchange="";
+      },
+      qualityTest:function(){
+        this.trigger_item_quality_test=1;
       }
     });
+    })();
   </script>
 </dom-module>

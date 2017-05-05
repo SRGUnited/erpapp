@@ -2,7 +2,8 @@
 <dom-module id="grn-stores">
   <template>
     <ironajax-GRNcard grnprocessmethod="post"
-                      name="stores"></ironajax-GRNcard>
+                      name="stores"
+                      elementname="grn-stores"></ironajax-GRNcard>
     <template is="dom-repeat" items="{{grncardcontent}}">
       <GRN-card title="stores"
                 itemname="{{item.itemname}}"
@@ -16,7 +17,9 @@
                 container_id="{{item.container_id}}"
                 unit_of_measure_id="{{item.unit_of_measure_id}}"
                 po_number="{{item.po_number}}"
-                po_date="{{item.po_date}}"></GRN-card>
+                po_date="{{item.po_date}}"
+                images="../../images/stores.png"
+                qualityhidden_var="1"></GRN-card>
     </template>
   </template>
   <script>

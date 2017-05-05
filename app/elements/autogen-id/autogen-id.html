@@ -42,10 +42,14 @@
         var irnstringid="irn"+getid;
         document.querySelector("vehicle-in-process-itemdetails").saveitemauto(irnstringid);
       }
+      if(this.getstring=="btno"){
+        var btnostringid="btno"+getid;
+        document.querySelector("GRNcard-container-domrepeat").getbtno_id(btnostringid);
+      }
     },
-
     send:function(data){
-      // alert("getting");
+      alert("send");
+      alert(data);
       this.getstring=data;
       this.$.autogen.generateRequest();
     }

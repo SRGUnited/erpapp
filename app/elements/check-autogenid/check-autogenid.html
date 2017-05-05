@@ -1,0 +1,32 @@
+<dom-module id="check-autogenid">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <template>
+    <p hidden>{{stringname}}</p>
+    <p hidden>{{elementname}}</p>
+    <iron-ajax
+      auto
+      id="autogen"
+      method="post"
+      url="http://localhost:4000/autogenerateid"
+      handle-as="json"
+      on-response="responseFn">
+    </iron-ajax>
+  </template>
+<script type="text/javascript">
+  Polymer({
+    is: "check-autogenid",
+    ready:function(){
+    },
+responseFn:function(e){
+  var getid=e.detail.response.returnid;
+  var id=this.stringname+getid;
+  var name=this.elementname;
+  document.querySelector(name).checkid(id);
+}
+  });
+</script>
+</dom-module>
