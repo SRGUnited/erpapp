@@ -1,0 +1,61 @@
+
+<dom-module id="sub-category-details">
+  <template>
+  <style>
+  .card-content
+  {
+    width:100%;
+  }
+  :root
+   {
+                /* Label and underline color when the input is not focused */
+                --paper-input-container-color: #707172;
+
+                /* Label and underline color when the input is focused */
+                --paper-input-container-focus-color: blue;
+
+                /* Label and underline color when the input is invalid */
+                --paper-input-container-invalid-color: red;
+
+                /* Input foreground color */
+                --paper-input-container-input-color: black;
+  }
+  paper-input {
+--paper-input-container-input: {
+font-style:italic;
+};
+}
+  </style>
+ <paper-card  elevation="0" style="width:100%;" >
+  <div class="card-content">
+     <paper-input auto-validate pattern="[a-zA-Z, ,-]*"  error-message="Invalid!" on-tap="recievefun" label="{{select}}" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input>
+     <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry1">
+       <template is="dom-repeat" items="{{itemArray}}" as="item">
+         <paper-item value="{{item.subcategory_id}}">{{item.itemdes}}</paper-item>
+       </template>
+     </paper-listbox>
+  </div>
+  </paper-card>
+  <iron-ajax
+   id="categoryajax"
+    method="post"
+    url="{{categoryequesturl}}"
+    handle-as="json"
+    params="{{categoryparameter}}"
+    on-response="subcategoryresponse">
+  </iron-ajax>
+  <iron-ajax
+     auto
+     method="get"
+     url="sub-category-label.json"
+     handle-as="json"
+     content-type="application/json"
+     on-response="subcategorylabelinfo"
+     last-response="{{jsondata}}"
+     debounce-duration="300">
+  </iron-ajax>
+    </template>
+ <script src="sub-category-details.js">
+
+  </script>
+</dom-module>

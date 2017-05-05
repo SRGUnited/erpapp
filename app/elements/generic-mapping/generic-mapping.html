@@ -1,0 +1,75 @@
+
+<dom-module id="generic-mapping">
+  <template>
+    <paper-card elevation="0" image="../../images/snow.jpg">
+    <div class="card-content">
+      <h2>  <div class="cafe-header">Hotel</div></h2>
+        <paper-input label="customer Id" value="{{customerid}}"></paper-input>
+        <paper-input label="Address Id" value="{{addressid}}"></paper-input>
+        <div class="horizontal justified">
+          <paper-fab icon="send" mini  on-click="go"></paper-fab>
+        </div>
+    </div>
+    </paper-card>
+    <iron-ajax
+      id="dbnamefetchajax"
+      method="post"
+      url="{{dbnameurl}}"
+      handle-as="json"
+      params="{{dbnameparams}}"
+      on-response="dbnamecomplete">
+    </iron-ajax>
+    <iron-ajax
+      auto
+      id="generictablenameajax"
+      method="get"
+      url="generic-tablename.json"
+      handle-as="json"
+      last-response="{{jsondata}}"
+      on-response="genericresponse">
+    </iron-ajax>
+
+  </template>
+  <!-- *****to fetch db name and col name -->
+
+ <script>
+  (function() {
+    'use strict';
+    var dbtoken="";
+    var field1="";
+    var field2="";
+    var targettablename="";
+  Polymer({
+    is: 'generic-mapping',
+
+    ready:function(){
+
+    },
+    go:function(){
+      // ****here we ahrd code it for temporary use token from other config element*****
+      var dbnameobj1={};
+      // dbnameobj1.dbtoken="item_brand_mapping";
+      dbnameobj1.dbtoken=dbtoken;
+      dbnameobj1.customerid=this.customerid;
+      dbnameobj1.addressid=this.addressid;
+      this.dbnameparams=dbnameobj1;
+      this.dbnameurl="http://localhost:4000/dbnamefetch";
+      this.$.dbnamefetchajax.generateRequest();
+    },
+    dbnamecomplete:function(e){
+          var arr=e.detail.response.returnval;
+          alert(JSON.stringify(arr));
+
+    },
+    genericresponse:function(e){
+      var genericjson=this.jsondata;
+      dbtoken=genericjson[0].token1;
+    }
+
+
+
+
+    });
+  })();
+  </script>
+</dom-module>

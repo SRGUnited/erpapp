@@ -10,7 +10,6 @@ exports.invoicesaving=function(invoicenovalue,invoicedatevalue,irnnumber,callbac
     console.log(invoiceresponse);
  connection.query("INSERT INTO od_inward_item_invoice SET ?",[invoiceresponse],function(err,rows){
    if(rows.length>0){
-     console.log(rows);
       return callback("saved");
   }
   else{

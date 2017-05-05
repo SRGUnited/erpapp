@@ -1,0 +1,47 @@
+<dom-module id="id-reuse">
+  <template>
+<div>
+  {{idvalue1}}
+  {{idvalue2}}
+  {{iddbsavename}}
+  {{tbname}}
+  {{field1}}
+  {{field2}}
+
+</div>
+<iron-ajax
+  id="idajax"
+  method="post"
+  url="http://localhost:4000/{{iddbsavename}}"
+  handle-as="json"
+  params="{{idparams}}"
+  on-response="iditemcomplete">
+</iron-ajax>
+  </template>
+ <script>
+  (function() {
+    'use strict';
+  Polymer({
+    is: 'id-reuse',
+
+    ready:function(){
+      // var idsavingauto=this.iddbsavename;
+      // alert(idsavingauto);
+      var idobj={};
+      idobj.idvalue1=this.idvalue1;
+      idobj.idvalue2=this.idvalue2;
+      idobj.tbname=this.tbname;
+      this.idparams=idobj;
+      // alert(this.idparams);
+      alert(JSON.stringify(this.idparams));
+      // this.idurl=;
+      this.$.idajax.generateRequest();
+    },
+    iditemcomplete:function(e){
+          var arr=e.detail.response.returnval;
+          alert(JSON.stringify(arr));
+    }
+    });
+  })();
+  </script>
+</dom-module>

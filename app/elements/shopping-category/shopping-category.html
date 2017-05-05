@@ -1,0 +1,201 @@
+
+<dom-module id="shopping-category">
+  <template>
+    <style>
+/*#panel1
+{
+  width:100%;
+  background-color: blue;
+}*/
+.panel {
+border: none;
+ margin-bottom: 20px;
+}
+.panel-default > .panel-heading
+{
+    cursor: pointer;
+	background-color: white;
+	color:#083c8e;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	}
+  paper-fab[icon="send"] {
+ background:green; /* or whatever your color is */
+}
+  </style>
+    <div class="container">
+    <div class="row">
+    <div  class="col-sm-6" >
+      <img src="../../images/og1.jpg" width="60%" height="60%" style="margin-left:110px; margin-top:160px;"/>
+    </div>
+    <div class="col-sm-6">
+
+      <h2><em>E-shopping</em>
+         <img src="../../images/download-1.jpg" width="40%" height="70%"/>
+      </h2>
+    <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Shop Name</a>
+          </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <shop-details></shop-details>
+          </div>
+          </div>
+          <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Category Details</a>
+          </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+            <category-details></category-details>
+          </div>
+          </div>
+          <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Sub category Details</a>
+          </h4>
+          </div>
+          <div id="collapse3" class="panel-collapse collapse">
+              <sub-category-details></sub-category-details>
+          </div>
+          </div>
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Brand</a>
+              </h4>
+          </div>
+          <div id="collapse4" class="panel-collapse collapse">
+               <brand-details></brand-details>
+          </div>
+          </div>
+          <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Collections </a>
+            </h4>
+            </div>
+            <div id="collapse5" class="panel-collapse collapse">
+                  <dress-collections></dress-collections>
+            </div>
+            </div>
+      </div>
+      <!-- button -->
+      <center>
+          <!-- <a class="btn btn-app" on-click="submit" style="margin-right:10px;">
+          <i class="fa fa-save"></i>Submit
+          </a> -->
+          <paper-fab icon="send" mini  on-click="submit"></paper-fab>
+      </center>
+
+      </div>
+      </div>
+      </div>
+      <iron-ajax
+        id="itembrandajax"
+        method="post"
+        url="{{itembrandurl}}"
+        handle-as="json"
+        params="{{itembrandparams}}"
+        on-response="itembrandcomplete">
+      </iron-ajax>
+      <!-- <id-reuse idvalue1="this.brand_id_back" idvalue2="this.dress_id_back" iddbsavename="idsaving" tbname="item_brand_mapping"> -->
+      <!-- </id-reuse> -->
+
+      <iron-ajax
+        id="subcategoryitemajax"
+        method="post"
+        url="{{subcategoryitemurl}}"
+        handle-as="json"
+        params="{{subcategoryitemparams}}"
+        on-response="subcategoryitemcomplete">
+      </iron-ajax>
+      <iron-ajax
+        id="categorysubcategoryajax"
+        method="post"
+        url="{{categorysubcategoryurl}}"
+        handle-as="json"
+        params="{{categorysubcategorparams}}"
+        on-response="categorysubcategorycomplete">
+      </iron-ajax>
+      <iron-ajax
+        id="shopitemajax"
+        method="post"
+        url="{{shopitemurl}}"
+        handle-as="json"
+        params="{{shopitemaparams}}"
+        on-response="shopitemcomplete">
+      </iron-ajax>
+  </template>
+ <script>
+  (function() {
+    'use strict';
+    var shop_id_back="";
+    var category_id_back="";
+    var subcategory_id_back="";
+    var brand_id_back="";
+    var dress_id_back="";
+
+  Polymer({
+    is: 'shopping-category',
+    submit:function()
+    {
+    var shopobj1={};
+    shopobj1.brand_id_back=brand_id_back;
+    shopobj1.dress_id_back=dress_id_back;
+    this.itembrandparams=shopobj1;
+    this.itembrandurl="http://localhost:4000/itembrandsave";
+    this.$.itembrandajax.generateRequest();
+
+    var shopobj2={};
+    shopobj2.subcategory_id_back=subcategory_id_back;
+    shopobj2.dress_id_back=dress_id_back;
+    this.subcategoryitemparams=shopobj2;
+    this.subcategoryitemurl="http://localhost:4000/subcategoryitemsave";
+    this.$.subcategoryitemajax.generateRequest();
+
+    var shopobj3={};
+    shopobj3.category_id_back=category_id_back;
+    shopobj3.subcategory_id_back=subcategory_id_back;
+    this.categorysubcategorparams=shopobj3;
+    this.categorysubcategoryurl="http://localhost:4000/categorysubcategorysaving";
+    this.$.categorysubcategoryajax.generateRequest();
+
+    var shopobj4={};
+    shopobj4.shop_id_back=shop_id_back;
+    shopobj4.dress_id_back=dress_id_back;
+    this.shopitemaparams=shopobj4;
+    this.shopitemurl="http://localhost:4000/shopitemsaving";
+    this.$.shopitemajax.generateRequest();
+
+      },
+    shopid:function(shop_id){
+      shop_id_back=shop_id;
+    },
+    categoryid:function(category_id){
+      category_id_back=category_id;
+    },
+    subcategoryid:function(subcategoryid){
+    subcategory_id_back=subcategoryid;
+  },
+  brandid:function(brandid){
+    brand_id_back=brandid;
+  },
+  dressid:function(item_id){
+    dress_id_back=item_id;
+  },
+  shopitemcomplete:function(e){
+    var shoparray=e.detail.response.returnval;
+    alert(JSON.stringify(shoparray));
+  }
+
+
+    });
+  })();
+  </script>
+</dom-module>

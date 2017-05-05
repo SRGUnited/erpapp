@@ -31,7 +31,7 @@ app.use(express.static('app'));
 app.get('/' ,function (req, res) {
   res.sendFile( "app/index.html" );
 });
-console.log("Welcome!!!");
+// console.log("Welcome!!!");
 //login-card
 app.post('/login', urlencodedParser, function (req, res) {
   var response={
@@ -641,6 +641,19 @@ app.post('/stores', urlencodedParser, function (req,res) {
           res.status(200).json({'returnval': "does not get saleid"});
       });
       });
+
+var autoGenerateID=require("./app/elements/autogen-id/autogen-id-todb.js");
+app.post ('/autogenerateid', urlencodedParser, function (req, res) {
+  autoGenerateID.generateId(function(retrievedData){
+    if(retrievedData>=0)
+      res.status(200).json({'returnid': retrievedData});
+    else
+      res.status(200).json({'returnid': "No ID to Generate!"});
+  });
+});
+
+
+// ********supplier name in auto complete*********
 var supplierautocompletedb=require("./app/elements/vehicle-in-process-suppliername/supplierautocompletedb.js");
 app.post('/supplierautocomplete',urlencodedParser,function (req, res) {
 
@@ -652,7 +665,7 @@ app.post('/supplierautocomplete',urlencodedParser,function (req, res) {
       res.status(200).json({'returnval': "Invalid!"});
 });
 });
-
+// *********item name in autocomplte***********
 var itemautocompletedb=require("./app/elements/vehicle-in-process-itemdetails/itemautocompletedb.js");
 app.post('/itemdescriptionautocomplete', urlencodedParser, function (req, res) {
   itemautocompletedb.itemdescriptionautocomplete(req.query.suppliername,req.query.supplierid,function(rows){
@@ -663,6 +676,7 @@ app.post('/itemdescriptionautocomplete', urlencodedParser, function (req, res) {
       res.status(200).json({'returnval': "Invalid!"});
   });
 });
+// *****fetching containername by using id ****
 var containerdbpath=require("./app/elements/vehicle-in-process-itemdetails/containerdb.js");
 app.post('/containeridfetch', urlencodedParser, function (req, res) {
   containerdbpath.containeridfetch(req.query.containeridvalue,function(rows){
@@ -673,6 +687,7 @@ app.post('/containeridfetch', urlencodedParser, function (req, res) {
       res.status(200).json({'returnval': "Invalid!"});
   });
 });
+// ***fetching unitofmeasurename by using id  ******
 var quantitydbpath=require("./app/elements/vehicle-in-process-itemdetails/quantitydb.js");
 app.post('/quantityidfetch', urlencodedParser, function (req, res) {
   quantitydbpath.quantityidfetch(req.query.unitofmeasureidvalue,function(rows){
@@ -693,7 +708,7 @@ app.post ('/autogenerateid', urlencodedParser, function (req, res) {
       res.status(200).json({'returnid': "No ID to Generate!"});
   });
 });
-
+// ***Invoice no saving ******
 var invoicedbpath=require("./app/elements/vehicle-in-process-itemdetails/invoiceprocessdb.js");
 app.post('/invoicesaving', urlencodedParser, function (req, res) {
   invoicedbpath.invoicesaving(req.query.invoicenovalue,req.query.invoicedatevalue,req.query.irnnumber,function(rows){
@@ -704,7 +719,7 @@ app.post('/invoicesaving', urlencodedParser, function (req, res) {
       res.status(200).json({'returnval': "Invalid!"});
   });
 });
-
+// ***vehicle-in-process driver details******
 var vehicledbpath=require("./app/elements/vehicle-in-process-itemdetails/vehicleprocessdb.js");
 app.post('/vehiclesaving', urlencodedParser, function (req, res) {
   vehicledbpath.vehiclesaving(req.query.vehiclenamevalue,req.query.vehiclenovalue,req.query.drivernamevalue,req.query.drivernovalue,req.query.irnnumber,function(rows){
@@ -715,93 +730,10 @@ app.post('/vehiclesaving', urlencodedParser, function (req, res) {
       res.status(200).json({'returnval': "Not saved!"});
   });
 });
+// ***vehicle-in-process-itemdetails db  ******
 var supplierdbpath=require("./app/elements/vehicle-in-process-itemdetails/supplierprocessdb.js");
 app.post('/supplieridsaving', urlencodedParser, function (req, res) {
-  supplierdbpath.supplieridsaving(req.query.supplieridvalue,req.query.irnnumber,req.query.item_id,req.query.containeridvalue,req.query.unitofmeasureidvalue,req.query.remarks,req.query.containergetvalue,req.query.qtygetvalue,function(rows){
-    if(rows=="saved"){
-      res.status(200).json({'returnval': "supplierdetails saved"});
-    }
-    else
-      res.status(200).json({'returnval': "Not saved!"});
-  });
-});
-var supplierautocompletedb=require("./app/elements/vehicle-in-process-suppliername/supplierautocompletedb.js");
-app.post('/supplierautocomplete',urlencodedParser,function (req, res) {
-
-  supplierautocompletedb.supplierautocomplete(function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Invalid!"});
-});
-});
-
-var itemautocompletedb=require("./app/elements/vehicle-in-process-itemdetails/itemautocompletedb.js");
-app.post('/itemdescriptionautocomplete', urlencodedParser, function (req, res) {
-  itemautocompletedb.itemdescriptionautocomplete(req.query.suppliername,req.query.supplierid,function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Invalid!"});
-  });
-});
-var containerdbpath=require("./app/elements/vehicle-in-process-itemdetails/containerdb.js");
-app.post('/containeridfetch', urlencodedParser, function (req, res) {
-  containerdbpath.containeridfetch(req.query.containeridvalue,function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Invalid!"});
-  });
-});
-var quantitydbpath=require("./app/elements/vehicle-in-process-itemdetails/quantitydb.js");
-app.post('/quantityidfetch', urlencodedParser, function (req, res) {
-  quantitydbpath.quantityidfetch(req.query.unitofmeasureidvalue,function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Invalid!"});
-  });
-});
-
-var autoGenerateID=require("./app/elements/autogen-id/autogen-id-todb.js");
-app.post ('/autogenerateid', urlencodedParser, function (req, res) {
-  autoGenerateID.generateId(function(retrievedData){
-    if(retrievedData>=0)
-      res.status(200).json({'returnid': retrievedData});
-    else
-      res.status(200).json({'returnid': "No ID to Generate!"});
-  });
-});
-
-var invoicedbpath=require("./app/elements/vehicle-in-process-itemdetails/invoiceprocessdb.js");
-app.post('/invoicesaving', urlencodedParser, function (req, res) {
-  invoicedbpath.invoicesaving(req.query.invoicenovalue,req.query.invoicedatevalue,req.query.irnnumber,function(rows){
-    if(rows=="saved"){
-      res.status(200).json({'returnval': "Invoice detail saved"});
-    }
-    else
-      res.status(200).json({'returnval': "Invalid!"});
-  });
-});
-
-var vehicledbpath=require("./app/elements/vehicle-in-process-itemdetails/vehicleprocessdb.js");
-app.post('/vehiclesaving', urlencodedParser, function (req, res) {
-  vehicledbpath.vehiclesaving(req.query.vehiclenamevalue,req.query.vehiclenovalue,req.query.drivernamevalue,req.query.drivernovalue,req.query.irnnumber,function(rows){
-    if(rows=="saved"){
-      res.status(200).json({'returnval': "vehicle detail saved"});
-    }
-    else
-      res.status(200).json({'returnval': "Not saved!"});
-  });
-});
-var supplierdbpath=require("./app/elements/vehicle-in-process-itemdetails/supplierprocessdb.js");
-app.post('/supplieridsaving', urlencodedParser, function (req, res) {
-  supplierdbpath.supplieridsaving(req.query.supplieridvalue,req.query.irnnumber,req.query.item_id,req.query.containeridvalue,req.query.unitofmeasureidvalue,req.query.remarks,req.query.containergetvalue,req.query.qtygetvalue,function(rows){
+  supplierdbpath.supplieridsaving(req.query.supplieridvalue,req.query.irnnumber,req.query.item_id,req.query.containeridvalue,req.query.unitofmeasureidvalue,req.query.remarks,req.query.containergetvalue,req.query.qtygetvalue,req.query.stores,function(rows){
     if(rows=="saved"){
       res.status(200).json({'returnval': "supplierdetails saved"});
     }
@@ -821,5 +753,182 @@ app.post ('/testingdata', urlencodedParser, function (req, res) {
       res.status(200).json({'testingdata': "No testingdata!"});
   });
 });
+// ***specification 1 ******
+var spec1dbpath=require("./app/elements/specification-1/specification-1-db.js");
+app.post('/Specification1', urlencodedParser, function (req, res) {
+  spec1dbpath.Specification1(function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Not retrived!"});
+  });
+});
+// ***specification 2 ******
+var spec2dbpath=require("./app/elements/specification-2/specification-2-db.js");
+app.post('/Specification2', urlencodedParser, function (req, res) {
+  spec2dbpath.Specification2(function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Not retrived!"});
+  });
+});
+// ***specification 3 ******
+var spec3dbpath=require("./app/elements/specification-3/specification-3-db.js");
+app.post('/Specification3', urlencodedParser, function (req, res) {
+  spec3dbpath.Specification3(function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Not retrived!"});
+  });
+});
+// ***specification 4 ******
+var spec4dbpath=require("./app/elements/specification-4/specification-4-db.js");
+app.post('/Specification4', urlencodedParser, function (req, res) {
+  spec4dbpath.Specification4(function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Not retrived!"});
+  });
+});
+// ********category details
+var categorydetailsautocompletedb=require("./app/elements/category-details/category-detailsautocompletedb.js");
+app.post('/categorydetailsautocomplete',urlencodedParser,function (req, res) {
+categorydetailsautocompletedb.categorydetailsautocomplete(function(rows){
+  // console.log("hiiii");
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+});
+});
+// ********sub category auto complete
+var subcategoryautocompletedb=require("./app/elements/sub-category-details/subcategoryautocompletedb.js");
+app.post('/subcategoryautocomplete',urlencodedParser,function (req, res) {
+subcategoryautocompletedb.subcategoryautocomplete(req.query.categoryname,req.query.categoryid,function(rows){
+ // console.log("hiiii");
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+});
+});
+// ********brand name auto complete
+var brandnameautocompletepathdb=require("./app/elements/brand-details/brandautocompletedb.js");
+app.post('/brandnameautocomplete',urlencodedParser,function (req, res) {
+brandnameautocompletepathdb.brandnameautocomplete(req.query.itemnameparam,req.query.itemidparam,function(rows){
+ // console.log("hiiii");
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+});
+});
+// ****dress varieties auto complete***********
+var dresscollectionautocompletepath=require("./app/elements/dress-collections/dresscollectionautocompletedb.js");
+app.post('/dresscollectionautocomplete',urlencodedParser,function (req, res) {
+dresscollectionautocompletepath.dresscollectionautocomplete(req.query.itemnameparam,req.query.itemidparam,function(rows){
+ // console.log("hiiii");
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+});
+});
+// ****shop details auto complete***********
+var shopdetailsautocompletepath=require("./app/elements/shop-details/shopdetailsautocompletedb.js");
+app.post('/shopdetailsautocomplete',urlencodedParser,function (req, res) {
+shopdetailsautocompletepath.shopdetailsautocomplete(function(rows){
+
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+});
+});
+// ***item brand details  saving ******
+var itembrandpath=require("./app/elements/shopping-category/itembranddb.js");
+app.post('/itembrandsave', urlencodedParser, function (req, res) {
+  itembrandpath.itembrandsave(req.query.brand_id_back,req.query.dress_id_back,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': "saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+// ***subcategory item details  saving ******
+var subcategoryitempath=require("./app/elements/shopping-category/subcategoryitemdb.js");
+app.post('/subcategoryitemsave', urlencodedParser, function (req, res) {
+  subcategoryitempath.subcategoryitemsave(req.query.subcategory_id_back,req.query.dress_id_back,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': "saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+// ***subcategory category details  saving ******
+var categorysubcategorypath=require("./app/elements/shopping-category/categorysubcategorydb.js");
+app.post('/categorysubcategorysaving', urlencodedParser, function (req, res) {
+  categorysubcategorypath.categorysubcategorysaving(req.query.subcategory_id_back,req.query.category_id_back,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': "saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+// ***shop item details  saving ******
+var shopitemsavingpath=require("./app/elements/shopping-category/shopitemdb.js");
+app.post('/shopitemsaving', urlencodedParser, function (req, res) {
+  shopitemsavingpath.shopitemsaving(req.query.shop_id_back,req.query.dress_id_back,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': "saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+// ***db col name fetching ******
+var dbnamefetchpath=require("./app/elements/generic-mapping/dbnamefetchdb.js");
+app.post('/dbnamefetch', urlencodedParser, function (req, res) {
+  // console.log("hi");
+  dbnamefetchpath.dbnamefetch(req.query.dbtoken,req.query.customerid,req.query.addressid,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': "saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+// ***testing function******
+var testingfunctionpath=require("./app/elements/generic-mapping/testingfunctiondb.js");
+app.post('/testingfunction', urlencodedParser, function (req, res) {
+  // console.log("hi");
+  testingfunctionpath.testingfunction(req.query.field1,req.query.field2,req.query.targettablename,req.query.customerid,req.query.addressid,function(rows){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': "saved"});
+    }
+    else
+      res.status(200).json({'returnval': "Invalid"});
+  });
+});
+
+
+
+
+
 
 app.listen(4000);

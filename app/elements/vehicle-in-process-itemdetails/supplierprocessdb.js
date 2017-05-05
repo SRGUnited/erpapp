@@ -1,7 +1,7 @@
 var express    = require("express");
 var mysql      = require('mysql');
 var jsonfile=require('jsonfile');
-exports.supplieridsaving=function(supplieridvalue,irnnumber,item_id,containeridvalue,unitofmeasureidvalue,remarks,containergetvalue,qtygetvalue,callback){
+exports.supplieridsaving=function(supplieridvalue,irnnumber,item_id,containeridvalue,unitofmeasureidvalue,remarks,containergetvalue,qtygetvalue,stores,callback){
   var supplieridresponse={
     supplier_id:supplieridvalue,
     inward_register_number:irnnumber,
@@ -10,7 +10,8 @@ exports.supplieridsaving=function(supplieridvalue,irnnumber,item_id,containeridv
     unit_of_measure_id:unitofmeasureidvalue,
     remarks:remarks,
     container_quantity:containergetvalue,
-    item_quantity:qtygetvalue
+    item_quantity:qtygetvalue,
+    status:stores
 
   };
  connection.query("INSERT INTO od_inward_item_register SET ?",[supplieridresponse],function(err,rows){

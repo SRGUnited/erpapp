@@ -1,0 +1,41 @@
+<dom-module id="specification-4">
+  <template>
+  <style>
+  .card-content{
+    width:100%;
+  }
+  </style>
+  <paper-card  elevation="0" style="width:100%;">
+  <div class="card-content">
+     <paper-input  label="{{otherrange}}" is="" value="{{value}}" on-keydown="FnSearchEnquiry"></paper-input>
+     <paper-listbox class="dropdown-content" id="transportinput2" on-iron-select="FnSelectEnquiry1">
+       <template is="dom-repeat" items="{{itemArray}}" as="item">
+         <paper-item value="{{item.specification_4_id}}">{{item.itemdes}}</paper-item>
+       </template>
+     </paper-listbox>
+  </div>
+  </paper-card>
+     <iron-ajax
+       auto
+       method="post"
+       url="http://localhost:4000/Specification4"
+       handle-as="json"
+       on-response="spec4autocompletefunction">
+     </iron-ajax>
+     <iron-ajax
+        auto
+        method="get"
+        url="specification-4-label.json"
+        handle-as="json"
+        content-type="application/json"
+        on-response="spec4labelinfo"
+        last-response="{{jsondata}}"
+        debounce-duration="300">
+     </iron-ajax>
+
+
+  </template>
+ <script src="specification-4.js">
+
+  </script>
+</dom-module>

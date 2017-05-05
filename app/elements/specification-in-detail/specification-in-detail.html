@@ -1,0 +1,67 @@
+<dom-module id="specification-in-detail">
+  <template>
+    <div class="container">
+    <div class="row">
+    <div  class="col-sm-6" >
+      <img src="../../images/og1.jpg" width="60%" height="60%" style="margin-left:110px; margin-top:160px;"/>
+    </div>
+    <div class="col-sm-6">
+    <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Specification 1 Details</a>
+          </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse in">
+            <specification-1></specification-1>
+          </div>
+          </div>
+          <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Specification 2 Details</a>
+          </h4>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse">
+                <specification-2></specification-2>
+          </div>
+          </div>
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Specification 3 Details</a>
+              </h4>
+          </div>
+          <div id="collapse3" class="panel-collapse collapse">
+               <specification-3></specification-3>
+          </div>
+          </div>
+          <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Specification 4 Details</a>
+            </h4>
+            </div>
+            <div id="collapse4" class="panel-collapse collapse">
+                  <specification-4></specification-4>
+            </div>
+            </div>
+      </div>
+      </div>
+      </div>
+      </div>
+  </template>
+ <script>
+  (function() {
+    'use strict';
+  Polymer({
+    is: 'specification-in-detail',
+
+    ready:function(){
+
+	   }
+    });
+  })();
+  </script>
+</dom-module>
