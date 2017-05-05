@@ -38,13 +38,11 @@ app.post('/login', urlencodedParser, function (req, res) {
     emp_id:req.query.empid,
     password:req.query.password
   };
-  var role;
   	global.connection.query("SELECT * FROM emp_login where emp_id='"+req.query.empid+"' and password='"+req.query.password+"'",function(err,rows){
-      global.role=rows[0].role;
   	if(rows.length>0){
       var roleid=rows[0].role_id;
     global.connection.query("select * from emp_login_menu where menu_id in(SELECT menu_id FROM menu_map where role_id='"+roleid+"')",function(err,rows){
-        res.status(200).json({'returnval': rows,'role':global.role});
+        res.status(200).json({'returnval': rows});
       });
       }
     else{
@@ -137,7 +135,66 @@ app.post ('/fixsupplier', urlencodedParser, function (req, res) {
     }
   });
 });
-//*******************************END
+//*******************************END******************************************
+
+// **********************************PURCHASE INTENT***************************
+
+var intentDB1=require("./app/elements/intentpurchase-process/intentpurchase-process-todb.js");
+app.post ('/searchintentitem', urlencodedParser, function (req, res) {
+  intentDB1.getintentitem(req.query.itemname,function(itemdetails){
+    if(itemdetails.length>0)
+      res.status(200).json({'itemdetails': itemdetails});
+    else
+      res.status(200).json({'itemdetails': "No Data!"});
+  });
+});
+
+app.post ('/searchitemnames', urlencodedParser, function (req, res) {
+  intentDB1.searchitem(function(itemnames){
+    if(itemnames.length>0)
+      res.status(200).json({'itemnames': itemnames});
+    else
+      res.status(200).json({'itemnames': "No Data!"});
+  });
+});
+
+app.post ('/intentsave', urlencodedParser, function (req, res) {
+  intentDB1.saveintent(req.query.intentid,req.query.iid,req.query.selectedtype,req.query.itemspec1,req.query.whlocation,req.query.selectedcontainer,req.query.itemcontainerquantity,req.query.itemquantity,req.query.intentdate,req.query.requireddate,function(response){
+    if(response=="Saved")
+      res.status(200).json({'status': "Saved"});
+    else
+      res.status(200).json({'status': "Not Saved!"});
+  });
+});
+
+
+//*********************************PURCHASE APPROVAL PROCESSES*****************
+var itemapprovaldb1=require("./app/elements/call-purchase-card/call-purchase-card-todb.js")
+app.post('/purchaseitemsearch', urlencodedParser, function (req, res) {
+console.log("ok");
+  itemapprovaldb1.searchpurchaseitem(function(callback){
+      if(callback!=null){
+      res.status(200).json({'returnval': callback});
+    }
+    else{
+      res.status(200).json({'returnval': "No Data"});
+    }
+  });
+});
+
+app.post('/purchaseresponse', urlencodedParser, function (req, res) {
+  console.log("update response");
+  itemapprovaldb1.purchaseresponse(req.query.respond,req.query.purchasenumber,function(callback){
+    if(callback=="UPDATED"){
+      res.status(200).json({'returnval': "Updated"});
+    }
+    else{
+      res.status(200).json({'returnval': "Not Updated!"});
+    }
+  });
+});
+//********************************END*****************************************
+
 
 //salessummary
 var salessummarydb=require("./app/elements/salesorder-summary/salessummarydb.js");
@@ -176,6 +233,48 @@ app.post('/sliderchange', urlencodedParser,function (req, res) {
     }
   });
 });
+// ****************************STORES-SLIDER LOGIN***********************
+//sliderstores-barnew
+
+var sliderfetchdb=require("./app/elements/sliderstores-barnew/sliderdb.js");
+app.post('/sliderchange', urlencodedParser,function (req, res) {
+  console.log("sliderrows");
+  sliderfetchdb.sliderchange(req.query.itemssid,function(rows,callback){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else{
+      res.status(200).json({'returnval': "Invalid!"});
+    }
+  });
+});
+
+// update sliderstores-barnew
+
+var sliderfetchdb2=require("./app/elements/sliderstores-barnew/sliderdb.js");
+app.post('/sliderupdateserver', urlencodedParser,function (req, res) {
+  console.log("updatesliderrows");
+  sliderfetchdb2.updateslider(req.query.itemsid,req.query.sliderval,function(rows,callback){
+    if(rows!="reject"){
+      res.status(200).json({'returnval': rows});
+    }
+    else{
+      res.status(200).json({'returnval': "Invalid!"});
+    }
+  });
+});
+
+// ****************************STORES-SLIDER END***********************
+
+// var warehouselocation1=require("./app/elements/intentstores-process/intentstores-process-todb.js");
+// app.post ('/whlocation', urlencodedParser, function (req, res) {
+//   warehouselocation1.getwarehouselocation(req.query.itemname,function(warehouselocation){
+//     if(warehouselocation.length>0)
+//       res.status(200).json({'whdata': warehouselocation});
+//     else
+//       res.status(200).json({'whdata': "No Data!"});
+//   });
+// });
 
 // vehicle securitycard
 app.post('/securityinfo', urlencodedParser, function (req, res) {
@@ -495,39 +594,16 @@ var response={goodsvehiclenumber:req.query.vehno,
 });
 });
 
-//auto complete
-app.post('/autocomplete', urlencodedParser, function (req, res) {
-  global.connection.query("SELECT UPPER(customername) as customername,customerid,city FROM m_customerdetail",function(err,rows){
-    // console.log("adfasf:"+JSON.stringify(rows));
-  if(rows.length>0){
-    console.log("here:"+JSON.stringify(rows));
-    res.status(200).json({'returnval': rows});
-    }
-  else
-    res.status(200).json({'returnval': "Invalid!"});
-  });
-});
 
-// //supplier auto complete
-// app.post('/supplieritemautocomplete', urlencodedParser, function (req, res) {
-//   global.connection.query("SELECT UPPER(suppliername),supplierid as suppliername FROM m_supplierdetails",function(err,rows){
-//     // console.log("adfasf:"+JSON.stringify(rows));
-//   if(rows.length>0){
-//     console.log("here:"+JSON.stringify(rows));
-//     res.status(200).json({'returnval': rows});
-//     }
-//   else
-//     res.status(200).json({'returnval': "Invalid!"});
-//   });
-// });
 
 //bar-chart
 var barchart=require("./app/elements/barchart-card/barchart-card-todb.js");
 app.post('/barcharttablefetch',urlencodedParser,function (req, res) {
-  console.log("barrr");
+  // console.log("barrr");
 
-  barchart.barcharttablefetch(function(rows){
+  barchart.barcharttablefetch(req.query.itemid,function(rows){
     if(rows!="reject"){
+      // console.log("ggggggg");
       res.status(200).json({'returnval': rows});
     }
     else
@@ -536,7 +612,7 @@ app.post('/barcharttablefetch',urlencodedParser,function (req, res) {
 });
 });
 
-
+// ***************************SALES ORDER ******************************
 // // sales order page
 var salespersondb=require("./app/elements/sales-order/sales-order-todb.js");
 app.post('/salesinsert', urlencodedParser, function (req, res) {
@@ -555,11 +631,29 @@ app.post('/salesinsert', urlencodedParser, function (req, res) {
   })
 });
 
-//auto complete item
 
-app.post('/autocompleteitem', urlencodedParser, function (req, res) {
-// console.log("select distinct finishedgoods_itemtype.itemid,UPPER(finishedgoods_itemtype.itemname) as itemname FROM finishedgoods_itemtype inner join item_customer_map on item_customer_map.itemid=finishedgoods_itemtype.itemid inner join salesordercreate on salesordercreate.customerid = item_customer_map.customerid where salesordercreate.customerid='"+req.query.customerid+"'");
-  global.connection.query("select distinct finishedgoods_itemtype.itemid,UPPER(finishedgoods_itemtype.itemname) as itemname FROM finishedgoods_itemtype inner join item_customer_map on item_customer_map.itemid=finishedgoods_itemtype.itemid inner join salesordercreate on salesordercreate.customerid = item_customer_map.customerid where salesordercreate.customerid='"+req.query.customerid+"'",function(err,rows){
+//sales update
+var salespersondb=require("./app/elements/sales-projection/sales-projection-todb.js");
+app.post('/salesupdate', urlencodedParser, function (req, res) {
+  console.log("working");
+  // console.log(req.query.salesid+req.query.datetimeq+req.query.customerid+req.query.id+req.query.description+req.query.ispecification+req.query.rcoilsq+req.query.rtonq+req.query.rdqty+req.query.datetimeq1+req.query.status);
+  salespersondb.updatesales(req.query.salesid,req.query.datetimeq,req.query.customerid,req.query.id,req.query.description,req.query.ispecification,req.query.rcoilsq,req.query.rtonq,req.query.rdqty,req.query.datetimeq1,req.query.status,function(callback){
+    if(callback==saved){
+      console.log("saved");
+    res.status(200).json({'returnval':"saved"});
+    console.log(err);}
+    else {
+      console.log("not saved");
+    res.status(200).json({'returnval':"not saved"});
+    console.log(err);
+    }
+  })
+});
+
+//auto complete
+app.post('/autocomplete', urlencodedParser, function (req, res) {
+  global.connection.query("SELECT UPPER(customername) as customername,customerid,city FROM m_customerdetail",function(err,rows){
+    // console.log("adfasf:"+JSON.stringify(rows));
   if(rows.length>0){
     // console.log("here:"+JSON.stringify(rows));
     res.status(200).json({'returnval': rows});
@@ -568,6 +662,73 @@ app.post('/autocompleteitem', urlencodedParser, function (req, res) {
     res.status(200).json({'returnval': "Invalid!"});
   });
 });
+
+
+//auto complete item
+
+app.post('/autocompleteitem', urlencodedParser, function (req, res) {
+// console.log("select distinct finishedgoods_itemtype.itemid,UPPER(finishedgoods_itemtype.itemname) as itemname FROM finishedgoods_itemtype inner join item_customer_map on item_customer_map.itemid=finishedgoods_itemtype.itemid inner join salesordercreate on salesordercreate.customerid = item_customer_map.customerid where salesordercreate.customerid='"+req.query.customerid+"'");
+  global.connection.query("select distinct finishedgoods_itemtype.itemid,UPPER(finishedgoods_itemtype.itemname) as itemname FROM finishedgoods_itemtype inner join item_customer_map on item_customer_map.itemid=finishedgoods_itemtype.itemid inner join m_customerdetail on m_customerdetail.customerid = item_customer_map.customerid where m_customerdetail.customerid='"+req.query.customerid+"'",function(err,rows){
+  if(rows.length>0){
+    console.log("here:"+JSON.stringify(rows));
+    res.status(200).json({'returnval': rows});
+    }
+  else
+    res.status(200).json({'returnval': "Invalid!"});
+  });
+
+});
+
+//auto complete location
+
+app.post('/autocompletelocation', urlencodedParser, function (req, res) {
+  // console.log("select distinct UPPER(m_customerdetail.city) as city FROM m_customerdetail inner join item_customer_map on item_customer_map.customerid=m_customerdetail.customerid inner join salesordercreate on salesordercreate.customerid = item_customer_map.customerid where salesordercreate.customerid='"+req.query.customerid+"'");
+  global.connection.query("select distinct UPPER(m_customerdetail.city) as city FROM m_customerdetail where customerid='"+req.query.customerid+"'",function(err,rows){
+  if(rows.length>0){
+    console.log("here:"+JSON.stringify(rows));
+    res.status(200).json({'returnval': rows});
+    }
+  else
+    res.status(200).json({'returnval': "Invalid!"});
+  });
+});
+
+
+// ***************************SALES ORDER END ******************************
+// ***************************SALES LOGISTICS- TIMELINE ******************************
+
+var vehicledb=require("./app/elements/timeline-chartlogistics/timelinedblog.js");
+app.post('/vehicleupdateserver', urlencodedParser, function (req, res) {
+  console.log("working1");
+    vehicledb.updatevehicle(req.query.x,req.query.y,req.query.vehicleno,function(callback){
+    if(callback==saved){
+      console.log("saved");
+      res.status(200).json({'returnval':"saved"});
+      console.log(err);}
+    else {
+      console.log("not saved");
+      res.status(200).json({'returnval':"not saved"});
+      console.log(err);
+    }
+  })
+});
+var vehicledb1=require("./app/elements/timeline-chartlogistics/timelinedblog.js");
+app.post('/vehicleupdateendserver', urlencodedParser, function (req, res) {
+  console.log("working2");
+    vehicledb1.updatevehicleend(req.query.x,req.query.y,req.query.vehicleno,function(callback){
+    if(callback==saved){
+      console.log("saved");
+      res.status(200).json({'returnval':"saved"});
+      console.log(err);}
+    else {
+      console.log("not saved");
+      res.status(200).json({'returnval':"not saved"});
+      console.log(err);
+    }
+  })
+});
+
+// ***************************SALES LOGISTICS- TIMELINE --END *********************
 
 //itemcard
 var itemdesigndb=require("./app/elements/item-customerdetail/itemdesigndb.js");
@@ -659,41 +820,6 @@ var supplierautocompletedb=require("./app/elements/vehicle-in-process-supplierna
 app.post('/supplierautocomplete',urlencodedParser,function (req, res) {
 
   supplierautocompletedb.supplierautocomplete(function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Invalid!"});
-});
-});
-
-var supplierdetailsautocompletedb=require("./app/elements/supplier-details-new/supplier-detailsautocompletedb.js");
-app.post('/supplierdetailsautocomplete',urlencodedParser,function (req, res) {
-
-  supplierdetailsautocompletedb.supplierdetailsautocomplete(function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Invalid!"});
-});
-});
-
-var itemdetailsautocompletedb=require("./app/elements/item-details-new/item-detailsautocompletedb.js");
-app.post('/itemdetailsautocomplete',urlencodedParser,function (req, res) {
-  itemdetailsautocompletedb.itemdetailsautocomplete(function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Invalid!"});
-});
-});
-
-var categorydetailsautocompletedb=require("./app/elements/category-details-new/category-detailsautocompletedb.js");
-app.post('/categorydetailsautocomplete',urlencodedParser,function (req, res) {
-categorydetailsautocompletedb.categorydetailsautocomplete(function(rows){
-  // console.log("hiiii");
     if(rows!="reject"){
       res.status(200).json({'returnval': rows});
     }
@@ -861,9 +987,9 @@ app.post('/supplieridsaving', urlencodedParser, function (req, res) {
 
 var sliderDB=require("./app/elements/slider-bar/slider-bar-todb.js");
 app.post ('/testingdata', urlencodedParser, function (req, res) {
-  // console.log("testingdata");
+  console.log("testingdata");
   sliderDB.gettestingdata(function(testingdata){
-    // console.log("server:"+testingdata);
+    console.log("server:"+testingdata);
     if(testingdata.length>0)
       res.status(200).json({'testingdata': testingdata});
     else
@@ -871,50 +997,36 @@ app.post ('/testingdata', urlencodedParser, function (req, res) {
   });
 });
 
-// ***specification 1 ******
-var spec1dbpath=require("./app/elements/specification-1/specification-1-db.js");
-app.post('/Specification1', urlencodedParser, function (req, res) {
-  spec1dbpath.Specification1(function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Not retrived!"});
-  });
-});
-// ***specification 2 ******
-var spec2dbpath=require("./app/elements/specification-2/specification-2-db.js");
-app.post('/Specification2', urlencodedParser, function (req, res) {
-  spec2dbpath.Specification2(function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Not retrived!"});
-  });
-});
-// ***specification 3 ******
-var spec3dbpath=require("./app/elements/specification-3/specification-3-db.js");
-app.post('/Specification3', urlencodedParser, function (req, res) {
-  spec3dbpath.Specification3(function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Not retrived!"});
-  });
-});
-// ***specification 4 ******
-var spec4dbpath=require("./app/elements/specification-4/specification-4-db.js");
-app.post('/Specification4', urlencodedParser, function (req, res) {
-  spec4dbpath.Specification4(function(rows){
-    if(rows!="reject"){
-      res.status(200).json({'returnval': rows});
-    }
-    else
-      res.status(200).json({'returnval': "Not retrived!"});
-  });
-});
+// **************Intent Process************************************************
+
+// var intentDB=require("./app/elements/intent-process/intent-process-todb.js");
+// app.post ('/searchintentitem', urlencodedParser, function (req, res) {
+//   intentDB.getintentitem(req.query.itemname,function(itemdetails){
+//     if(itemdetails.length>0)
+//       res.status(200).json({'itemdetails': itemdetails});
+//     else
+//       res.status(200).json({'itemdetails': "No Data!"});
+//   });
+// });
+//
+// app.post ('/searchitemnames', urlencodedParser, function (req, res) {
+//   intentDB.searchitem(function(itemnames){
+//     if(itemnames.length>0)
+//       res.status(200).json({'itemnames': itemnames});
+//     else
+//       res.status(200).json({'itemnames': "No Data!"});
+//   });
+// });
+//
+// app.post ('/intentsave', urlencodedParser, function (req, res) {
+//   intentDB.saveintent(req.query.intentid,req.query.iid,req.query.selectedtype,req.query.itemspec1,req.query.whlocation,req.query.selectedcontainer,req.query.itemcontainerquantity,req.query.itemquantity,req.query.intentdate,req.query.requireddate,function(response){
+//     if(response=="Saved")
+//       res.status(200).json({'status': "Saved"});
+//     else
+//       res.status(200).json({'status': "Not Saved!"});
+//   });
+// });
+
 
 
 app.listen(4000);
