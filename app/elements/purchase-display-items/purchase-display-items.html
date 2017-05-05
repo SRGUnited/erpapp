@@ -1,0 +1,68 @@
+<dom-module id="purchase-display-items">
+  <template>
+      <div class="col-sm-6">
+        <img src="../../dist/img/no_image.jpg" width="60%" height="60%" style="margin-left:110px;margin-top:160px;"/>
+      </div>
+      <div class="col-sm-6">
+    <paper-card style="width:100%;" elevation="0">
+        <div class="card-content">
+          <paper-input label="Purchase-number " value="{{purchasenumber}}" readonly></paper-input>
+          <paper-input label="Purchase-date" value="{{purchasedate}}" readonly></paper-input>
+          <paper-input label="Purchase-typeid" value="{{purchasetypeid}}" readonly></paper-input>
+          <paper-input label="Purchase Id" value="{{purchaseid}}" readonly></paper-input>
+          <paper-input label="Purchase-quantity" value="{{purchasequantity}}" readonly></paper-input>
+          <paper-input label="Container-Quantity" value="{{containerquantity}}" readonly></paper-input>
+          <paper-input label="Warehouse-stores-id" value="{{warehousestoresid}}" readonly></paper-input>
+          <paper-input label="Status" value="{{status}}" readonly></paper-input>
+          <paper-input label="PurchaseRequiredDate" value="{{purchaserequireddate}}" readonly></paper-input>
+          <div class="card-actions">
+          <paper-radio-group attr-for-selected="value" selected="{{responsevalue}}" on-iron-select="respond">
+            <paper-radio-button value="Approve">Approve</paper-radio-button>
+            <paper-radio-button value="Reject">Reject</paper-radio-button>
+          </paper-radio-group>
+        </div>
+      </div>
+    </paper-card>
+    <iron-ajax
+      id="ceorespond"
+      method="post"
+      params="{{responseparam}}"
+      url="http://localhost:4000/purchaseresponse"
+      handle-as="json"
+      on-response="handleResponse">
+    </iron-ajax>
+  </template>
+</dom-module>
+<script type="text/javascript">
+  Polymer({
+    is: "purchase-display-items",
+
+    ceoItem:function(purchasenumber,purchasedate,purchasetypeid,purchaseid,purchasequantity,containerquantity,warehousestoresid,status,purchaserequireddate){
+          this.purchasenumber=purchasenumber;
+          this.purchasedate=purchasedate;
+          this.purchasetypeid=purchasetypeid;
+          this.purchaseid=purchaseid;
+          this.purchasequantity=purchasequantity;
+          this.containerquantity=containerquantity;
+          this.warehousestoresid=warehousestoresid;
+          this.status=status;
+          this.purchaserequireddate=purchaserequireddate;
+          },
+
+      respond:function(){
+        // alert("working");
+        var jobj={};
+        jobj.respond=this.responsevalue;
+        jobj.purchasenumber=this.purchasenumber;
+        this.responseparam=jobj;
+        this.$.ceorespond.generateRequest();
+        // alert(jobj);
+        // alert(jobj.purchasenumber);
+        document.querySelector('home-page').FnSetPage("call-purchase-card");
+      },
+
+      handleResponse:function(e){
+        alert(e.detail.response.returnval);
+      }
+  });
+</script>

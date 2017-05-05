@@ -64,7 +64,7 @@
           }
           else
           this.itemval = this.value +String.fromCharCode((e.keyCode));
-
+          // alert(this.itemval.length);
           if(this.itemval.length>0)
           {
             for(var i=0;i<item.length;i++)
@@ -114,7 +114,7 @@
     },
     supplierlabelinfo:function(e){
       var jsonlabel=this.jsondata;
-      alert(jsonlabel[0].suppliername);
+      // alert(jsonlabel[0].suppliername);
       this.Suppliername=jsonlabel[0].suppliername;
     }
 

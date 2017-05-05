@@ -16,6 +16,7 @@
   </template>
 </dom-module>
 <script type="text/javascript">
+var autoid;
   Polymer({
     is: "autogen-id",
     ready:function(){
@@ -23,7 +24,7 @@
     },
 
     handleautogenerateid:function(e){
-
+      autoid=e.detail.response.returnid;
       var getid=e.detail.response.returnid;
       alert("generateId"+getid);
       if(this.getstring=="sup"){
@@ -41,12 +42,24 @@
       if(this.getstring=="irn"){
         var irnstringid="irn"+getid;
         document.querySelector("vehicle-in-process-itemdetails").saveitemauto(irnstringid);
+        }
+        if(this.getstring=="sal"){
+        var salstringid="sal"+getid;
+       document.querySelector("sales-projection").saveitemsfn(salstringid);
       }
       if(this.getstring=="btno"){
         var btnostringid="btno"+getid;
         document.querySelector("GRNcard-container-domrepeat").getbtno_id(btnostringid);
       }
     },
+<<<<<<< HEAD
+=======
+    confirm:function(){
+      autoid="sal"+autoid;
+      document.querySelector("sales-projection").confirm1(autoid);
+    },
+
+>>>>>>> d9cae5b4ccc5bca6f2d8546861bbc0e30b8f08a8
     send:function(data){
       alert("send");
       alert(data);

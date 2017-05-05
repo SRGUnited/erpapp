@@ -1,0 +1,25 @@
+<link rel="import" href="salesordersto-summaryajax.html">
+<link rel="import" href="slidersto-papercard.html">
+
+<dom-module id="salesorder-summary-stores">
+<template>
+    <salesordersto-summaryajax></salesordersto-summaryajax>
+  <template id="templateUsers"  is="dom-repeat" items={{jsondata}} as="item">
+     <div class="col-sm-3">
+       <slidersto-papercard
+        itemid="{{item.itemid}}"
+        salesorderid="{{item.salesorderid}}"
+        customername="{{item.customername}}"
+        itemspecification="{{item.itemspecification}}"
+        containerquantity="{{item.containerquantity}}"
+        deliveredquantity="{{item.deliveredquantity}}"
+        requireddeliverydate="{{item.requireddeliverydate}}"
+        customerlocation="{{item.customerlocation}}"
+        status="{{item.status}}">
+      </slidersto-papercard>
+    </div>
+</template>
+</template>
+  <script src="salesorder-summary-stores.js">
+  </script>
+</dom-module>

@@ -1,0 +1,52 @@
+<dom-module id="demostores-filecharts">
+  <style>
+        hr{
+        border-width: 0px;
+      }
+    </style>
+<template>
+  <div class="row">
+<!-- *********************************************************************************** -->
+      <div class="col-sm-6">
+          <!-- item customer details -->
+          <paper-card elevation="0" style="margin-top:20px;margin-left:20px;width:100%">
+            <item-customerdetail></item-customerdetail>
+          </paper-card>
+          <hr><hr><hr>
+          <!-- barchart -->
+          <paper-card elevation="0" heading="Item Stock Details" style="margin-left:20px;width:100%">
+            <barchart-card></barchart-card>
+          </paper-card>
+      </div>
+<!-- ******************************************************************************* -->
+      <div class="col-sm-6">
+        <!-- time-line-chart  -->
+          <paper-card elevation="0" style="margin-top:20px;width:100%;" heading="Vehicle Status Tracking">
+              <timeline-chart></timeline-chart>
+          </paper-card>
+          <br><br><br><br><br>
+          <!-- stock tracking -->
+          <paper-card elevation="0" style="width:100%;" heading="Stock Tracking">
+              <sliderstores-barnew></sliderstores-barnew>
+          </paper-card>
+          <hr><hr>
+          <!-- Driver Details -->
+          <paper-card elevation="0" style="width:100%;">
+            <driver-details></driver-details>
+          </paper-card>
+        </div>
+  <!-- *********************************************************************************** -->
+      </div>
+</template>
+<script>
+  (function() {
+    'use strict';
+    Polymer({
+      is: 'demostores-filecharts',
+        ready:function(){
+
+        }
+    });
+  })();
+</script>
+</dom-module>

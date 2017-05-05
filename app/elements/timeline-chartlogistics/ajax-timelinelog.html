@@ -1,0 +1,105 @@
+<link rel="import" href="timeline-chartlogistics.html" />
+<dom-module id="ajax-timelinelog">
+<template>
+  <div hidden>{{start}}</div>
+  <div hidden>{{end}}</div>
+  <div hidden>{{vehiclenumber}}</div>
+    <iron-ajax
+      auto
+      method="get"
+      id="jsoninfoid"
+      url="timelinedesignlog.json"
+      handle-as="json"
+      content-type="application/json"
+      on-response="jsoninfoResponse"
+      last-response="{{jsondata}}"
+      debounce-duration="300">
+    </iron-ajax>
+    <iron-ajax
+      auto
+      method="post"
+      id="timelineajax"
+      url="{{timelinerequesturl}}"
+      handle-as="json"
+      params="{{timelineparameters}}"
+      content-type="application/json"
+      on-response="timelinedetails"
+      debounce-duration="300">
+    </iron-ajax>
+    <iron-ajax
+      auto
+      method="{{jsonmethod}}"
+      id="timelinelabelAjax"
+      url="timelinejsonlog.json"
+      handle-as="json"
+      content-type="application/json"
+      on-response="jsonresponse"
+      last-response="{{responsejson}}">
+    </iron-ajax>
+    <iron-ajax id="updatevehicleajax"
+               method="post"
+               url="{{urlname}}"
+               params="{{updatevehicleparam}}"
+               handle-as="json"
+               content-type="application/json"
+               on-response="timelineResponse1"></iron-ajax>
+  <iron-ajax id="updatevehicleendajax"
+                method="post"
+                url="{{urlnameend}}"
+                params="{{updatevehicleendparam}}"
+                handle-as="json"
+                content-type="application/json"
+                on-response="timelineResponse2"></iron-ajax>
+
+</template>
+<script>
+  (function() {
+    'use strict';
+  Polymer({
+    is: 'ajax-timelinelog',
+    	  ready:function(){
+          var salesorderid = sessionStorage.getItem('salesorderid');
+          var itemid = sessionStorage.getItem('itemid');
+    		    this.timelinerequesturl="http://localhost:4000"+"/timelinefetch";
+          var obj={};
+            obj.salesid=salesorderid;
+            obj.itemssid=itemid;
+            this.timelineparameters=obj;
+            this.$.timelineajax.generateRequest();
+    	  },
+    	  jsoninfoResponse:function(){
+          var labeljsondata=this.jsondata;
+          document.querySelector("timeline-chartlogistics").getJsondata(labeljsondata[0].goodsvehiclenumber,labeljsondata[0].goodsvehicleintime,labeljsondata[0].loadstart,labeljsondata[0].loadend,labeljsondata[0].goodsvehicleouttime,labeljsondata[0].delivered);
+        },
+        jsonresponse:function(){
+          var arr=this.responsejson;
+          document.querySelector("timeline-chartlogistics").Jsondata(arr[0].vehicleintime,arr[0].vehicleloadstartdatetime,arr[0].vehicleloadenddatetime,arr[0].vehicleouttime,arr[0].vehicledelivered);
+        },
+        timelineResponse1:function(e){
+            alert(e.detail.response.returnval);
+        },
+        timelineResponse2:function(e){
+            alert(e.detail.response.returnval);
+        },
+        updatefunction:function(){
+          var obj={};
+          obj.vehicleno=this.vehiclenumber;
+          obj.x=this.start;
+          obj.y=this.end;
+          this.updatevehicleparam=obj;
+          this.urlname="http://localhost:4000/vehicleupdateserver";
+          this.$.updatevehicleajax.generateRequest();
+        },
+        updateendfunction:function(){
+          var obj={};
+          obj.vehicleno=this.vehiclenumber;
+          obj.x=this.start;
+          obj.y=this.end;
+          this.updatevehicleendparam=obj;
+          this.urlnameend="http://localhost:4000/vehicleupdateendserver";
+          this.$.updatevehicleendajax.generateRequest();
+        }
+    });
+  })();
+  </script>
+</dom-module>
