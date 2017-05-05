@@ -38,11 +38,13 @@ app.post('/login', urlencodedParser, function (req, res) {
     emp_id:req.query.empid,
     password:req.query.password
   };
+  var role;
   	global.connection.query("SELECT * FROM emp_login where emp_id='"+req.query.empid+"' and password='"+req.query.password+"'",function(err,rows){
+      global.role=rows[0].role;
   	if(rows.length>0){
       var roleid=rows[0].role_id;
     global.connection.query("select * from emp_login_menu where menu_id in(SELECT menu_id FROM menu_map where role_id='"+roleid+"')",function(err,rows){
-        res.status(200).json({'returnval': rows});
+        res.status(200).json({'returnval': rows,'role':global.role});
       });
       }
     else{
@@ -859,9 +861,9 @@ app.post('/supplieridsaving', urlencodedParser, function (req, res) {
 
 var sliderDB=require("./app/elements/slider-bar/slider-bar-todb.js");
 app.post ('/testingdata', urlencodedParser, function (req, res) {
-  console.log("testingdata");
+  // console.log("testingdata");
   sliderDB.gettestingdata(function(testingdata){
-    console.log("server:"+testingdata);
+    // console.log("server:"+testingdata);
     if(testingdata.length>0)
       res.status(200).json({'testingdata': testingdata});
     else

@@ -47,6 +47,7 @@
                           }
                 }
         //while typing item display
+<<<<<<< HEAD
       if(e.keyCode!=8&& e.keyCode!=16&& e.keyCode!=13 && e.keyCode!=38&&e.keyCode!=40&&e.keyCode!=37&&e.keyCode!=39)
                     {
                             if(this.itemflag=="true") {
@@ -84,6 +85,45 @@
                             }
                             }
                     }
+=======
+        if(e.keyCode!=8&& e.keyCode!=16&& e.keyCode!=13 && e.keyCode!=38&&e.keyCode!=40&&e.keyCode!=37&&e.keyCode!=39)
+        {
+          if(this.itemflag=="true") {
+            this.itemval = (this.value).toUpperCase()+String.fromCharCode((e.keyCode)).toUpperCase();
+            this.itemflag="false";
+          }
+          else
+          this.itemval = this.value +String.fromCharCode((e.keyCode));
+
+          if(this.itemval.length>0)
+          {
+            for(var i=0;i<item.length;i++)
+            {
+              var subval=((item[i].suppliername).trim()).substring(0,this.itemval.length);
+             if(this.itemval == subval)
+             {
+              if((item[i].suppliername).toUpperCase().indexOf((this.itemval).toUpperCase())!=-1)
+              {
+                var obj={"itemdes":""};
+                obj.itemdes=item[i].suppliername;
+                obj.supplierid=item[i].supplierid;
+                // var obj1={"itemdes":obj.suppliername};
+                arr.push(obj);
+              }
+            }
+            }
+            if(arr.length>0)
+              this.itemArray=arr;
+            else
+            {
+              var obj={"itemdes":"No items found"};
+              obj.itemdes;
+              arr.push(obj);
+              this.itemArray=arr;
+            }
+          }
+        }
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
       },
 
       FnSelectEnquiry1:function(e){
@@ -102,6 +142,10 @@
     },
     supplierlabelinfo:function(e){
       var jsonlabel=this.jsondata;
+<<<<<<< HEAD
+=======
+      alert(jsonlabel[0].suppliername);
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
       this.Suppliername=jsonlabel[0].suppliername;
     }
 

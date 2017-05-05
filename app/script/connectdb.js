@@ -415,3 +415,36 @@ exports.purchaseFn=function(callback){
   }
 });
 }
+  exports.savecontaineridFn=function(data,callback){
+  connection.query("INSERT INTO grncontainerdetail SET ?",[data],function(err,result){
+    if(!err){
+      return callback("saved");
+    }
+    else{
+      console.log(err);
+      return callback("not saved");
+    }
+    });
+  }
+  exports.searchheatnoFn=function(searchval,callback){
+    callback=callback||function(){};
+    	connection.query("select * from heatno_batchno_mapping where heat_number='"+searchval+"'",function(err,rows){
+    	if(rows.length>0){
+          return callback(rows);
+        }
+      else{
+        return callback(searchval);
+      }
+      });
+  }
+  exports.insert_ht_bt_noFn=function(htno_btno_val,callback){
+    callback=callback||function(){};
+      connection.query("INSERT INTO heatno_batchno_mapping SET ?",[htno_btno_val],function(err,result){
+      if(!err){
+          return callback("inserted");
+        }
+      else{
+        return callback("didn't insert");
+      }
+      });
+  }

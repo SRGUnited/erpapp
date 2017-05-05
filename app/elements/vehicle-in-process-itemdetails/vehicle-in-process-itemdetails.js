@@ -20,6 +20,7 @@
     savebtn:function(){
       document.querySelector("autogen-id").send("irn");
       document.querySelector("vehicle-in-process-itemdetails").autogenbackfunction();
+
     },
     autogenbackfunction:function(){
       document.querySelector("vehicle-in-process-invoiceno").invoiceprocess();
@@ -110,6 +111,7 @@
         this.itemrequesturl="http://localhost:4000/itemdescriptionautocomplete";
         this.$.itemajax.generateRequest();
     },
+<<<<<<< HEAD
     itemautocomplete:function(e)
     {
      var itemvalues=e.detail.response.returnval;
@@ -120,6 +122,19 @@
                 item=[{"itemname":itemvalues[i].itemname,"itemid":itemvalues[i].itemid}];
                 document.querySelector("vehicle-in-process-itemdetails").FnSearchEnquiry(item);
               }
+=======
+    itemautocomplete:function(e){
+      alert(JSON.stringify(e.detail.response.returnval));
+       var itemvalues=e.detail.response.returnval;
+      for(var i=0;i<=itemvalues.length;i++){
+      containeridvalue=itemvalues[i].containerid;
+      // alert(JSON.stringify(containeridvalue));
+      unitofmeasureidvalue=itemvalues[i].unitofmeasures;
+     item=[{"itemname":itemvalues[i].itemname,"itemid":itemvalues[i].itemid}];
+       document.querySelector("vehicle-in-process-itemdetails").FnSearchEnquiry(item);
+      // alert(JSON.stringify(item));
+    }
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
     },
     containerfunction:function()
     {
@@ -150,13 +165,21 @@
      this.qtyidvalue=unitofmeasurevalues2;
     },
 
+<<<<<<< HEAD
     FnSearchEnquiry:function(e)
     {
+=======
+    FnSearchEnquiry:function(e){
+
+
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
         if(e.keyCode==13|| e.keyCode==40)
         this.querySelector('#transportinput2').focus();
+
         var arr=[];
         arr.push({"itemdes":"-----Select-----"});
         this.querySelector('#transportinput2').style.visibility='visible';
+<<<<<<< HEAD
         if(e.keyCode==8)
         {
         this.itemflag="true";
@@ -169,10 +192,24 @@
                   }
             if(len>1)
             {
+=======
+
+        if(e.keyCode==8){
+          this.itemflag="true";
+          this.itemval="";
+          var len=(this.value).length;
+          if(len<=1){
+            this.querySelector('#transportinput2').style.visibility='hidden';
+            this.itemArray="";
+            this.itemval="";
+          }
+          if(len>1){
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
             this.querySelector('#transportinput2').style.visibility='visible';
             var backsubval=(((this.value).substring(0,(len-1))).trim()).toUpperCase();
             for(var i=0;i<item.length;i++)
             {
+<<<<<<< HEAD
             var subval=((item[i].itemname).trim()).substring(0,backsubval.length);
             if((item[i].itemname).toUpperCase().indexOf((this.value).toUpperCase())!=-1)
             {
@@ -186,27 +223,42 @@
             this.itemArray=arr;
             }
             }
+=======
+              var subval=((item[i].itemname).trim()).substring(0,backsubval.length);
+              if((item[i].itemname).toUpperCase().indexOf((this.value).toUpperCase())!=-1)
+              {
+                var obj={"itemdes":""};;
+
+                obj.itemdes=item[i].itemname;
+                obj.itemid=item[i].itemid;
+                // var obj1={"itemdes":obj.itemname};
+
+                arr.push(obj);
+              }
+            }
+            this.itemArray=arr;
+          }
+        }
+
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
         //while typing item display
     if(e.keyCode!=8&& e.keyCode!=16&& e.keyCode!=13 && e.keyCode!=38&&e.keyCode!=40&&e.keyCode!=37&&e.keyCode!=39)
           {
           // alert("ok");
-          if(this.itemflag=="true")
-          {
+          if(this.itemflag=="true") {
             this.itemval = (this.value).toUpperCase()+String.fromCharCode((e.keyCode)).toUpperCase();
             this.itemflag="false";
-            // alert(this.itemval);
           }
-          else
-          {
+          else{
           this.itemval = this.value +String.fromCharCode((e.keyCode));
           // alert(this.itemval);
-          }
+}
           if(this.itemval.length>0)
           {
-            alert(this.itemval);
-          for(var i=0;i<item.length;i++)
-          {
+            for(var i=0;i<item.length;i++)
+            {
               // alert("ok ok");
+<<<<<<< HEAD
            var subval=((item[i].itemname).trim()).substring(0,this.itemval.length);
               // alert(JSON.stringify(item[i].itemname));
               // alert(subval);
@@ -237,6 +289,42 @@
           }
           }
           },
+=======
+
+            var subval=((item[i].itemname).trim()).substring(0,this.itemval.length);
+              alert(JSON.stringify(item[i].itemname));
+              // alert(this.itemval);
+              // alert(JSON.stringify(this.itemval));
+              // alert(this.itemval.length);
+              alert(subval);
+                // subval1.push(subval);
+             if(this.itemval == subval)
+             {
+               alert("equal");
+              if((item[i].itemname).toUpperCase().indexOf((this.itemval).toUpperCase())!=-1)
+              {
+                var obj={"itemdes":""};
+                obj.itemdes=item[i].itemname;
+                obj.itemid=item[i].itemid;
+                // var obj1={"itemdes":obj.itemname};
+                arr.push(obj);
+              }
+            }
+            }
+            if(arr.length>0)
+              this.itemArray=arr;
+            else
+            {
+              var obj={"itemdes":"No items found"};
+              obj.itemdes;
+              arr.push(obj);
+              this.itemArray=arr;
+            }
+          }
+        }
+      },
+
+>>>>>>> 08defefa01ef3184a9449267b75fde9388f3fb47
       FnSelectEnquiry1:function(e){
       this.querySelector('#transportinput2').style.visibility='hidden';
       item_name = e.target.selectedItem.textContent.trim();
