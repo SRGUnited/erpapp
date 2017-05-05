@@ -4,9 +4,6 @@ Polymer({
   ready:function(){
     this.colvar=true;
   },
-  checkid:function(data){
-    alert(data);
-  },
   clickFN:function(){
     if(this.colvar=="false"){
     this.$.suppliercollapse.toggle();

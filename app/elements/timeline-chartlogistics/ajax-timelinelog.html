@@ -1,6 +1,9 @@
 <link rel="import" href="timeline-chartlogistics.html" />
 <dom-module id="ajax-timelinelog">
 <template>
+  <div hidden>{{start}}</div>
+  <div hidden>{{end}}</div>
+  <div hidden>{{vehiclenumber}}</div>
     <iron-ajax
       auto
       method="get"
@@ -33,13 +36,21 @@
       on-response="jsonresponse"
       last-response="{{responsejson}}">
     </iron-ajax>
-    <iron-ajax id="updateajax"
+    <iron-ajax id="updatevehicleajax"
                method="post"
-               url="http://localhost:4000/vehicleupdate"
-               params="{{updateparam}}"
+               url="{{urlname}}"
+               params="{{updatevehicleparam}}"
                handle-as="json"
                content-type="application/json"
-               on-response="salesResponse1"></iron-ajax>
+               on-response="timelineResponse1"></iron-ajax>
+  <iron-ajax id="updatevehicleendajax"
+                method="post"
+                url="{{urlnameend}}"
+                params="{{updatevehicleendparam}}"
+                handle-as="json"
+                content-type="application/json"
+                on-response="timelineResponse2"></iron-ajax>
+
 </template>
 <script>
   (function() {
@@ -54,7 +65,6 @@
             obj.salesid=salesorderid;
             obj.itemssid=itemid;
             this.timelineparameters=obj;
-            alert(JSON.stringify(this.timelineparameters));
             this.$.timelineajax.generateRequest();
     	  },
     	  jsoninfoResponse:function(){
@@ -64,6 +74,30 @@
         jsonresponse:function(){
           var arr=this.responsejson;
           document.querySelector("timeline-chartlogistics").Jsondata(arr[0].vehicleintime,arr[0].vehicleloadstartdatetime,arr[0].vehicleloadenddatetime,arr[0].vehicleouttime,arr[0].vehicledelivered);
+        },
+        timelineResponse1:function(e){
+            alert(e.detail.response.returnval);
+        },
+        timelineResponse2:function(e){
+            alert(e.detail.response.returnval);
+        },
+        updatefunction:function(){
+          var obj={};
+          obj.vehicleno=this.vehiclenumber;
+          obj.x=this.start;
+          obj.y=this.end;
+          this.updatevehicleparam=obj;
+          this.urlname="http://localhost:4000/vehicleupdateserver";
+          this.$.updatevehicleajax.generateRequest();
+        },
+        updateendfunction:function(){
+          var obj={};
+          obj.vehicleno=this.vehiclenumber;
+          obj.x=this.start;
+          obj.y=this.end;
+          this.updatevehicleendparam=obj;
+          this.urlnameend="http://localhost:4000/vehicleupdateendserver";
+          this.$.updatevehicleendajax.generateRequest();
         }
     });
   })();

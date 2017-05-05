@@ -1,0 +1,61 @@
+<link rel="import" href="sliderstores-barnew.html">
+<dom-module id="slidersto-ironajax">
+  <template>
+        <iron-ajax
+                auto
+                method="post"
+                id="sliderajax"
+                url="{{requesturl}}"
+                handle-as="json"
+                params="{{parameters}}"
+                content-type="application/json"
+                on-response="slideritemdetails"
+                debounce-duration="300">
+       </iron-ajax>
+       <iron-ajax id="updatesliderajax"
+                  method="post"
+                  url="{{urlname}}"
+                  params="{{updatesliderparam}}"
+                  handle-as="json"
+                  content-type="application/json"
+                  on-response="timelineResponse1"></iron-ajax>
+  </template>
+  <script>
+  (function() {
+  'use strict';
+  Polymer({
+      is: 'slidersto-ironajax',
+          ready:function(){
+              var salesorderid = sessionStorage.getItem('salesorderid');
+              var itemid = sessionStorage.getItem('itemid');
+              var obj={};
+              obj.salesid=salesorderid;
+              obj.itemssid=itemid;
+              this.parameters=obj;
+              this.requesturl="http://localhost:4000/sliderchange";
+              this.$.sliderajax.generateRequest();
+                        },
+
+          slideritemdetails:function(e){
+        	var arr=e.detail.response.returnval;
+          alert(JSON.stringify(arr));
+          document.querySelector("sliderstores-barnew").sliderfunction(arr);
+          },
+          timelineResponse1:function(e){
+              alert(e.detail.response.returnval);
+          },
+          updatefunction:function(){
+            var itemid1 = sessionStorage.getItem('itemid');
+            var obj={};
+            obj.itemsid=itemid1;
+            obj.sliderval=this.values;
+            this.updatesliderparam=obj;
+            // alert("values"+JSON.stringify(obj));
+            this.urlname="http://localhost:4000/sliderupdateserver";
+            this.$.updatesliderajax.generateRequest();
+            alert("SAVED");
+          },
+    });
+  })();
+  </script>
+</dom-module>

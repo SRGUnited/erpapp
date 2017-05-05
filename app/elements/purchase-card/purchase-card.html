@@ -1,0 +1,59 @@
+<dom-module id="purchase-card">
+  <template>
+  <style is="custom-style">
+    .cafe-header { @apply(--paper-font-headline); }
+    .cafe-light { color: var(--paper-grey-600); }
+    .cafe-location {
+      float: right;
+      font-size: 15px;
+      vertical-align: middle;
+    }
+    .cafe-reserve { color: var(--google-blue-500); }
+    iron-icon.star {
+      --iron-icon-width: 16px;
+      --iron-icon-height: 16px;
+      color: var(--paper-amber-500);
+    }
+    iron-icon.star:last-of-type { color: var(--paper-grey-500); }
+  </style>
+  <paper-card image="../../dist/img/no_image.jpg" on-click="openitemdetails" style="margin-top:6px;margin-left:15px;">
+    <!-- <div class="cafe-header">{{itemname}}</div> -->
+    <div class="card-content">
+      <div class="rate-name">
+        <table>
+          <tr><td>Purchase-number       </td><td>{{purchasenumber}}</td></tr>
+          <tr><td>Purchase-date         </td><td>{{purchasedate}}</td></tr>
+          <tr><td>Purchase-typeid       </td><td>{{purchasetypeid}}</td></tr>
+          <tr><td>Purchase Id           </td><td>{{purchaseid}}</td></tr>
+          <tr><td>Purchase-quantity     </td><td>{{purchasequantity}}</td></tr>
+          <tr><td>Container-Quantity    </td><td>{{containerquantity}}</td></tr>
+          <tr><td>Warehouse-stores-id   </td><td>{{warehousestoresid}}</td></tr>
+          <tr><td>Status                </td><td>{{status}}</td></tr>
+          <tr><td>PurchaseRequiredDate  </td><td>{{purchaserequireddate}}</td></tr>
+        </table>
+      </div>
+    </div>
+  </paper-card>
+  </template>
+  <script>
+  Polymer({
+    is:"purchase-card",
+
+    openitemdetails:function(){
+    var  purchasenumber=this.purchasenumber;
+    var  purchasedate=this.purchasedate;
+    var  purchasetypeid=this.purchasetypeid;
+    var  purchaseid=this.purchaseid;
+    var  purchasequantity=this.purchasequantity;
+    var  containerquantity=this.containerquantity;
+    var  warehousestoresid=this.warehousestoresid;
+    var  status=this.status;
+    var  purchaserequireddate=this.purchaserequireddate;
+      document.querySelector('home-page').FnSetPage("purchase-display-items");
+      document.querySelector('purchase-display-items').ceoItem(purchasenumber,purchasedate,purchasetypeid,purchaseid,purchasequantity,containerquantity,warehousestoresid,status,purchaserequireddate);
+
+
+    }
+  })
+  </script>
+</dom-module>

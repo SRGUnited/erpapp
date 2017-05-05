@@ -1,10 +1,10 @@
+<link rel="import" href="country-listbox.html">
 <link rel="import" href="call-add-customer-ironajax.html">
-<link rel="import" href="customer-to-additem.html">
+<link rel="import" href="item-display.html">
 <dom-module id="call-add-customer">
   <template>
     <p hidden>{{cuid}}</p>
     <p hidden>{{getcustomerstring}}</p>
-    <p hidden>{{sendvariablename}}</p>
   <style>
     paper-dropdown-menu{
       --paper-dropdown-menu:{
@@ -18,7 +18,6 @@
     <div class="container">
       <!-- <div class="card-content"> -->
         <div class="row">
-          <p>{{getid}}</p>
     <!-- <paper-card style="width:100%;"> -->
       <div class="col-sm-6">
         <img src="../../images/salesimage.jpg" width="100%" height="100%"/>

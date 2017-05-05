@@ -10,7 +10,7 @@ exports.itemdetailsaving=function(item_id,containeridvalue,unitofmeasureidvalue,
   };
  connection.query("INSERT INTO od_inward_item_register SET ?",[itemdetailresponse],function(err,rows){
    if(rows.length>0){
-     console.log(rows);
+    //  console.log(rows);
       return callback(rows);
   }
   else{
